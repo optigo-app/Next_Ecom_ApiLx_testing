@@ -1,0 +1,110 @@
+import { LocalSetup } from "@/app/env";
+
+export const themeMap = {
+  "nxt10.optigoapps.com": {
+    page: "fgstore.web",
+  },
+  "nxt04.optigoapps.com": {
+    page: "hoq.web",
+  },
+  "nxtsonasons.web": {
+    page: "fgstore.web",
+    // page: "fgstore.mapp",
+    // page: LocalSetup,
+  },
+  "procatalog.web": {
+    page: "procatalog.web",
+    // page: LocalSetup,
+  },
+  // local dev
+  "nxtmobileapp.web": {
+    // page: LocalSetup,
+    page: "fgstore.mapp",
+  },
+  "nxt14.optigoapps.com": {
+    page: "fgstore.mapp",
+  },
+  "nxtelvee.web": {
+    page: "elvee.web",
+    // page: LocalSetup,
+  },
+  "nxtdiamondtine.web": {
+    page: "diamondtine.web",
+    // page: LocalSetup,
+  },
+  "nxtmalakanJwewls.web": {
+    page: "elvee.web",
+    // page: LocalSetup,
+  },
+  "nxthoq.web": {
+    page: "hoq.web",
+  },
+  "nxtjulian.web": {
+    page: "julian.web",
+    // page: LocalSetup,
+  },
+  "nxtjulian4.web": {
+    page: "julian4.web",
+  },
+  "nxt29.optigoapps.com": {
+    page: "fgstore.web",
+  },
+  "omjiyanshjewels.com": {
+    page: "fgstore.web",
+  },
+  "shreediamond.optigoapps.com": {
+    page: "fgstore.mapp",
+  },
+  "elior.optigoapps.com": {
+    page: "fgstore.mapp",
+  },
+  "sonasons.optigoapps.com": {
+    // page: "fgstore.web",
+    page: "beluxjewel.web",
+  },
+  "nxt09.optigoapps.com": {
+    page: "fgstore.mapp",
+  },
+  "2sonasons.optigoapps.com": {
+    page: "elvee.web",
+  },
+  "1sonasons.optigoapps.com": {
+    page: "hoq.web",
+  },
+  "1sonasonslite.optigoapps.com": {
+    page: "julian.web",
+  },
+  "appsonasons.optigoapps.com": {
+    page: "fgstore.mapp",
+  },
+  "beluxjewel.web": {
+    page: "beluxjewel.web",
+  },
+  "beluxjewelTest.web": {
+    page: "beluxjewelTest.web",
+  },
+  "nxt10.optigoapps.com": {
+    page: "beluxjewel.web",
+  },
+  "nxt11.optigoapps.com": {
+    page: "beluxjewel.web",
+  },
+  "nxt08.optigoapps.com": {
+    page: "procatalog.web",
+  },
+  "sonasons.procatalog.in": {
+    page: "beluxjewel.web",
+  },
+  localhost: {
+    page: LocalSetup || "beluxjewelTest.web",
+  },
+  "127.0.0.1": {
+    page: LocalSetup || "beluxjewelTest.web",
+  },
+  default: {
+    page: LocalSetup || "beluxjewelTest.web",
+  },
+};
+
+
+

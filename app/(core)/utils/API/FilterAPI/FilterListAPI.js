@@ -1,0 +1,112 @@
+import { getSession } from "../../FetchSessionData";
+import { CommonAPI } from "../CommonAPI/CommonAPI";
+import { syncFiltersToSqlite } from "../../sqlite/sqliteSync";
+
+
+export const FilterListAPI = async (mainData, visiterId) => {
+  const storeinit = getSession("storeInit");
+  const loginInfo = getSession("loginUserDetail");
+  const islogin = getSession("LoginUser") ?? false;
+
+  const isGuest =
+    storeinit?.IsB2BWebsite == 0 && (islogin == false || islogin == null);
+
+  const customerId =
+    storeinit?.IsB2BWebsite == 0 && (islogin == false || islogin == null)
+      ? visiterId
+      : (loginInfo?.id ?? 0);
+  const customerEmail =
+    storeinit?.IsB2BWebsite == 0 && (islogin == false || islogin == null)
+      ? visiterId
+      : (loginInfo?.userid ?? "");
+
+  let MenuParams = {};
+  let serachVar = "";
+
+  if (Array.isArray(mainData)) {
+    if (mainData?.length > 0) {
+      Object.values(mainData[0]).forEach((ele, index) => {
+        let keyName = `FilterKey${index === 0 ? "" : index}`;
+        MenuParams[keyName] = ele?.replace(/%20/g, " ") || "";
+      });
+
+      Object.values(mainData[1]).forEach((ele, index) => {
+        let keyName = `FilterVal${index === 0 ? "" : index}`;
+        MenuParams[keyName] = ele?.replace(/%20/g, " ") || "";
+      });
+    }
+  } else if (mainData) {
+    if (mainData?.split("=")[0] == "S") {
+      serachVar = JSON.parse(atob(mainData.split("=")[1]));
+    } else {
+      const decoded = atob(mainData);
+      if (decoded?.split("=")[0] == "AlbumName") {
+        MenuParams.FilterKey = decoded?.split("=")[0];
+        MenuParams.FilterVal = decoded?.split("=")[1];
+      } else {
+        MenuParams.FilterKey = decoded;
+        MenuParams.FilterVal = decoded;
+      }
+    }
+  }
+
+  const data = {
+    PackageId: loginInfo?.PackageId ?? storeinit?.PackageId ?? "",
+    autocode: "",
+    FrontEnd_RegNo: storeinit?.FrontEnd_RegNo ?? "",
+    Customerid: customerId ?? 0,
+    FilterKey: MenuParams?.FilterKey ?? "",
+    FilterVal: MenuParams?.FilterVal ?? "",
+    FilterKey1: MenuParams?.FilterKey1 ?? "",
+    FilterVal1: MenuParams?.FilterVal1 ?? "",
+    FilterKey2: MenuParams?.FilterKey2 ?? "",
+    FilterVal2: MenuParams?.FilterVal2 ?? "",
+    SearchKey: serachVar?.b ?? "",
+    CurrencyRate: loginInfo?.CurrencyRate ?? storeinit?.CurrencyRate ?? "",
+    DomainForNo: storeinit?.DomainForNo ?? "",
+    Laboursetid: isGuest
+      ? (storeinit?.pricemanagement_laboursetid ?? "")
+      : (loginInfo?.pricemanagement_laboursetid ??
+        storeinit?.pricemanagement_laboursetid ??
+        ""),
+    diamondpricelistname: isGuest
+      ? (storeinit?.diamondpricelistname ?? "")
+      : (loginInfo?.diamondpricelistname ??
+        storeinit?.diamondpricelistname ??
+        ""),
+    colorstonepricelistname: isGuest
+      ? (storeinit?.colorstonepricelistname ?? "")
+      : (loginInfo?.colorstonepricelistname ??
+        storeinit?.colorstonepricelistname ??
+        ""),
+    SettingPriceUniqueNo: isGuest
+      ? (storeinit?.SettingPriceUniqueNo ?? "")
+      : (loginInfo?.SettingPriceUniqueNo ??
+        storeinit?.SettingPriceUniqueNo ??
+        ""),
+  };
+  let body = {
+    con: `{\"id\":\"\",\"mode\":\"GETFILTERLIST\",\"appuserid\":\"${customerEmail ?? ""}\"}`,
+    f: "onClickofMenuList (GETFILTERLIST)",
+    p: JSON.stringify(data),
+  };
+
+  let finalfilterData;
+
+  await CommonAPI(body).then((res) => {
+    if (res) {
+      // console.log("res",res);
+      sessionStorage.setItem("AllFilter", JSON.stringify(res?.Data?.rd));
+      finalfilterData = res?.Data?.rd;
+    }
+  });
+
+  // Background sync filters to SQLite without blocking UI
+  if (Array.isArray(finalfilterData) && finalfilterData.length > 0) {
+    const menuIdent = (typeof window !== "undefined" && window.location?.pathname) || MenuParams?.FilterVal || "default";
+    syncFiltersToSqlite(menuIdent, finalfilterData, storeinit?.domain);
+  }
+
+  return finalfilterData;
+};
+

@@ -1,0 +1,422 @@
+"use client";
+
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import { Box, Container, Typography, Button } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import Pako from "pako";
+import { formatRedirectTitleLine, formatter } from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
+import { Get_Tren_BestS_NewAr_DesigSet_Album } from "@/app/(core)/utils/API/Home/Get_Tren_BestS_NewAr_DesigSet_Album/Get_Tren_BestS_NewAr_DesigSet_Album";
+import { useStore } from "@/app/(core)/contexts/StoreProvider";
+import { useNextRouterLikeRR } from "@/app/(core)/hooks/useLocationRd";
+import { normalizeALC, buildAlbumCacheKey, getPricingContext } from "@/app/(core)/cache_utility/CacheBuilder";
+import { readCache, writeCache } from "@/app/(core)/cache_utility/cacheActions";
+
+const imageNotFound = "image-not-found.jpg";
+
+export default function BestSaller({ noHeading = false, storeInit }) {
+  const [imageUrl, setImageUrl] = useState();
+  const [bestSellerData, setBestSellerData] = useState([]);
+  const [validatedData, setValidatedData] = useState([]);
+
+  const navigation = useNextRouterLikeRR();
+  const { finalId, loginUserDetail, islogin } = useStore();
+
+  const pricingContext = useMemo(
+    () => getPricingContext(loginUserDetail, storeInit, islogin),
+    [loginUserDetail, storeInit, islogin]
+  );
+
+  const isFetchingRef = useRef(false);
+  const lastRequestKeyRef = useRef("");
+
+  // ── API ──────────────────────────────────────────────────────────────────
+  const fetchAndSetBestSellers = useCallback(
+    async (finalID, cacheKey) => {
+      if (!pricingContext || !pricingContext.PackageId || isFetchingRef.current) return;
+
+      isFetchingRef.current = true;
+
+      try {
+        const cacheRes = await readCache(cacheKey);
+
+        if (cacheRes?.cached && Array.isArray(cacheRes.data)) {
+          console.log("[JewelryGallery] Serving from cache");
+          setBestSellerData(cacheRes.data);
+          isFetchingRef.current = false;
+          return;
+        }
+
+        console.log("[JewelryGallery] Cache miss, calling API...");
+        const response = await Get_Tren_BestS_NewAr_DesigSet_Album(storeInit, "GETBestSeller", finalID);
+        const apiData = response?.Data?.rd || [];
+
+        if (apiData.length > 0) {
+          setBestSellerData(apiData);
+          writeCache(cacheKey, apiData).catch(console.error);
+        } else {
+          setBestSellerData([]);
+        }
+        isFetchingRef.current = false;
+      } catch (err) {
+        console.log("[JewelryGallery] Error in fetch:", err);
+        setBestSellerData([]);
+        isFetchingRef.current = false;
+      }
+    },
+    [pricingContext, storeInit]
+  );
+
+  useEffect(() => {
+    if (!pricingContext || !storeInit) return;
+
+    setImageUrl(storeInit?.CDNDesignImageFol);
+
+    const fetchData = async () => {
+      const visitorId = finalId || "0";
+      const keyALC = normalizeALC("");
+      const { key } = buildAlbumCacheKey("fg_bestseller", storeInit, pricingContext, visitorId, keyALC);
+
+      if (isFetchingRef.current || lastRequestKeyRef.current === key) return;
+      lastRequestKeyRef.current = key;
+
+      await fetchAndSetBestSellers(visitorId, key);
+    };
+
+    fetchData();
+  }, [islogin, pricingContext, storeInit, fetchAndSetBestSellers, finalId]);
+
+  // ── Image URL builder ───────────────────────────────────────────────────
+  const validateImageURLs = async () => {
+    if (!bestSellerData?.length) return;
+    const result = await Promise.all(
+      bestSellerData.slice(0, 6).map(async (item) => {
+        const imageURL = `${imageUrl}${item?.designno}~1.${item?.ImageExtension || "webp"}`;
+        return { ...item, validatedImageURL: imageURL };
+      })
+    );
+    setValidatedData(result);
+  };
+
+  useEffect(() => {
+    validateImageURLs();
+  }, [bestSellerData]);
+
+  // ── Navigation helper ───────────────────────────────────────────────────
+  const compressAndEncode = (inputString) => {
+    try {
+      const uint8Array = new TextEncoder().encode(inputString);
+      const compressed = Pako.deflate(uint8Array);
+      if (typeof compressed === "string") {
+        return btoa(compressed);
+      }
+      let binary = "";
+      const len = compressed.byteLength;
+      for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(compressed[i]);
+      }
+      return btoa(binary);
+    } catch (error) {
+      console.error("Error compressing and encoding:", error);
+      return null;
+    }
+  };
+
+  const handleNavigation = (item, index) => {
+    const designNo = item?.designno;
+    const autoCode = item?.autocode;
+    const titleLine = item?.TitleLine;
+    const imageExtension = item?.ImageExtension || "webp";
+    const cdnFol = storeInit?.CDNDesignImageFol || "";
+    const itemMetalColorId = item?.MetalColorid ?? item?.MetalColorId ?? item?.metalcolorid;
+    let imgUrl = (cdnFol && designNo) ? `${cdnFol}${designNo}~1.${imageExtension}` : "";
+    if (item?.ImageVideoDetail && item.ImageVideoDetail !== "0") {
+      try {
+        const parsed = typeof item.ImageVideoDetail === "string" ? JSON.parse(item.ImageVideoDetail) : item.ImageVideoDetail;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const mtColorLocal = getSession("MetalColorCombo") || [];
+          const targetColorObj = mtColorLocal.find(ele => Number(ele.id) === Number(itemMetalColorId));
+          const targetColorCode = targetColorObj?.colorcode || item?.MetalColor;
+
+          let matchedColorImg = null;
+          if (targetColorCode) {
+            const targetLower = targetColorCode.toLowerCase().trim();
+            matchedColorImg = parsed.find(i => {
+              if (Number(i?.TI) !== 2 || !i?.CN) return false;
+              const cnLower = i.CN.toLowerCase().trim();
+              return cnLower === targetLower || cnLower.includes(targetLower) || targetLower.includes(cnLower);
+            });
+          }
+
+          if (matchedColorImg) {
+            imgUrl = `${cdnFol}${designNo}~${matchedColorImg.Nm}~${matchedColorImg.CN}.${matchedColorImg.Ex || imageExtension}`;
+          } else {
+            const normalImg = parsed.find(i => Number(i?.TI) === 1);
+            if (normalImg) {
+              imgUrl = `${cdnFol}${designNo}~${normalImg.Nm}.${normalImg.Ex || imageExtension}`;
+            }
+          }
+        }
+      } catch (e) {}
+    }
+    const obj = {
+      a: autoCode,
+      b: designNo,
+      m: loginUserDetail?.MetalId ?? storeInit?.MetalId,
+      d: loginUserDetail?.cmboDiaQCid ?? storeInit?.cmboDiaQCid,
+      c: loginUserDetail?.cmboCSQCid ?? storeInit?.cmboCSQCid,
+      f: {},
+      g: {},
+      img: imgUrl,
+      ArticleNo: item?.ArticleNo ?? "",
+      ArticleId: item?.ArticleId ?? null ?? "",
+      title: titleLine ?? "",
+      nwt: item?.Nwt ?? 0,
+      price: item?.UnitCostWithMarkUp ?? 0,
+      mediaDet: item?.ImageVideoDetail ?? "",
+      metalColorId: itemMetalColorId ?? loginUserDetail?.MetalColorId ?? storeInit?.MetalColorId ?? null,
+      l: imageExtension,
+      count: item?.ImageCount || 1,
+    };
+    if (index !== undefined) {
+      sessionStorage.setItem("scrollToProduct1", `product-${index}`);
+    }
+    const encodeObj = compressAndEncode(JSON.stringify(obj));
+    navigation.push(`/d/${formatRedirectTitleLine(titleLine)}${designNo}?p=${encodeURIComponent(encodeObj)}`);
+  };
+
+  // ── Early return ────────────────────────────────────────────────────────
+  if (!bestSellerData?.length) return null;
+
+  const totalItems = validatedData.length;
+
+  // Same exact card markup as before — only extracted into a function
+  // so it can be reused inside SwiperSlide without touching any UI/data.
+  const renderCard = (item, index) => (
+    <Box
+      className="gallery-card"
+      onClick={() => handleNavigation(item, index)}
+      sx={{
+        position: "relative",
+        width: "100%",
+        height: {
+          xs: 320,
+          md: 320,
+        },
+        overflow: "hidden",
+        cursor: "pointer",
+        backgroundColor: "#f5f5f560",
+
+        "&:hover img": {
+          transform: "scale(1.08)",
+        },
+
+        "&:hover .product-overlay": {
+          transform: "translateY(0)",
+        },
+      }}
+    >
+      <Box
+        component="img"
+        src={item.validatedImageURL}
+        alt={item?.TitleLine || item?.designno}
+        onError={(e) => {
+          e.target.src = imageNotFound;
+          e.target.alt = "no-image-found";
+        }}
+        sx={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transition: "transform .6s ease",
+        }}
+      />
+
+      {/* Product Name + Price */}
+      <Box
+        className="product-overlay"
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          background: "#fff",
+          py: 1,
+          px: 2,
+          textAlign: "center",
+          transform: "translateY(100%)",
+          transition: "transform .4s ease",
+          zIndex: 2,
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: 800,
+            color: "#2C2C2C",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {item?.TitleLine || item?.designno}
+          <br />
+          {loginUserDetail?.CurrencyCode ?? storeInit?.CurrencyCode}&nbsp;
+          {formatter(item?.UnitCostWithMarkUp)}
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(0,0,0,.15), transparent)",
+          opacity: 0,
+          transition: ".3s",
+        }}
+      />
+    </Box>
+  );
+
+  // ── Render ──────────────────────────────────────────────────────────────
+  return (
+    <Container maxWidth="xl">
+      <Box
+        sx={{
+          position: "relative",
+          display: noHeading ? "none" : "block",
+          mb: 4,
+        }}
+      >
+        {/* Center Content */}
+        <Box>
+          <Typography
+            sx={{
+              fontFamily: '"EB Garamond", serif',
+              fontSize: { xs: 15, md: 15 },
+              fontWeight: 1000,
+              mt: 7,
+              color: "#0d1232",
+              textAlign: "center",
+            }}
+          >
+            MOST LOVED DESIGNS
+          </Typography>
+
+          <Typography
+            sx={{
+              fontFamily: '"EB Garamond", serif',
+              fontSize: { xs: 25, md: 42 },
+              fontWeight: 400,
+              mt: 1,
+              color: "#2C2C2C",
+              textAlign: "center",
+            }}
+          >
+            CUSTOMER FAVORITES
+          </Typography>
+        </Box>
+      </Box>
+
+      
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={1}
+        // breakpoints={{
+        //   0: {
+        //     slidesPerView: 2,
+        //     allowTouchMove: true,
+        //   },
+        //   600: {
+        //     slidesPerView: 3,
+        //     allowTouchMove: true,
+        //   },
+        //   900: {
+        //     slidesPerView: Math.min(6, totalItems) || 6,
+        //     allowTouchMove: false,
+        //   },
+        // }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            allowTouchMove: true,
+          },
+          600: {
+            slidesPerView: 3,
+            allowTouchMove: true,
+          },
+          // Covers screen sizes from 900px up to 1199px (e.g., your 1024px screen)
+          900: {
+            slidesPerView: 4,
+            allowTouchMove: true,
+          },
+          // Takes effect only at 1200px and above
+          1200: {
+            slidesPerView: 6,
+            allowTouchMove: false,
+          },
+        }}
+        style={{ overflow: "hidden" }}
+      >
+        {validatedData.map((item, index) => (
+          <SwiperSlide key={item?.designno ?? index}>
+            {renderCard(item, index)}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+          my: 4,
+        }}
+      >
+        <Box
+          sx={{
+            flex: 1,
+            height: "1px",
+            bgcolor: "#d9d9d9",
+          }}
+        />
+
+        <Button
+          endIcon={<ArrowForwardIcon />}
+          onClick={() => navigation.push(`/p/BestSeller/?T=${btoa("BestSeller")}`)}
+          sx={{
+            mx: 3,
+            px: 3,
+            py: 1,
+            color: "#0d1232",
+            fontWeight: 600,
+            letterSpacing: "1px",
+            backgroundColor: "transparent",
+
+            "& .MuiSvgIcon-root": {
+              transition: "transform 0.3s ease",
+            },
+
+            "&:hover .MuiSvgIcon-root": {
+              transform: "translateX(5px)",
+            },
+          }}
+        >
+          VIEW ALL
+        </Button>
+
+        <Box
+          sx={{
+            flex: 1,
+            height: "1px",
+            bgcolor: "#d9d9d9",
+          }}
+        />
+      </Box>
+    </Container>
+  );
+}

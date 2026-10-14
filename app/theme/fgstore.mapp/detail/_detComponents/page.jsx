@@ -1,0 +1,1805 @@
+"use client";
+
+import "../page.scss";
+import { Product } from "@/app/components/(static)/Constants/DynamicValue";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/zoom";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Zoom, Navigation, Pagination } from "swiper/modules";
+import { IoMdArrowBack } from "react-icons/io";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { IoIosPlayCircle, IoMdClose } from "react-icons/io";
+import { CiDeliveryTruck } from "react-icons/ci";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import { Box, Skeleton, Typography } from "@mui/material";
+import { FaHeart } from "react-icons/fa";
+import RelatedProduct from "./RelatedProduct/RelatedProduct";
+import { responsiveConfig } from "@/app/components/Config/ProductSliderConfig";
+import { getSizeData } from "@/app/(core)/utils/API/CartAPI/GetCategorySizeAPI";
+import { StockItemApi } from "@/app/(core)/utils/API/StockItemAPI/StockItemApi";
+import { DesignSetListAPI } from "@/app/(core)/utils/API/DesignSetListAPI/DesignSetListAPI";
+import { SingleArticleProdListAPI } from "@/app/(core)/utils/API/ArticleSingleProdListAPI/ArticleSingleProdListAPI";
+import Pako from "pako";
+import Cookies from "js-cookie";
+import { MetalTypeComboAPI } from "@/app/(core)/utils/API/Combo/MetalTypeComboAPI";
+import { MetalColorCombo } from "@/app/(core)/utils/API/Combo/MetalColorCombo";
+import { ColorStoneQualityColorComboAPI } from "@/app/(core)/utils/API/Combo/ColorStoneQualityColorComboAPI";
+import { DiamondQualityColorComboAPI } from "@/app/(core)/utils/API/Combo/DiamondQualityColorComboAPI";
+import { CartAndWishListAPI } from "@/app/(core)/utils/API/CartAndWishList/CartAndWishListAPI";
+import { RemoveCartAndWishAPI } from "@/app/(core)/utils/API/RemoveCartandWishAPI/RemoveCartAndWishAPI";
+import { getCartWishKey } from "@/app/(core)/utils/API/GetCount/GetCountAPI";
+import Stockitems from "./InstockProduct/Stockitems";
+import DesignSet from "./DesignSet/DesignSet";
+import { formatRedirectTitleLine, formatTitleLine } from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
+import { SaveLastViewDesign } from "@/app/(core)/utils/API/SaveLastViewDesign/SaveLastViewDesign";
+import { useNextRouterLikeRR } from "@/app/(core)/hooks/useLocationRd";
+import { useStore } from "@/app/(core)/contexts/StoreProvider";
+import { useBroadcaster } from "@/app/(core)/contexts/BoardCastContext";
+import { SearchParamsParser } from "@/app/(core)/utils/GlobalFunctions/Parser";
+import InfoDetail from "./InfoDetail";
+import MaterialCustomization from "./MaterialCustomization";
+import StaticMaterial from "./StaticMaterial";
+import ProductDetailsSection from './ProductDetail';
+import PriceBreakUp from './PriceBreakUp';
+import ButtonBlock from './ButtonBlock'
+import DeliveryInfo from './DeliveryInfo'
+import NewStockitem from './InstockProduct/NewStockitem'
+import { getSession } from "@/app/(core)/utils/FetchSessionData";
+import MobileCustomizerDrawer from './MobileCustomizerDrawer';
+
+
+const ProductPage = ({ params, searchParams, storeInit }) => {
+    const navigate = useNextRouterLikeRR();
+
+    const {
+        setCartCountNum: setCartCountVal,
+        setWishCountNum: setWishCountVal,
+        loginUserDetail,
+        setCartArr: setStoreCartArr,
+        setWishArr: setStoreWishArr,
+        fetchGetCountData: storeFetchGetCountData,
+    } = useStore();
+    const { broadcast } = useBroadcaster();
+    const [pdVideoArr, setPdVideoArr] = useState([]);
+    const [metalTypeCombo, setMetalTypeCombo] = useState([]);
+    const [diaQcCombo, setDiaQcCombo] = useState([]);
+    const [csQcCombo, setCsQcCombo] = useState([]);
+    const [metalColorCombo, setMetalColorCombo] = useState([]);
+    const [singleProd, setSingleProd] = useState({});
+    const [singleProd1, setSingleProd1] = useState({});
+    const [addToCartFlag, setAddToCartFlag] = useState(null);
+    const [wishListFlag, setWishListFlag] = useState(null);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const location = useNextRouterLikeRR();
+    const previousPath = "Previous Page";
+    const [ShowMangifier, setShowMangifier] = useState(false);
+    const [PdImageLoader, setPdImageLoader] = useState(false);
+    // const [PdImageLoader, setPdImageLoader] = useState(false);
+    const sliderRef = useRef(null);
+    const [decodeUrl, setDecodeUrl] = useState({});
+    const [loginInfo, setLoginInfo] = useState();
+    const [SizeCombo, setSizeCombo] = useState();
+    const [expandedIndex, setExpandedIndex] = useState(null);
+    const [sizeData, setSizeData] = useState();
+    const [isPriceloading, setisPriceLoading] = useState(false);
+    const [isDataFound, setIsDataFound] = useState(false);
+    const [metalWiseColorImg, setMetalWiseColorImg] = useState();
+    const [stockItemArr, setStockItemArr] = useState([]);
+    const [SimilarBrandArr, setSimilarBrandArr] = useState([]);
+    const [diaList, setDiaList] = useState([]);
+    const [csList, setCsList] = useState([]);
+    const [designSetList, setDesignSetList] = useState();
+    const [selectMtType, setSelectMtType] = useState();
+    const [selectDiaQc, setSelectDiaQc] = useState();
+    const [selectCsQc, setSelectCsQc] = useState();
+    const [selectMtColor, setSelectMtColor] = useState();
+    const [pdThumbImg, setPdThumbImg] = useState([]);
+    const [isImageload, setIsImageLoad] = useState(true);
+    const [selectedThumbImg, setSelectedThumbImg] = useState({});
+    const [thumbImgIndex, setThumbImgIndex] = useState();
+    let cookie = Cookies.get("visiterId");
+    const [PdImageArr, setPdImageArr] = useState([]);
+    const [loadingdata, setloadingdata] = useState(false);
+    const [cartArr, setCartArr] = useState({});
+    const [videoArr, SETvideoArr] = useState([]);
+    const videoRef = useRef(null);
+    const [ShowMdesc, setShowMdesc] = useState(false);
+    const [saveLastView, setSaveLastView] = useState();
+    const [selectedMetalColor, setSelectedMetalColor] = useState();
+    const [defaultImage, setDefaultImage] = useState("");
+    const [defaultExtension, setDefaultExtension] = useState("");
+    const [proThumImgCount, setProThumImgCount] = useState("");
+    const [imageLoaded, setIsImageLoaded] = useState(true);
+    const [rd1Data, setRd1Data] = useState([]);
+    const [rd2Data, setRd2Data] = useState([]);
+    const [defaultArticleId, setDefaultArticleId] = useState();
+    const [customizationDetail, setCustomizationDetail] = useState(null);
+    const [rd1CartMap, setRd1CartMap] = useState({});
+    const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
+
+    const noimage = "/image-not-found.jpg";
+    const imageNotFound = "/image-not-found.jpg";
+
+    useEffect(() => {
+        const activeArticleId = customizationDetail?.ArticleId || singleProd?.ArticleId;
+        const status = activeArticleId ? rd1CartMap[activeArticleId] : null;
+        setWishListFlag(status ? Number(status.IsInWish) === 1 : Number(singleProd?.IsInWish) === 1);
+        setAddToCartFlag(status ? Number(status.IsInCart) === 1 : Number(singleProd?.IsInCart) === 1);
+    }, [singleProd, customizationDetail, rd1CartMap]);
+
+    const settings = {
+        dots: true,
+        arrows: false,
+        infinite: false,
+        loop: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        // initialSlide: 2,
+        autoplaySpeed: 2000,
+        beforeChange: (current, next) => setCurrentSlide(next),
+        afterChange: (current) => setCurrentSlide(current),
+        responsive: responsiveConfig,
+    };
+
+    const callAllApi = () => {
+        let mtTypeLocal = getSession("metalTypeCombo");
+        let diaQcLocal = getSession("diamondQualityColorCombo");
+        let csQcLocal = getSession("ColorStoneQualityColorCombo");
+        let mtColorLocal = getSession("MetalColorCombo");
+
+        if (!mtTypeLocal || mtTypeLocal?.length === 0) {
+            MetalTypeComboAPI(cookie)
+                .then((response) => {
+                    if (response?.Data?.rd) {
+                        let data = response?.Data?.rd;
+                        sessionStorage.setItem("metalTypeCombo", JSON.stringify(data));
+                        setMetalTypeCombo(data);
+                    }
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setMetalTypeCombo(mtTypeLocal);
+        }
+
+        if (!diaQcLocal || diaQcLocal?.length === 0) {
+            DiamondQualityColorComboAPI()
+                .then((response) => {
+                    if (response?.Data?.rd) {
+                        let data = response?.Data?.rd;
+                        sessionStorage.setItem("diamondQualityColorCombo", JSON.stringify(data));
+                        setDiaQcCombo(data);
+                    }
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setDiaQcCombo(diaQcLocal);
+        }
+
+        if (!csQcLocal || csQcLocal?.length === 0) {
+            ColorStoneQualityColorComboAPI()
+                .then((response) => {
+                    if (response?.Data?.rd) {
+                        let data = response?.Data?.rd;
+                        sessionStorage.setItem("ColorStoneQualityColorCombo", JSON.stringify(data));
+                        setCsQcCombo(data);
+                    }
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setCsQcCombo(csQcLocal);
+        }
+
+        if (!mtColorLocal || mtColorLocal?.length === 0) {
+            MetalColorCombo(cookie)
+                .then((response) => {
+                    if (response?.Data?.rd) {
+                        let data = response?.Data?.rd;
+                        sessionStorage.setItem("MetalColorCombo", JSON.stringify(data));
+                        setMetalColorCombo(data);
+                    }
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setMetalColorCombo(mtColorLocal);
+        }
+    };
+
+    useEffect(() => {
+        const logininfo = getSession("loginUserDetail");
+        setLoginInfo(logininfo);
+    }, []);
+
+    useEffect(() => {
+        callAllApi();
+    }, [storeInit]);
+
+    const [filteredVideos, setFilteredVideos] = useState([]);
+
+    useEffect(() => {
+        if (!pdVideoArr || !selectedMetalColor) return;
+
+        const colorMatched = pdVideoArr.filter((url) => {
+            const parts = url.split("~");
+            const colorPart = parts[2]?.split(".")[0];
+            return colorPart === selectedMetalColor;
+        });
+
+        if (colorMatched.length > 0) {
+            setFilteredVideos(colorMatched.map((v) => ({ src: v, type: "video" })));
+        } else {
+            // Fallback: videos without any color in the filename
+            const noColorVideos = pdVideoArr.filter((url) => {
+                const parts = url.split("~");
+                return parts.length === 2; // means format is like MCJ66~1.mp4
+            });
+            setFilteredVideos(noColorVideos.map((v) => ({ src: v, type: "video" })));
+        }
+    }, [pdVideoArr, selectedMetalColor]);
+
+    // URL decode and decompress function
+    const decodeAndDecompress = (encodedString) => {
+        try {
+            if (!encodedString) return null;
+
+            const base64 = encodedString.replace(/-/g, "+").replace(/_/g, "/");
+
+            const padded = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), "=");
+
+            const binaryString = atob(padded);
+
+            const uint8Array = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                uint8Array[i] = binaryString.charCodeAt(i);
+            }
+
+            const decompressed = Pako.inflate(uint8Array, { to: "string" });
+
+            const jsonObject = JSON.parse(decompressed);
+
+            return jsonObject;
+        } catch (error) {
+            console.error("Error decoding and decompressing:", error);
+            return null;
+        }
+    };
+
+    const compressAndEncode = (inputString) => {
+        try {
+            const uint8Array = new TextEncoder().encode(inputString);
+
+            const compressed = Pako.deflate(uint8Array, { to: "string" });
+
+            return btoa(String.fromCharCode.apply(null, compressed));
+        } catch (error) {
+            console.error("Error compressing and encoding:", error);
+            return null;
+        }
+    };
+
+    const handleThumbnailClick = (index) => {
+        if (sliderRef.current) {
+            sliderRef.current.slickGoTo(index);
+        }
+    };
+
+    const decodeEntities = (html) => {
+        if (!html || typeof html !== "string") return html;
+        if (typeof window === "undefined") return html;
+
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    };
+
+    function checkImageAvailability(imageUrl) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = imageUrl;
+        });
+    }
+
+
+    // Generate thumbnail URLs
+    const generateThumbnails = (designNo, count, extension) => {
+        const thumbBase = storeInit?.CDNDesignImageFolThumb || "";
+        return Array.from({ length: count }, (_, i) => {
+            const index = i + 1;
+            const fileName = `${designNo}~${index}`;
+            return {
+                src: `${thumbBase}${fileName}.jpg`,
+                type: "img",
+                extension: extension,
+            };
+        });
+    };
+
+    // Run only once on component mount to generate initial thumbnails
+    useEffect(() => {
+        const result = SearchParamsParser(searchParams);
+        let navVal = result[0]?.split("=")[1];
+        let decodeobj = decodeAndDecompress(navVal);
+
+        if (decodeobj) {
+            const { b, l, count } = decodeobj;
+            setDecodeUrl(decodeobj);
+
+            if (count > 0) {
+                const thumbs = generateThumbnails(b, count, l);
+                setPdImageArr(thumbs);
+            }
+        }
+        // NOTE: Do NOT set imageLoaded=false here.
+        // Keep the skeleton visible until ProdCardImageFunc completes.
+    }, []); // Empty dependency array to run only once on mount
+
+    useEffect(() => {
+        const result = SearchParamsParser(searchParams);
+        let navVal = result[0]?.split("=")[1];
+        let decodeobj = decodeAndDecompress(navVal);
+
+        if (decodeobj) {
+            setDecodeUrl(decodeobj);
+        }
+
+        let storeinitInside = getSession("storeInit");
+        const logininfoInside = getSession("loginUserDetail");
+
+        let mtTypeLocal = getSession("metalTypeCombo");
+
+        let diaQcLocal = getSession("diamondQualityColorCombo");
+
+        let csQcLocal = getSession("ColorStoneQualityColorCombo");
+
+        let metalArr;
+        let diaArr;
+        let csArr;
+
+        if (!decodeobj) {
+            setloadingdata(false);
+            setIsDataFound(true);
+            return;
+        }
+
+        if (mtTypeLocal?.length) {
+            metalArr = mtTypeLocal?.filter((ele) => ele?.Metalid == decodeobj?.m)[0]?.Metalid ?? decodeobj?.m;
+        }
+
+        if (diaQcLocal) {
+            diaArr = diaQcLocal?.filter((ele) => ele?.QualityId == decodeobj?.d?.split(",")[0] && ele?.ColorId == decodeobj?.d?.split(",")[1])[0] ?? `${decodeobj?.d?.split(",")[0]},${decodeobj?.d?.split(",")[1]}`;
+        }
+
+        if (csQcLocal) {
+            csArr = csQcLocal?.filter((ele) => ele?.QualityId == decodeobj?.c?.split(",")[0] && ele?.ColorId == decodeobj?.c?.split(",")[1])[0] ?? `${decodeobj?.c?.split(",")[0]},${decodeobj?.c?.split(",")[1]}`;
+        }
+
+        setloadingdata(true);
+
+        const FetchProductData = async () => {
+            // let obj = {
+            //   mt: metalArr,
+            //   diaQc: `${diaArr?.QualityId},${diaArr?.ColorId}`,
+            //   csQc: `${csArr?.QualityId},${csArr?.ColorId}`,
+            // };
+
+            let obj1 = {
+                mt: logininfoInside?.MetalId ?? storeinitInside?.MetalId,
+                diaQc: diaArr ? `${diaArr?.QualityId ?? 0},${diaArr?.ColorId ?? 0}` : (logininfoInside?.cmboDiaQCid ?? storeinitInside?.cmboDiaQCid),
+                csQc: csArr ? `${csArr?.QualityId ?? 0},${csArr?.ColorId ?? 0}` : (logininfoInside?.cmboCSQCid ?? storeinitInside?.cmboCSQCid),
+            };
+
+            let obj = {
+                mt: metalArr ? metalArr : (logininfoInside?.MetalId ?? storeinitInside?.MetalId),
+                diaQc: diaArr ? `${diaArr?.QualityId ?? 0},${diaArr?.ColorId ?? 0}` : (logininfoInside?.cmboDiaQCid ?? storeinitInside?.cmboDiaQCid),
+                csQc: csArr ? `${csArr?.QualityId ?? 0},${csArr?.ColorId ?? 0}` : (logininfoInside?.cmboCSQCid ?? storeinitInside?.cmboCSQCid),
+            };
+
+            if (decodeobj?.title || decodeobj?.price) {
+                const initialProd = {
+                    TitleLine: decodeobj.title || "",
+                    Nwt: decodeobj.nwt ? parseFloat(decodeobj.nwt) : 0,
+                    UnitCostWithMarkUp: decodeobj.price ? parseFloat(decodeobj.price) : 0,
+                    ArticleNo: decodeobj.ArticleNo ?? "",
+                    designno: decodeobj.b ?? "",
+                    autocode: decodeobj.a ?? "",
+                    ImageExtension: "webp",
+                    ImageCount: 1,
+                    MetalColorid: decodeobj?.metalColorId ?? logininfoInside?.MetalColorId ?? storeinitInside?.MetalColorId,
+                    ImageVideoDetail: decodeobj.mediaDet ?? "0",
+                };
+                setSingleProd(initialProd);
+                setSingleProd1(initialProd);
+                setisPriceLoading(false);
+            } else {
+                setisPriceLoading(true);
+                setSingleProd1({});
+                setSingleProd({});
+            }
+
+            await SingleArticleProdListAPI(decodeobj, sizeData, obj, cookie)
+                .then((res) => {
+                    if (res) {
+                        const prod = res?.pdList?.[0];
+                        if (prod) {
+                            setSingleProd(prod);
+                            setisPriceLoading(false);
+                            setloadingdata(false);
+                            setIsDataFound(false);
+                        } else {
+                            setisPriceLoading(false);
+                            setloadingdata(false);
+                            setIsDataFound(true);
+                            return res;
+                        }
+
+                        setDiaList(res?.pdResp?.rd3);
+                        setCsList(res?.pdResp?.rd4);
+
+                        let mappedRd1 = [];
+                        if (res?.pdResp?.rd1?.length) {
+                            mappedRd1 = res.pdResp.rd1.map(r => {
+                                const metalId = r.metaltypeid || r.MetalTypeId || r.Metalid;
+                                const metalColorId = r.metalcolorid || r.MetalColorId;
+                                const metalType = r.metal || r.metaltypename || r.MetalType || r.metalpurityname || r.MetalTypePurity;
+                                const metalColor = r.metalcolorname || r.MetalColor;
+                                const netWeight = r.Nwt || r.NetWeight;
+                                return {
+                                    ...r,
+                                    ArticleId: r.ArticleId || r.id,
+                                    MetalTypeId: metalId,
+                                    Metalid: metalId,
+                                    MetalColorId: metalColorId,
+                                    MetalType: metalType,
+                                    MetalColor: metalColor,
+                                    NetWeight: netWeight,
+                                };
+                            });
+                            setRd1Data(mappedRd1);
+
+                            const articleCartMap = {};
+                            mappedRd1.forEach((article) => {
+                                articleCartMap[article.ArticleId] = {
+                                    IsInCart: article.IsInCart ?? 0,
+                                    IsInWish: article.IsInWish ?? 0,
+                                    CartId: article.CartId ?? 0,
+                                };
+                            });
+                            setRd1CartMap(articleCartMap);
+
+                            const urlArticleId = decodeobj?.ArticleId;
+                            const initialArticle =
+                                (urlArticleId && mappedRd1.find((a) => a.ArticleId == urlArticleId)) ||
+                                (decodeobj?.ArticleNo && mappedRd1.find((a) => String(a.ArticleNo).toLowerCase() === String(decodeobj.ArticleNo).toLowerCase())) ||
+                                (decodeobj?.a && mappedRd1.find((a) => a.autocode == decodeobj.a)) ||
+                                mappedRd1[0];
+
+                            if (initialArticle) {
+                                const diaStone = res?.pdResp?.rd2?.find((s) => s.ArticleId == initialArticle.ArticleId && s.StoneTypeid === 1);
+                                const csStone = res?.pdResp?.rd2?.find((s) => s.ArticleId == initialArticle.ArticleId && s.StoneTypeid === 2);
+                                setDefaultArticleId(initialArticle.ArticleId);
+                                setCustomizationDetail({
+                                    ...initialArticle,
+                                    ArticleId: initialArticle.ArticleId,
+                                    ArticleNo: initialArticle.ArticleNo,
+                                    autocode: initialArticle.autocode || prod?.autocode || "",
+                                    DiaQCid: diaStone ? `${diaStone.QualityId},${diaStone.ColorId}` : "0,0",
+                                    CsQCid: csStone ? `${csStone.QualityId},${csStone.ColorId}` : "0,0",
+                                    Size: initialArticle.Size,
+                                });
+                                setSingleProd((current) => ({ ...current, ...initialArticle }));
+                                setSingleProd1((current) => ({ ...current, ...initialArticle }));
+                                setSelectMtType(initialArticle.MetalType || initialArticle.metaltypename || "");
+                                setSelectMtColor(initialArticle.MetalColor || initialArticle.metalcolorname || "");
+                                setSizeData(initialArticle.Size || prod?.DefaultSize);
+                                if (diaStone) setSelectDiaQc(`${diaStone.Quality},${diaStone.Color}`);
+                                if (csStone) setSelectCsQc(`${csStone.Quality},${csStone.Color}`);
+                            }
+                        }
+
+                        if (res?.pdResp?.rd2?.length) {
+                            const mappedRd2 = res.pdResp.rd2.map(r => ({
+                                ...r,
+                                ArticleId: r.ArticleId || r.id,
+                            }));
+                            setRd2Data(mappedRd2);
+                        }
+
+                        if (prod) {
+                            const purityName = prod?.MetalTypePurity || mtTypeLocal?.find((ele) => ele?.Metalid == prod?.MetalPurityid || ele?.Metalid == prod?.MetalTypeId || ele?.Metalid == prod?.Metalid)?.metaltype || prod?.MetalType || "";
+                            if (purityName) setSelectMtType(purityName);
+
+                            const mtColorLocal = getSession("MetalColorCombo") || [];
+                            const colorName = prod?.MetalColor || mtColorLocal?.find((ele) => ele?.id == prod?.MetalColorid || ele?.id == prod?.metalcolorid)?.metalcolorname || prod?.metalcolorname || prod?.colorname || "";
+                            if (colorName) setSelectMtColor(colorName);
+                        }
+
+                        let initialsize = prod && prod.DefaultSize !== "" ? prod?.DefaultSize : SizeCombo?.rd?.find((size) => size.IsDefaultSize === 1)?.sizename === undefined ? SizeCombo?.rd[0]?.sizename : SizeCombo?.rd?.find((size) => size.IsDefaultSize === 1)?.sizename;
+                        setSizeData(initialsize);
+
+                        // --- Progressive Non-Blocking Secondary APIs ---
+                        if (prod) {
+                            getSizeData(prod, cookie)
+                                .then((sRes) => setSizeCombo(sRes?.Data))
+                                .catch((err) => console.log("SizeErr", err));
+
+                            StockItemApi(prod?.autocode, "stockitem", cookie)
+                                .then((stRes) => setStockItemArr(stRes?.Data?.rd))
+                                .catch((err) => console.log("stockItemErr", err));
+
+                            StockItemApi(prod?.autocode, "similarbrand", obj, cookie)
+                                .then((smRes) => setSimilarBrandArr(smRes?.Data?.rd))
+                                .catch((err) => console.log("similarbrandErr", err));
+
+                            DesignSetListAPI(obj1, prod?.designno, cookie)
+                                .then((dsRes) => setDesignSetList(dsRes?.Data?.rd))
+                                .catch((err) => console.log("designsetErr", err));
+
+                            SaveLastViewDesign(cookie, prod?.autocode, prod?.designno)
+                                .then((svRes) => setSaveLastView(svRes?.Data?.rd))
+                                .catch((err) => console.log("saveLastView", err));
+                        }
+                    }
+                    return res;
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                    setisPriceLoading(false);
+                    setloadingdata(false);
+                });
+        };
+
+        FetchProductData();
+
+        window.scroll({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, [location?.key]);
+
+    const getActiveArticle = () => customizationDetail || singleProd1 || singleProd || {};
+
+    const getArticlePayload = () => {
+        const article = getActiveArticle();
+        const diaValue = typeof selectDiaQc === "string" ? selectDiaQc.split(",") : [];
+        const csValue = typeof selectCsQc === "string" ? selectCsQc.split(",") : [];
+        const metal = metalTypeCombo?.find((item) => item?.metaltype === selectMtType || item?.Metalid == article?.MetalTypeId || item?.Metalid == article?.Metalid);
+        const metalColor = metalColorCombo?.find((item) => item?.colorname === selectMtColor || item?.id == article?.MetalColorId || item?.id == article?.MetalColorid);
+        const dia = diaQcCombo?.find((item) => item?.Quality === diaValue[0] && item?.color === diaValue[1]);
+        const cs = csQcCombo?.find((item) => item?.Quality === csValue[0] && item?.color === csValue[1]);
+        return {
+            autocode: article?.autocode,
+            ArticleId: article?.ArticleId || 0,
+            ArticleNo: article?.ArticleNo || "",
+            Metalid: article?.MetalTypeId || article?.Metalid || metal?.Metalid || loginUserDetail?.MetalId || storeInit?.MetalId,
+            MetalColorId: article?.MetalColorId || article?.MetalColorid || metalColor?.id,
+            DiaQCid: article?.DiaQCid || (dia ? `${dia.QualityId},${dia.ColorId}` : (loginUserDetail?.cmboDiaQCid ?? storeInit?.cmboDiaQCid)),
+            CsQCid: article?.CsQCid || (cs ? `${cs.QualityId},${cs.ColorId}` : (loginUserDetail?.cmboCSQCid ?? storeInit?.cmboCSQCid)),
+            Size: sizeData ?? article?.Size ?? article?.DefaultSize,
+            Unitcost: article?.TotalUnitCost ?? article?.UnitCost ?? article?.Unitcost,
+            markup: article?.MarkUp ?? article?.DesignMarkUp,
+            UnitCostWithmarkup: article?.UnitCostWithmarkup ?? article?.TotalUnitCost ?? article?.UnitCostWithMarkUp,
+            Metal_Cost: article?.Metal_Cost ?? article?.TotalMetalCost,
+            Labour_Cost: article?.Labour_Cost ?? article?.TotalMakingCost,
+            Diamond_Cost: article?.Diamond_Cost ?? article?.TotalDiamondCost,
+            Diamond_SettingCost: article?.Diamond_SettingCost ?? article?.TotalDiaSettingCost,
+            ColorStone_Cost: article?.ColorStone_Cost ?? article?.TotalColorStoneCost,
+            ColorStone_SettingCost: article?.ColorStone_SettingCost ?? article?.TotalCSSettingCost,
+            Misc_Cost: article?.Misc_Cost ?? article?.TotalMiscCost,
+            Misc_SettingCost: article?.Misc_SettingCost ?? article?.TotalSettingCost,
+            Other_Cost: article?.Other_Cost ?? article?.TotalOtherCost,
+            SolPrice: article?.SolPrice ?? article?.SolPric,
+            Remark: "",
+            AlbumName: decodeUrl?.n ?? "",
+            Quantity: 1,
+        };
+    };
+
+    const handleCart = (cartflag) => {
+        let storeinitInside = storeInit;
+        let logininfoInside = loginUserDetail;
+        // let metal = metalTypeCombo?.filter((ele) => ele?.metaltype == selectMtType)[0] ?? metalTypeCombo[0];
+        let metal = metalTypeCombo?.filter((ele) => ele?.metaltype == selectMtType)[0];
+
+        let dia = diaQcCombo?.filter((ele) => ele?.Quality == (selectDiaQc || "").split(",")[0] && ele?.color == (selectDiaQc || "").split(",")[1])[0] ?? diaQcCombo[0];
+        // let cs =
+        //   csQcCombo?.filter(
+        //     (ele) =>
+        //       ele?.Quality == selectCsQc.split(",")[0] &&
+        //       ele?.color == selectCsQc.split(",")[1]
+        //   )[0] ?? csQcCombo[0];
+
+        // const cs =
+        //     csQcCombo?.find((ele) => {
+        //         return ele?.Quality == selectCsQc.split(",")[0] && ele?.color == selectCsQc.split(",")[1];
+        //     }) ?? csQcCombo;
+        let cs = csQcCombo?.filter((ele) => ele?.Quality == selectCsQc?.split(",")[0] && ele?.color == selectCsQc?.split(",")[1]);
+
+
+        let mcArr = metalColorCombo?.filter((ele) => {
+            if (selectMtColor) {
+                return ele?.colorname == selectMtColor;
+            } else {
+                return ele?.id == (singleProd1?.MetalColorid ?? singleProd?.MetalColorid);
+            }
+        })[0];
+
+        let prodObj = {
+            autocode: singleProd1?.autocode ?? singleProd?.autocode,
+            Metalid: metal?.Metalid ? metal?.Metalid : (logininfoInside?.MetalId ?? storeinitInside?.MetalId),
+            MetalColorId: mcArr?.id ?? singleProd?.MetalColorid,
+            // DiaQCid: `${dia?.QualityId},${dia?.ColorId}`,
+            // CsQCid: `${cs?.QualityId ?? 0},${cs?.ColorId ?? 0}`,
+            // Size: sizeData ?? singleProd?.DefaultSize,
+            DiaQCid: dia?.length ? `${dia[0]?.QualityId},${dia[0]?.ColorId}` : (logininfoInside?.cmboDiaQCid ?? storeinitInside?.cmboDiaQCid),
+            CsQCid: cs?.length ? `${cs[0]?.QualityId},${cs[0]?.ColorId}` : (logininfoInside?.cmboCSQCid ?? storeinitInside?.cmboCSQCid),
+            Size: sizeData ?? singleProd1?.DefaultSize ?? singleProd?.DefaultSize,
+            Unitcost: singleProd1?.UnitCost ?? singleProd?.UnitCost,
+            markup: singleProd1?.DesignMarkUp ?? singleProd?.DesignMarkUp,
+            UnitCostWithmarkup: singleProd1?.UnitCostWithMarkUp ?? singleProd?.UnitCostWithMarkUp,
+            Remark: "",
+            AlbumName: decodeUrl?.n ?? "",
+            Quantity: 1,
+        };
+        prodObj = getArticlePayload();
+        const activeArticle = getActiveArticle();
+
+        if (cartflag) {
+            CartAndWishListAPI("Cart", prodObj, cookie)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                    setRd1CartMap((prev) => ({ ...prev, [activeArticle.ArticleId]: { ...prev[activeArticle.ArticleId], IsInCart: 1, CartId: res?.Data?.rd[0]?.CartId ?? 0 } }));
+                    const cartKey = getCartWishKey(prodObj);
+                    if (cartKey) setStoreCartArr?.((prev) => ({ ...prev, [cartKey]: true }));
+                    broadcast("UPDATE_CART_COUNT", cartC, prodObj?.autocode, "cart", true, prodObj?.ArticleNo);
+                    storeFetchGetCountData?.();
+                })
+                .catch((err) => console.log("err", err))
+                .finally(() => {
+                    setAddToCartFlag(cartflag);
+                });
+        } else {
+            RemoveCartAndWishAPI("Cart", activeArticle?.autocode, cookie, false, "", activeArticle?.ArticleNo)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                    setRd1CartMap((prev) => ({ ...prev, [activeArticle.ArticleId]: { ...prev[activeArticle.ArticleId], IsInCart: 0, CartId: 0 } }));
+                    const cartKey = getCartWishKey(prodObj);
+                    if (cartKey) setStoreCartArr?.((prev) => ({ ...prev, [cartKey]: false }));
+                    broadcast("UPDATE_CART_COUNT", cartC, prodObj?.autocode, "cart", false, prodObj?.ArticleNo);
+                    storeFetchGetCountData?.();
+                })
+                .catch((err) => console.log("err", err))
+                .finally(() => {
+                    setAddToCartFlag(cartflag);
+                });
+        }
+    };
+
+    const handleWishList = (wishFlag) => {
+        setWishListFlag(wishFlag);
+
+        let metal = metalTypeCombo?.filter((ele) => ele?.metaltype == selectMtType)[0] ?? metalTypeCombo[0];
+        let dia = diaQcCombo?.filter((ele) => ele?.Quality == (selectDiaQc || "").split(",")[0] && ele?.color == (selectDiaQc || "").split(",")[1])[0] ?? diaQcCombo[0];
+
+        // let cs =
+        //   csQcCombo?.filter(
+        //     (ele) =>
+        //       ele?.Quality == selectCsQc.split(",")[0] &&
+        //       ele?.color == selectCsQc.split(",")[1]
+        //   )[0] ?? csQcCombo[0];
+
+        const cs =
+            csQcCombo?.find((ele) => {
+                return ele?.Quality == (selectCsQc || "").split(",")[0] && ele?.color == (selectCsQc || "").split(",")[1];
+            }) ?? csQcCombo;
+
+        let mcArr = metalColorCombo?.filter((ele) => {
+            if (selectMtColor) {
+                return ele?.colorname == selectMtColor;
+            } else {
+                return ele?.id == (singleProd1?.MetalColorid ?? singleProd?.MetalColorid);
+            }
+        })[0];
+
+        let prodObj = {
+            autocode: singleProd?.autocode,
+            Metalid: metal?.Metalid,
+            MetalColorId: mcArr?.id ?? singleProd?.MetalColorid,
+            DiaQCid: `${dia?.QualityId},${dia?.ColorId}`,
+            CsQCid: `${cs?.QualityId ?? 0},${cs?.ColorId ?? 0}`,
+            Size: sizeData ?? singleProd?.DefaultSize,
+            Unitcost: singleProd1?.UnitCost ?? singleProd?.UnitCost,
+            markup: singleProd1?.DesignMarkUp ?? singleProd?.DesignMarkUp,
+            UnitCostWithmarkup: singleProd1?.UnitCostWithMarkUp ?? singleProd?.UnitCostWithMarkUp,
+            Remark: "",
+        };
+        prodObj = getArticlePayload();
+        const activeArticle = getActiveArticle();
+
+        if (!wishListFlag) {
+            CartAndWishListAPI("Wish", prodObj, cookie)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                    setRd1CartMap((prev) => ({ ...prev, [activeArticle.ArticleId]: { ...prev[activeArticle.ArticleId], IsInWish: 1 } }));
+                    const wishKey = getCartWishKey(prodObj);
+                    if (wishKey) setStoreWishArr?.((prev) => ({ ...prev, [wishKey]: true }));
+                    broadcast("UPDATE_WISH_COUNT", wishC, prodObj?.autocode, "wish", true, prodObj?.ArticleNo);
+                    storeFetchGetCountData?.();
+                })
+                .catch((err) => console.log("err", err))
+                .finally(() => {
+                    setWishListFlag(wishFlag);
+                });
+        } else {
+            RemoveCartAndWishAPI("Wish", activeArticle?.autocode, cookie, false, "", activeArticle?.ArticleNo)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                    setRd1CartMap((prev) => ({ ...prev, [activeArticle.ArticleId]: { ...prev[activeArticle.ArticleId], IsInWish: 0 } }));
+                    const wishKey = getCartWishKey(prodObj);
+                    if (wishKey) setStoreWishArr?.((prev) => ({ ...prev, [wishKey]: false }));
+                    broadcast("UPDATE_WISH_COUNT", wishC, prodObj?.autocode, "wish", false, prodObj?.ArticleNo);
+                    storeFetchGetCountData?.();
+                })
+                .catch((err) => console.log("err", err))
+                .finally(() => {
+                    setWishListFlag(wishFlag);
+                });
+        }
+    };
+
+    useEffect(() => {
+        const result = SearchParamsParser(searchParams);
+        let navVal = result[0]?.split("=")[1];
+        let decodeobj = decodeAndDecompress(navVal);
+
+        let mtTypeLocal = getSession("metalTypeCombo");
+
+        let diaQcLocal = getSession("diamondQualityColorCombo");
+
+        let csQcLocal = getSession("ColorStoneQualityColorCombo");
+
+        setTimeout(() => {
+            if (decodeUrl) {
+                let metalArr;
+                let diaArr;
+                let csArr;
+
+                let storeinitInside = storeInit;
+                let logininfoInside = loginUserDetail;
+
+                if (mtTypeLocal?.length) {
+                    metalArr = mtTypeLocal?.filter((ele) => ele?.Metalid == (decodeobj?.m ? decodeobj?.m : (logininfoInside?.MetalId ?? storeinitInside?.MetalId)))[0];
+                }
+
+                if (diaQcLocal?.length) {
+                    diaArr = diaQcLocal?.filter((ele) => ele?.QualityId == (decodeobj?.d ? decodeobj?.d?.split(",")[0] : (logininfoInside?.cmboDiaQCid ?? storeinitInside?.cmboDiaQCid).split(",")[0]) && ele?.ColorId == (decodeobj?.d ? decodeobj?.d?.split(",")[1] : (logininfoInside?.cmboDiaQCid ?? storeinitInside?.cmboDiaQCid).split(",")[1]))[0];
+                }
+
+                if (csQcLocal?.length) {
+                    csArr = csQcLocal?.filter((ele) => ele?.QualityId == (decodeobj?.c ? decodeobj?.c?.split(",")[0] : (logininfoInside?.cmboCSQCid ?? storeinitInside?.cmboCSQCid).split(",")[0]) && ele?.ColorId == (decodeobj?.c ? decodeobj?.c?.split(",")[1] : (logininfoInside?.cmboCSQCid ?? storeinitInside?.cmboCSQCid).split(",")[1]))[0];
+                }
+
+                if (metalArr?.metaltype) {
+                    setSelectMtType(metalArr.metaltype);
+                }
+
+                if (diaArr?.Quality && diaArr?.color) {
+                    setSelectDiaQc(`${diaArr.Quality},${diaArr.color}`);
+                }
+
+                if (csArr?.Quality && csArr?.color) {
+                    setSelectCsQc(`${csArr.Quality},${csArr.color}`);
+                }
+
+                // let InitialSize = (singleProd && singleProd.DefaultSize !== "")
+                //                       ? singleProd?.DefaultSize
+                //                       : (SizeCombo?.rd?.find((size) => size.IsDefaultSize === 1)?.sizename === undefined ? SizeCombo?.rd[0]?.sizename : SizeCombo?.rd?.find((size) => size.IsDefaultSize === 1)?.sizename)
+                // if(InitialSize){
+                //   setSizeData(InitialSize)
+                // }
+
+                // if(metalArr || diaArr || csArr || InitialSize){
+                //   setCustomObj({metalArr, diaArr, csArr ,InitialSize})
+                // }
+
+                // console.log("default", { metalArr, diaArr, csArr }, decodeobj);
+            }
+        }, 500);
+    }, [singleProd]);
+
+    useEffect(() => {
+        let mtColorLocal = getSession("MetalColorCombo");
+        let mcArr;
+
+        if (mtColorLocal?.length) {
+            mcArr = mtColorLocal?.filter((ele) => ele?.id == (singleProd?.MetalColorid ?? singleProd1?.MetalColorid))[0];
+        }
+
+        setSelectMtColor(mcArr?.colorname);
+    }, [singleProd]);
+
+    const ProdCardImageFunc = async () => {
+        // Show skeleton loader while we validate images
+        setIsImageLoaded(true);
+        const storeInit = getSession("storeInit");
+        const mtColorLocal = getSession("MetalColorCombo") || [];
+        const pd = singleProd;
+
+        const imageVideoDetail = pd?.ImageVideoDetail;
+        let parsedData = [];
+
+        try {
+            parsedData = imageVideoDetail === "0" ? [] : JSON.parse(imageVideoDetail || "[]");
+        } catch (err) {
+            console.error("Invalid JSON in ImageVideoDetail:", err);
+            return;
+        }
+
+        // Categorize media
+        const normalImages = [],
+            colorImages = [],
+            normalVideos = [],
+            colorVideos = [];
+
+        parsedData.forEach((item) => {
+            if (item?.TI === 1 && !item?.CN) normalImages.push(item);
+            else if (item?.TI === 2 && item?.CN) colorImages.push(item);
+            else if (item?.TI === 4 && item?.CN) colorVideos.push(item);
+            else if (item?.TI === 3 && !item?.CN) normalVideos.push(item);
+        });
+
+        // Get max color count by CN
+        const getMaxCountByColor = (list) => {
+            return list.reduce((acc, curr) => {
+                const color = curr.CN;
+                acc[color] = (acc[color] || 0) + 1;
+                return acc;
+            }, {});
+        };
+
+        const maxColorCount = Math.max(...Object.values(getMaxCountByColor(colorImages)), 0);
+        const normalImageCount = normalImages.length ? Math.max(...normalImages.map((i) => i.Nm)) : 0;
+
+        const mcArr = mtColorLocal.find((ele) => ele.id === pd?.MetalColorid);
+        setSelectedMetalColor(mcArr?.colorcode);
+
+        const buildImageURL = (i, isColor = false) => {
+            const base = storeInit?.CDNDesignImageFol;
+            const extension = isColor ? colorImages[i - 1]?.Ex : normalImages[i - 1]?.Ex;
+
+            const imageUrl = isColor ? `${base}${pd.designno}~${i}~${mcArr?.colorcode}.${colorImages[i - 1]?.Ex}` : `${base}${pd.designno}~${i}.${normalImages[i - 1]?.Ex}`;
+
+            return { imageUrl, extension };
+        };
+
+        // Prepare image list
+        const pdImgList = [];
+
+        // Color images
+        if (maxColorCount > 0) {
+            // Asynchronously populate pdImgList with color images
+            for (let i = 1; i <= maxColorCount; i++) {
+                const colorImageUrl = buildImageURL(i, true);
+                const isColorImageAvailable = await checkImageAvailability(colorImageUrl?.imageUrl);
+
+                // Only push the image if it is available
+                if (isColorImageAvailable) {
+                    pdImgList.push(colorImageUrl);
+                }
+            }
+        }
+
+        // Fallback to normal images if no color
+        if (pdImgList.length === 0 && normalImageCount > 0) {
+            for (let i = 1; i <= normalImageCount; i++) {
+                pdImgList.push(buildImageURL(i));
+            }
+        }
+
+        // Prepare thumbnails and set state
+        if (pdImgList.length > 0) {
+            const thumbImagePath = pdImgList.map((url) => {
+                const fileName = url?.imageUrl?.split("Design_Image/")[1];
+                const thumbImageUrl = `${storeInit?.CDNDesignImageFolThumb}${fileName?.split(".")[0]}.jpg`;
+                return {
+                    thumbImageUrl,
+                    originalImageExtension: url.extension,
+                };
+            });
+
+            const defaultImg = pdImgList[0];
+
+            if (defaultImg && Object.keys(defaultImg).length > 0) {
+                setSelectedThumbImg({
+                    link: {
+                        imageUrl: defaultImg?.imageUrl,
+                        extension: defaultImg?.extension,
+                    },
+                    type: "img",
+                });
+            }
+
+            setPdThumbImg(thumbImagePath);
+            setThumbImgIndex(0);
+
+            // Also update full img list for image viewer
+            const imageMap = thumbImagePath.map((img) => ({
+                src: img.thumbImageUrl,
+                type: "img",
+                extension: img.originalImageExtension,
+            }));
+            setPdImageArr(imageMap);
+        } else {
+            setSelectedThumbImg({ link: { imageUrl: imageNotFound, extension: "" }, type: "img" });
+            setPdThumbImg();
+            setThumbImgIndex();
+            setPdImageArr([{ src: imageNotFound, type: "img", extension: "" }]);
+        }
+
+        // Handle videos
+        const buildVideoURL = (video, isColor = false) => {
+            const base = storeInit?.CDNVPath;
+            return isColor ? `${base}${pd.designno}~${video.Nm}~${video.CN}.${video.Ex}` : `${base}${pd.designno}~${video.Nm}.${video.Ex}`;
+        };
+
+        const pdvideoList = [...colorVideos.map((v) => buildVideoURL(v, true)), ...normalVideos.map((v) => buildVideoURL(v))];
+
+        setPdVideoArr(pdvideoList.length > 0 ? pdvideoList : []);
+        setPdImageLoader(false);
+
+        // Images are now validated — hide the skeleton and show real content
+        setIsImageLoaded(false);
+
+        return pdImgList[0] || imageNotFound;
+    };
+
+    // Run ProdCardImageFunc only when singleProd is available
+    // Run ProdCardImageFunc only when initial product autocode loads
+    useEffect(() => {
+        if (singleProd?.autocode) {
+            setPdImageLoader(true);
+            ProdCardImageFunc();
+        }
+    }, [singleProd?.autocode]);
+
+    const handleCustomChange = async (e, type) => {
+        let targetMetalType = selectMtType;
+        let targetMetalColor = selectMtColor;
+        let targetSize = sizeData;
+        let targetDiaQc = selectDiaQc;
+        let targetCsQc = selectCsQc;
+
+        if (type === "mt") {
+            targetMetalType = e.target.value;
+            setSelectMtType(e.target.value);
+        }
+        if (type === "mc") {
+            targetMetalColor = e.target.value;
+            setSelectMtColor(e.target.value);
+        }
+        if (type === "dia") {
+            targetDiaQc = e.target.value;
+            setSelectDiaQc(e.target.value);
+        }
+        if (type === "cs") {
+            targetCsQc = e.target.value;
+            setSelectCsQc(e.target.value);
+        }
+        if (type === "sz") {
+            targetSize = e.target.value;
+            setSizeData(e.target.value);
+        }
+
+        const normalizedTargetSize = targetSize === "-" || targetSize === "" || !targetSize ? "" : targetSize;
+
+        const hasStoneMatch = (article, stoneType, value) => {
+            if (!value) return true;
+            const [quality, color] = value.split(",");
+            return rd2Data?.some((stone) => stone.ArticleId == article.ArticleId && stone.StoneTypeid === stoneType && stone.Quality === quality && stone.Color === color);
+        };
+
+        let matchedArticle = rd1Data?.find((r) => {
+            const matchMetal = (r.MetalType || r.metaltypename)?.toUpperCase() === targetMetalType?.toUpperCase();
+            const matchColor = (r.MetalColor || r.metalcolorname)?.toUpperCase() === targetMetalColor?.toUpperCase();
+            const rSize = r.Size === "-" || r.Size === "" || !r.Size ? "" : r.Size;
+            return matchMetal && matchColor && rSize === normalizedTargetSize && hasStoneMatch(r, 1, targetDiaQc) && hasStoneMatch(r, 2, targetCsQc);
+        });
+
+        if (!matchedArticle) {
+            matchedArticle = rd1Data?.find((r) => {
+                const matchMetal = (r.MetalType || r.metaltypename)?.toUpperCase() === targetMetalType?.toUpperCase();
+                const matchColor = (r.MetalColor || r.metalcolorname)?.toUpperCase() === targetMetalColor?.toUpperCase();
+                return matchMetal && matchColor && hasStoneMatch(r, 1, targetDiaQc) && hasStoneMatch(r, 2, targetCsQc);
+            });
+        }
+
+        if (!matchedArticle) {
+            matchedArticle = rd1Data?.find((r) => r.ArticleId === defaultArticleId) || rd1Data?.[0];
+        }
+
+        if (matchedArticle) {
+            const mainMedia = singleProd?.ImageVideoDetail || singleProd1?.ImageVideoDetail || "0";
+            const mainDesign = singleProd?.designno || singleProd1?.designno || "";
+            const mainAutoCode = singleProd?.autocode || singleProd1?.autocode || "";
+
+            const updatedArt = {
+                ...singleProd,
+                ...matchedArticle,
+                designno: matchedArticle?.designno || mainDesign,
+                autocode: matchedArticle?.autocode || mainAutoCode,
+                ImageVideoDetail: matchedArticle?.ImageVideoDetail || mainMedia,
+            };
+
+            setSingleProd(updatedArt);
+            setSingleProd1(updatedArt);
+            const diaStone = rd2Data?.find((stone) => stone.ArticleId == matchedArticle.ArticleId && stone.StoneTypeid === 1);
+            const csStone = rd2Data?.find((stone) => stone.ArticleId == matchedArticle.ArticleId && stone.StoneTypeid === 2);
+            setDefaultArticleId(matchedArticle.ArticleId);
+            setCustomizationDetail({
+                ...matchedArticle,
+                ArticleId: matchedArticle.ArticleId,
+                ArticleNo: matchedArticle.ArticleNo,
+                autocode: matchedArticle.autocode || mainAutoCode,
+                DiaQCid: diaStone ? `${diaStone.QualityId},${diaStone.ColorId}` : "0,0",
+                CsQCid: csStone ? `${csStone.QualityId},${csStone.ColorId}` : "0,0",
+                Size: normalizedTargetSize,
+            });
+            if (diaStone) setSelectDiaQc(`${diaStone.Quality},${diaStone.Color}`);
+            if (csStone) setSelectCsQc(`${csStone.Quality},${csStone.Color}`);
+            const colorVal = matchedArticle?.MetalColor || matchedArticle?.metalcolorname;
+            if (colorVal) {
+                handleMetalWiseColorImg(colorVal);
+            }
+        }
+    };
+
+    const handleMetalWiseColorImg = async (e) => {
+        const mtColorLocal = getSession("MetalColorCombo") || [];
+        const pd = singleProd ?? singleProd1;
+        const selectedMetalColorName = typeof e === "string" ? e : e?.target?.value;
+        const { designno, ImageExtension } = pd || {};
+        const baseCDN = storeInit?.CDNDesignImageFol;
+        const thumbCDN = storeInit?.CDNDesignImageFolThumb;
+        setIsImageLoaded(true);
+
+        const imageVideoDetail = pd?.ImageVideoDetail;
+        let parsedData = [];
+
+        try {
+            parsedData = imageVideoDetail === "0" ? [] : JSON.parse(imageVideoDetail || "[]");
+        } catch (err) {
+            console.error("Invalid JSON in ImageVideoDetail:", err);
+            return;
+        }
+
+        // Categorize media by type & color presence
+        const normalImages = [],
+            colorImages = [],
+            normalVideos = [],
+            colorVideos = [];
+        parsedData.forEach((item) => {
+            if (item?.TI === 1 && !item?.CN) normalImages.push(item);
+            else if (item?.TI === 2 && item?.CN) colorImages.push(item);
+            else if (item?.TI === 4 && item?.CN) colorVideos.push(item);
+            else if (item?.TI === 3 && !item?.CN) normalVideos.push(item);
+        });
+
+        // Count max images for color groups
+        const countByColor = colorImages.reduce((acc, curr) => {
+            const color = curr.CN;
+            acc[color] = (acc[color] || 0) + 1;
+            return acc;
+        }, {});
+        const maxColorCount = Math.max(...Object.values(countByColor), 0);
+
+        // Get normal images max count
+        const normalImageCount = normalImages.length > 0 ? Math.max(...normalImages.map((img) => img.Nm)) : 0;
+
+        // Find matching metal color info
+        const mcArr = mtColorLocal.find(
+            (ele) =>
+                ele?.metalcolorname?.toLowerCase() === selectedMetalColorName?.toLowerCase() ||
+                ele?.colorcode?.toLowerCase() === selectedMetalColorName?.toLowerCase() ||
+                ele?.id == selectedMetalColorName
+        );
+
+        if (!mcArr) {
+            console.warn("Selected metal color not found in MetalColorCombo");
+            return;
+        }
+
+        setSelectedMetalColor(mcArr.colorcode);
+        setSelectMtColor(selectedMetalColorName);
+
+        // Build image URLs
+        const buildColorImageList = () =>
+            Array.from({ length: maxColorCount }, (_, i) => {
+                const extension = colorImages[i]?.Ex;
+                const imageUrl = `${baseCDN}${designno}~${i + 1}~${mcArr?.colorcode}.${colorImages[i]?.Ex}`;
+                return { imageUrl, extension };
+            });
+
+        const buildNormalImageList = () =>
+            Array.from({ length: normalImageCount }, (_, i) => {
+                const extension = normalImages[i]?.Ex;
+                const imageUrl = `${baseCDN}${designno}~${i + 1}.${normalImages[i]?.Ex}`;
+                return { imageUrl, extension };
+            });
+
+        // Image List Construction
+        const pdImgListCol = [];
+        if (maxColorCount > 0) {
+            for (let i = 1; i <= maxColorCount; i++) {
+                const img = buildColorImageList()[i - 1];
+                console.log("TCL: ProdCardImageFunc -> img", img);
+                const isAvailable = await checkImageAvailability(img.imageUrl);
+                if (isAvailable) pdImgListCol.push(img);
+            }
+        }
+
+        const pdImgList = [];
+        if (pdImgListCol.length === 0 && normalImageCount > 0) {
+            for (let i = 1; i <= normalImageCount; i++) {
+                const img = buildNormalImageList()[i - 1];
+                const isAvailable = await checkImageAvailability(img.imageUrl);
+                if (isAvailable) pdImgList.push(img);
+            }
+        }
+
+        // Final Image List Decision
+        const finalImgList = pdImgListCol.length > 0 ? pdImgListCol : pdImgList;
+
+        if (finalImgList.length > 0) {
+            // Prepare thumbnail URLs
+            const thumbImagePath = finalImgList.map(({ imageUrl, extension }) => {
+                const fileName = imageUrl.split("Design_Image/")[1];
+                const thumbUrl = `${thumbCDN}${fileName?.split(".")[0]}.jpg`;
+                return { thumbImageUrl: thumbUrl, originalImageExtension: extension };
+            });
+
+            // Set selected thumb to current index or fallback to 0
+            const selectedIndex = thumbImgIndex < finalImgList.length ? thumbImgIndex : pdImgListCol.length - 1;
+            const mainImg = finalImgList[selectedIndex];
+            setSelectedThumbImg({
+                link: {
+                    imageUrl: mainImg?.imageUrl,
+                    extension: mainImg?.originalImageExtension,
+                },
+                type: "img",
+            });
+            setPdThumbImg(thumbImagePath);
+            setThumbImgIndex(selectedIndex);
+
+            // Set images for slider
+            const imageMap = thumbImagePath.map((img) => ({
+                src: img.thumbImageUrl,
+                type: "img",
+                extension: img.originalImageExtension,
+            }));
+            console.log("TCL: ProdCardImageFunc -> imageMap", imageMap);
+            setPdImageArr(imageMap);
+        } else {
+            // No images found fallback
+            setSelectedThumbImg({ link: { imageUrl: noimage, extension: "" }, type: "img" });
+            setPdThumbImg([]);
+            setThumbImgIndex(0);
+            setPdImageArr([{ src: noimage, type: "img", extension: "" }]);
+        }
+
+        // Build video URLs similarly (optional)
+        const buildVideoURL = (video, isColor = false) => {
+            const base = storeInit?.CDNVPath;
+            return isColor ? `${base}${pd.designno}~${video.Nm}~${video.CN}.${video.Ex}` : `${base}${pd.designno}~${video.Nm}.${video.Ex}`;
+        };
+
+        const pdvideoList = [...colorVideos.map((v) => buildVideoURL(v, true)), ...normalVideos.map((v) => buildVideoURL(v))];
+        setPdVideoArr(pdvideoList.length > 0 ? pdvideoList : []);
+
+        // Images are now validated — hide skeleton and show real content
+        setIsImageLoaded(false);
+        setPdImageLoader(false);
+    };
+
+    const handleMoveToDetail = (productData) => {
+        let loginInfo = loginUserDetail;
+
+        let obj = {
+            a: productData?.autocode,
+            b: productData?.designno,
+            m: loginInfo?.MetalId,
+            d: loginInfo?.cmboDiaQCid,
+            c: loginInfo?.cmboCSQCid,
+            f: {},
+            i: productData?.MetalColorid,
+            l: productData?.ImageExtension,
+            count: productData?.ImageCount,
+        };
+
+        decodeAndDecompress();
+
+        let encodeObj = compressAndEncode(JSON.stringify(obj));
+
+        navigate.push(`/d/${formatRedirectTitleLine(productData?.TitleLine)}${productData?.designno}?p=${encodeObj}`);
+
+        setSingleProd1({});
+        setSingleProd({});
+        setIsImageLoad(true);
+        setIsImageLoaded(true); // Show skeleton while new design's images load
+    };
+
+    const handleCartandWish = (e, ele, type) => {
+        // console.log("event", e.target.checked, ele, type);
+        let loginInfo = getSession("loginUserDetail");
+
+        let prodObj = {
+            StockId: ele?.StockId,
+            // "autocode": ele?.autocode,
+            // "Metalid": ele?.MetalPurityid,
+            // "MetalColorId": ele?.MetalColorid,
+            // "DiaQCid": loginInfo?.cmboDiaQCid,
+            // "CsQCid": loginInfo?.cmboCSQCid,
+            // "Size": ele?.Size,
+            Unitcost: ele?.Amount,
+            // "UnitCostWithmarkup": ele?.Amount,
+            // "Remark": ""
+        };
+
+        if (e.target.checked == true) {
+            CartAndWishListAPI(type, prodObj, cookie)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                })
+                .catch((err) => console.log("err", err));
+        } else {
+            RemoveCartAndWishAPI(type, ele?.StockId, cookie, true)
+                .then((res) => {
+                    let cartC = res?.Data?.rd[0]?.Cartlistcount;
+                    let wishC = res?.Data?.rd[0]?.Wishlistcount;
+                    setWishCountVal(wishC);
+                    setCartCountVal(cartC);
+                })
+                .catch((err) => console.log("err", err));
+        }
+
+        if (type === "Cart") {
+            setCartArr((prev) => ({
+                ...prev,
+                [ele?.StockId]: e.target.checked,
+            }));
+        }
+    };
+    const handleChange = (index) => (event, isExpanded) => {
+        setExpandedIndex(isExpanded ? index : null);
+    };
+    const SizeSorting = (SizeArr) => {
+        let SizeSorted = SizeArr?.sort((a, b) => {
+            const nameA = parseInt(a?.sizename?.toUpperCase()?.slice(0, -2), 10);
+            const nameB = parseInt(b?.sizename?.toUpperCase()?.slice(0, -2), 10);
+
+            return nameA - nameB;
+        });
+
+        return SizeSorted;
+    };
+
+
+
+    if (!singleProd) {
+        return <NotFoundProduct navigate={navigate} />;
+    }
+
+    return (
+        <>
+            <title>{formatTitleLine(singleProd?.TitleLine) ? `${singleProd.TitleLine} - ${singleProd?.designno ?? ""}` : singleProd?.TitleLine || singleProd?.designno ? `${singleProd?.designno ?? ""}` : "loading..."}</title>
+            <div className="fgstore_mapp_main_Product" style={{ paddingBottom: "100px" }}>
+                {ShowMangifier && <MagnifierSlider product={Product} close={() => setShowMangifier(!ShowMangifier)} list={PdImageArr} currentIndex={currentSlide} />}
+                <main>
+                    <div className="images_slider">
+                        {/* {PdImageLoader || loadingdata ? ( */}
+                        {imageLoaded ? (
+                            <>
+                                <div className="slider">
+                                    {Array.from({ length: 4 })?.map((val, i) => {
+                                        return (
+                                            <Box
+                                                key={i}
+                                                className="box"
+                                                sx={{
+                                                    backgroundColor: "transparent",
+                                                    mb: 1
+                                                }}
+                                            >
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    width="100%"
+                                                    height={150}
+                                                    sx={{
+                                                        borderRadius: "4px",
+                                                        backgroundColor: "#f0ededb4 !important",
+                                                    }}
+                                                />
+                                            </Box>
+                                        );
+                                    })}
+                                </div>
+                                <div
+                                    className="main_image"
+                                    style={{
+                                        height: "100%",
+                                        width: "100%",
+                                        borderRadius: "4px",
+                                        overflow: "hidden"
+                                    }}
+                                >
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={"100%"}
+                                        height={"42vh"}
+                                        sx={{
+                                            backgroundColor: "#f0ededb4 !important",
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="slider">
+                                    {[...PdImageArr, ...filteredVideos]?.map((val, i) => {
+                                        const isImage = val?.type === "img";
+                                        const firstHalf = isImage ? val?.src?.split("/Design_Thumb")[0] : "";
+                                        const secondHalf = isImage ? val?.src?.split("/Design_Thumb")[1]?.split(".")[0] : "";
+
+                                        return (
+                                            <div
+                                                key={i}
+                                                className={`box ${i === currentSlide ? "active" : ""}`}
+                                                onClick={() => {
+                                                    handleThumbnailClick(i);
+                                                    if (isImage) {
+                                                        setSelectedThumbImg({
+                                                            link: {
+                                                                imageUrl: `${firstHalf}${secondHalf}.${val?.originalImageExtension}`,
+                                                                extension: val?.originalImageExtension,
+                                                            },
+                                                            type: "img",
+                                                        });
+                                                    } else {
+                                                        setSelectedThumbImg({
+                                                            link: {
+                                                                imageUrl: val?.src,
+                                                                extension: "mp4",
+                                                            },
+                                                            type: "video",
+                                                        });
+                                                    }
+                                                    setThumbImgIndex(i);
+                                                }}
+                                            >
+                                                {isImage ? (
+                                                    <img
+                                                        src={val?.src}
+                                                        alt=""
+                                                        loading="lazy"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = noimage;
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <div className="video_box" style={{ position: "relative" }}>
+                                                        <video
+                                                            key={val?.src}
+                                                            src={val?.src}
+                                                            className="fgstore_mapp_prod_thumb_img"
+                                                            autoPlay
+                                                            muted
+                                                            loop
+                                                            playsInline
+                                                            preload="auto"
+                                                        />
+                                                        <IoIosPlayCircle className="play_io_icon" />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <div className="main_image"
+                                // onClick={() => setShowMangifier(!ShowMangifier)}
+                                >
+                                    {[...PdImageArr, ...filteredVideos]?.length > 1 ? (
+                                        <>
+                                            <Slider {...settings} ref={sliderRef} lazyLoad="progressive">
+                                                {[...PdImageArr, ...filteredVideos]?.length > 0 ? (
+                                                    [...PdImageArr, ...filteredVideos]?.map((val, i) => {
+                                                        const firstHalf = val?.src?.split("/Design_Thumb")[0];
+                                                        const secondHalf = val?.src?.split("/Design_Thumb")[1]?.split(".")[0];
+                                                        return (
+                                                            <div className="slider_card">
+                                                                <div className="image">
+                                                                    {val?.type === "img" ? (
+                                                                        <img
+                                                                            loading="lazy"
+                                                                            src={`${firstHalf}${secondHalf}.${val?.extension}`}
+                                                                            alt={""}
+                                                                            onLoad={() => setIsImageLoad(false)}
+                                                                            onError={(e) => {
+                                                                                e.target.onerror = null;
+                                                                                // e.target.src = noimage;
+                                                                            }}
+                                                                        />
+                                                                    ) : (
+                                                                        <div
+                                                                            style={{
+                                                                                height: "80vh",
+                                                                            }}
+                                                                        >
+                                                                            <video
+                                                                                key={val?.src}
+                                                                                loop
+                                                                                autoPlay
+                                                                                muted
+                                                                                playsInline
+                                                                                preload="auto"
+                                                                                style={{
+                                                                                    width: "100%",
+                                                                                    height: "100%",
+                                                                                    objectFit: "scale-down",
+                                                                                }}
+                                                                            >
+                                                                                <source src={val?.src} type="video/mp4" />
+                                                                            </video>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <div className="main_image">
+                                                        <img
+                                                            src={noimage}
+                                                            alt={""}
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "90%",
+                                                                objectFit: "contain",
+                                                                border: "1px solid #312f2f21",
+                                                                marginTop: "45px",
+                                                            }}
+                                                            loading="lazy"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = noimage;
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </Slider>
+                                        </>
+                                    ) : PdImageArr?.length === 1 ? (
+                                        <div className="slider_card">
+                                            <div className="image">
+                                                {/* <img
+                                                    src={PdImageArr[0]?.src || noimage}
+                                                    alt=""
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = noimage;
+                                                    }}
+                                                    loading="lazy"
+                                                /> */}
+                                                {(() => {
+                                                    const val = PdImageArr[0];
+
+                                                    // normalize src in case it is an object (Next image import)
+                                                    const srcStr = typeof val?.src === "string" ? val.src : typeof val?.src?.src === "string" ? val.src.src : "";
+
+                                                    const firstHalf = srcStr ? srcStr.split("/Design_Thumb")[0] : "";
+                                                    const secondHalf = srcStr && srcStr.includes("/Design_Thumb") ? srcStr.split("/Design_Thumb")[1]?.split(".")[0] : "";
+
+                                                    const finalSrc = val?.type === "img" && firstHalf && secondHalf ? `${firstHalf}${secondHalf}.${val?.extension}` : srcStr || noimage;
+
+                                                    return (
+                                                        <img
+                                                            src={finalSrc}
+                                                            alt=""
+                                                            loading="lazy"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = noimage;
+                                                            }}
+                                                        />
+                                                    );
+                                                })()}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="slider_card">
+                                            <div className="image">
+                                                <img
+                                                    src={noimage}
+                                                    alt=""
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = noimage;
+                                                    }}
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
+
+
+                    <Box className="product_details">
+                        <InfoDetail
+                            decodeEntities={decodeEntities}
+                            storeInit={storeInit}
+                            singleProd={singleProd}
+                            singleProd1={singleProd1}
+                            isPriceloading={isPriceloading}
+                            loginInfo={loginInfo}
+                            Currency={loginUserDetail?.CurrencyCode ?? storeInit?.CurrencyCode}
+                        />
+
+                        <MaterialCustomization
+                            storeInit={storeInit}
+                            metalTypeCombo={metalTypeCombo}
+                            metalColorCombo={metalColorCombo}
+                            diaQcCombo={diaQcCombo}
+                            diaList={diaList}
+                            csQcCombo={csQcCombo}
+                            csList={csList}
+                            SizeCombo={SizeCombo}
+                            singleProd={singleProd}
+                            selectMtType={selectMtType}
+                            selectMtColor={selectMtColor}
+                            selectDiaQc={selectDiaQc}
+                            selectCsQc={selectCsQc}
+                            sizeData={sizeData}
+                            handleCustomChange={handleCustomChange}
+                            handleMetalWiseColorImg={handleMetalWiseColorImg}
+                            SizeSorting={SizeSorting}
+                            loadingdata={loadingdata}
+                            onOpenCustomizer={() => setIsCustomizerOpen(true)}
+                        />
+                        <ButtonBlock
+                            addToCartFlag={addToCartFlag}
+                            wishListFlag={wishListFlag}
+                            handleCart={handleCart}
+                            handleWishList={handleWishList}
+                        />
+                        <StaticMaterial
+                            singleProd={singleProd}
+                            singleProd1={singleProd1}
+                            selectMtType={selectMtType}
+                            selectMtColor={selectMtColor}
+                            selectDiaQc={selectDiaQc}
+                            storeInit={storeInit}
+                            diaQcCombo={diaQcCombo}
+                            diaList={diaList}
+                        />
+                        <PriceBreakUp
+                            storeInit={storeInit}
+                            singleProd={singleProd}
+                            singleProd1={singleProd1}
+                            loginInfo={loginInfo}
+                        />
+                        <DeliveryInfo
+                            singleProd={singleProd ?? singleProd1}
+                        />
+
+
+                        <ProductDetailsSection
+                            diaList={diaList}
+                            csList={csList}
+                        />
+                    </Box>
+                </main>
+                {stockItemArr?.length > 0 && stockItemArr?.[0]?.stat_code != 1005 && storeInit?.IsStockWebsite === 1 && (
+                    <NewStockitem
+                        stockItemArr={stockItemArr}
+                        storeInit={storeInit}
+                        loginInfo={loginInfo}
+                        cartArr={cartArr}
+                        check={storeInit?.IsPriceShow === 1}
+                        handleCartandWish={handleCartandWish}
+                    />
+                )}
+                {/* {stockItemArr?.length > 0 && storeInit?.IsStockWebsite === 1 && stockItemArr?.[0]?.stat_code != 1005 && <Stockitems stockItemArr={stockItemArr} storeInit={storeInit} loginInfo={loginInfo} cartArr={cartArr} handleCartandWish={handleCartandWish} check={storeInit?.IsPriceShow === 1} />} */}
+                {storeInit?.IsProductDetailSimilarDesign == 1 && SimilarBrandArr?.length > 0 && SimilarBrandArr?.[0]?.stat_code != 1005 && <RelatedProduct SimilarBrandArr={SimilarBrandArr} handleMoveToDetail={handleMoveToDetail} storeInit={storeInit} loginInfo={loginInfo} check={storeInit?.IsPriceShow === 1} />}
+                {storeInit?.IsProductDetailDesignSet === 1 && designSetList?.length > 0 && designSetList?.[0]?.stat_code != 1005 && <DesignSet designSetList={designSetList} handleMoveToDetail={handleMoveToDetail} loginInfo={loginInfo} storeInit={storeInit} check={storeInit?.IsPriceShow === 1} />}
+
+                {/* Mobile Customizer Drawer */}
+                <MobileCustomizerDrawer
+                    open={isCustomizerOpen}
+                    onClose={() => setIsCustomizerOpen(false)}
+                    rd1={rd1Data}
+                    rd2={rd2Data}
+                    defaultArticleId={decodeUrl?.ArticleId || singleProd?.ArticleId}
+                    onConfirm={(targetArticleId, targetSize, targetDiaQc, targetMetal) => {
+                        if (targetArticleId && rd1Data?.length > 0) {
+                            const targetArt = rd1Data.find((a) => a.ArticleId == targetArticleId);
+                            if (targetArt) {
+                                const mainMedia = singleProd?.ImageVideoDetail || singleProd1?.ImageVideoDetail || "0";
+                                const mainDesign = singleProd?.designno || singleProd1?.designno || "";
+                                const mainAutoCode = singleProd?.autocode || singleProd1?.autocode || "";
+
+                                const updatedArt = {
+                                    ...singleProd,
+                                    ...targetArt,
+                                    designno: targetArt?.designno || mainDesign,
+                                    autocode: targetArt?.autocode || mainAutoCode,
+                                    ImageVideoDetail: targetArt?.ImageVideoDetail || mainMedia,
+                                };
+
+                                setSingleProd(updatedArt);
+                                setSingleProd1(updatedArt);
+                                const diaStone = rd2Data?.find((stone) => stone.ArticleId == targetArticleId && stone.StoneTypeid === 1);
+                                const csStone = rd2Data?.find((stone) => stone.ArticleId == targetArticleId && stone.StoneTypeid === 2);
+                                setDefaultArticleId(targetArticleId);
+                                setCustomizationDetail({
+                                    ...targetArt,
+                                    ArticleId: targetArt.ArticleId,
+                                    ArticleNo: targetArt.ArticleNo,
+                                    autocode: targetArt.autocode || mainAutoCode,
+                                    DiaQCid: diaStone ? `${diaStone.QualityId},${diaStone.ColorId}` : "0,0",
+                                    CsQCid: csStone ? `${csStone.QualityId},${csStone.ColorId}` : "0,0",
+                                    Size: targetSize || targetArt.Size,
+                                });
+                                if (diaStone) setSelectDiaQc(`${diaStone.Quality},${diaStone.Color}`);
+                                if (csStone) setSelectCsQc(`${csStone.Quality},${csStone.Color}`);
+                                const colorVal = targetArt?.MetalColor || targetArt?.metalcolorname || targetMetal?.MetalColor || targetMetal?.metalcolorname;
+                                if (colorVal) {
+                                    handleMetalWiseColorImg(colorVal);
+                                }
+                                if (targetArt?.MetalType || targetArt?.metaltypename) setSelectMtType(targetArt.MetalType || targetArt.metaltypename);
+                                if (targetSize) setSizeData(targetSize);
+                            }
+                        }
+                    }}
+                    storeInit={storeInit}
+                    currencySymbol={loginUserDetail?.CurrencyCode ?? storeInit?.CurrencyCode ?? "INR"}
+                />
+            </div>
+        </>
+    );
+};
+
+export default ProductPage;
+
+const NotFoundProduct = ({ navigate }) => {
+    return (
+        <div className="not-found-product">
+            <h2>Product Not Found</h2>
+            <p>We couldn't find the product you're looking for.</p>
+            <button onClick={() => navigate.back()}>
+                <IoMdArrowBack size={18} /> Go Back To Previous Page
+            </button>
+        </div>
+    );
+};
+
+const MagnifierSlider = ({ product, close, list, currentIndex }) => {
+    const swiperRef = useRef(null);
+
+    const goNext = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slideNext();
+        }
+    };
+
+    const goPrev = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slidePrev();
+        }
+    };
+
+    return (
+        <>
+            <div className="MagnifierSlider">
+                <Swiper ref={swiperRef} zoom={true} navigation={false} pagination={false} spaceBetween={30} loop={true} modules={[Zoom, Navigation, Pagination]} className="mySwiper" effect="fade">
+                    {list?.map((val, i) => {
+                        if (val?.type === "video") {
+                            return null;
+                        }
+                        return (
+                            <SwiperSlide>
+                                <div className="swiper-zoom-container">
+                                    <img src={val?.src} loading="lazy" onError={(e) => (e.target.src = imageNotFound)} />
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })}
+                    <div className="controller">
+                        <button onClick={goPrev}>
+                            <FaChevronLeft />
+                        </button>
+                        <button onClick={close}>
+                            <IoMdClose size={27} />
+                        </button>
+                        <button onClick={goNext}>
+                            <FaChevronRight />
+                        </button>
+                    </div>
+                </Swiper>
+            </div>
+        </>
+    );
+};
+
+const WhatsAppButton = ({ message = "Hello, Talk to a Jewellery expert now!" }) => {
+    const whatsappUrl = `https://web.whatsapp.com/send?phone=9099889962&text=${encodeURIComponent(message)}`;
+    const whatsappMobileUrl = `https://api.whatsapp.com/send?phone=9099889962&text=${encodeURIComponent(message)}`;
+
+    function detectOS() {
+        const userAgent = window.navigator.userAgent;
+
+        if (/android/i.test(userAgent)) {
+            return "Android";
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "iOS";
+        } else if (/macintosh|mac os x/i.test(userAgent)) {
+            return "macOS";
+        } else if (/windows nt/i.test(userAgent)) {
+            return "Windows";
+        } else if (/linux/i.test(userAgent)) {
+            return "Linux";
+        } else {
+            return "Unknown OS";
+        }
+    }
+
+    const HandleWhatsApp = () => {
+        const os = detectOS();
+        const whatsappLink = os === "macOS" || os === "iOS" ? whatsappMobileUrl : whatsappUrl;
+        window.location.href = whatsappLink;
+    };
+    return (
+        <div className="whatsapp_btn">
+            <div className="wa" onClick={() => HandleWhatsApp()}>
+                <div className="left">
+                    <FaWhatsapp size={50} color="white" className="wa-fgstore_mapp" />
+                </div>
+                <div className="con">
+                    <h4>
+                        Optigo Apps <span>Online</span>
+                    </h4>
+                    <h3>Need Help ? Chat With Us</h3>
+                </div>
+            </div>
+        </div>
+    );
+};
