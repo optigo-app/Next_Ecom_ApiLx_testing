@@ -68,16 +68,19 @@ const ALL_METAL_ID_MAP = {
 };
 
 const getMetalColorHex = (targetObj, prodData) => {
+  // 1. Check direct ID mapping first (most authoritative from API list)
   const colorId = Number(targetObj?.id || prodData?.MetalColorid);
   if (colorId && ALL_METAL_ID_MAP[colorId]) {
     return ALL_METAL_ID_MAP[colorId];
   }
 
+  // 2. Check if colorcode is an explicit hex code (e.g. #FF0000)
   const sessionCode = targetObj?.colorcode;
   if (sessionCode && sessionCode.startsWith("#")) {
     return sessionCode;
   }
 
+  // 3. Match by metal color name string
   const nameKey = (
     targetObj?.metalcolorname ||
     targetObj?.colorname ||
@@ -96,6 +99,7 @@ const getMetalColorHex = (targetObj, prodData) => {
     if (nameKey === "p" || nameKey === "pwd" || nameKey === "p-w") return "#E5E7EB";
   }
 
+  // 4. ProductData direct color code if valid hex
   if (prodData?.MetalColorCode && prodData.MetalColorCode.startsWith("#")) {
     return prodData.MetalColorCode;
   }
@@ -152,45 +156,39 @@ const ChipBar = (title, bgcolor, position) => {
       <Chip
         label={title}
         sx={{
-          bgcolor: "#FBF8F3",
-          color: "#7A6A55",
-          border: "1px solid #EFE6DA",
+          bgcolor: "#F4F3EE",
+          color: "#222222",
+          border: "1px solid #E2E0D8",
           fontWeight: 500,
           fontSize: {
             xs: "0.6rem",
             sm: "0.65rem",
-            md: "0.7rem",
-            lg: "0.75rem",
+            md: "0.68rem",
+            lg: "0.72rem",
           },
-          letterSpacing: "0.03em",
+          letterSpacing: "0.02em",
           height: {
-            xs: 18,
-            sm: 20,
+            xs: 20,
+            sm: 22,
             md: 22,
             lg: 24,
           },
-          borderRadius: 1,
+          borderRadius: "2px",
           px: {
             xs: 0.5,
             sm: 0.6,
             md: 0.7,
-            lg: 0.8,
           },
           py: 0,
-          textTransform: "uppercase",
+          textTransform: "capitalize",
           boxShadow: "none",
           "& .MuiChip-label": {
             px: {
               xs: 0.6,
               sm: 0.7,
               md: 0.8,
-              lg: 1,
             },
-            py: {
-              xs: 0.15,
-              sm: 0.18,
-              md: 0.2,
-            },
+            py: 0.1,
             lineHeight: 1.1,
           },
         }}
@@ -200,7 +198,16 @@ const ChipBar = (title, bgcolor, position) => {
 };
 
 const decodeEntities = (html) => {
-  if (typeof document === "undefined") return html || "";
+  if (!html || typeof html !== "string") return "";
+  if (typeof document === "undefined") {
+    return html
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&nbsp;/g, " ");
+  }
   var txt = document.createElement("textarea");
   txt.innerHTML = html;
   return txt.value;
@@ -228,13 +235,16 @@ const JewelryProductGrid = ({
   const getDesignVideoFol = storeinit?.CDNVPath;
   const getDesignImageFol = storeinit?.CDNDesignImageFol;
 
+  // Listing display image: always show first image slot (~1.ext).
+  // Color-correct image for navigation is handled by getCardImageUrl in handleMoveToDetail.
   const getDynamicImages = (designno, extension) => {
-    return `${getDesignImageFol}${designno}~${1}.${extension}`;
+    return `${getDesignImageFol}${designno}~1.${extension}`;
   };
 
   const getDynamicRollImages = (designno, count, extension) => {
     if (count > 1) {
       return `${getDesignImageFol}${designno}~${2}.${extension}`;
+      // return `${getDesignImageFol}${designno}~${2}.jpg`;
     }
     return;
   };
@@ -292,17 +302,17 @@ const JewelryProductGrid = ({
                 const columns = isMedium ? 2 : 4;
                 return (
                   <Grid
-                    key={`${prod?.autocode || prod?.id || 'prod'}-${index}`}
+                    key={prod?.ArticleNo ? `${prod.ArticleNo}_${index}` : prod?.autocode ? `${prod.autocode}_${index}` : `${prod?.id || 'prod'}_${index}`}
                     size={{
                       xs: 6,
                       sm: 6,
                       md: isMedium ? 6 : 3,
                     }}
                     sx={{
-                      border: "1px solid #e5e5e5",
+                      border: "1px solid #c0c0c096",
                       borderLeft:
-                        index % columns === 0 ? "1px solid #e5e5e5" : "0",
-                      borderTop: index < columns ? "1px solid #e5e5e5" : "0",
+                        index % columns === 0 ? "1px solid #c0c0c096" : "0",
+                      borderTop: index < columns ? "1px solid #c0c0c096" : "0",
                       boxSizing: "border-box",
                     }}
                   >
@@ -450,23 +460,19 @@ const ProductCard = ({
         },
       }}
     >
-      {/* --- PRODUCT IMAGE CONTAINER --- */}
       <Box
         className="product-container"
         onClick={() => handleMoveToDetail(productData, imageUrl)}
         sx={{
           position: "relative",
           width: "100%",
-          height: "100%",
-          borderRadius: 0,
           overflow: "hidden",
           aspectRatio: {
             xs: "3 / 4",
             sm: "1 / 1.25",
             md: "1 / 1.2",
-            lg: "1/1.18",
+            lg: "1 / 1.18",
           },
-          bgcolor: "#e9e9e91a",
         }}
       >
         {/* Main Image */}
@@ -486,7 +492,7 @@ const ProductCard = ({
           sx={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            objectFit: "contain",
             borderRadius: 0,
             transition: "0s ease-in-out",
             mixBlendMode: "multiply",
@@ -649,7 +655,6 @@ const ProductCard = ({
         />
       </Box>
 
-      {/* --- CARD CONTENT BELOW IMAGE --- */}
       <CardContent
         sx={{
           px: 1.5,
@@ -658,11 +663,12 @@ const ProductCard = ({
           "&:last-child": {
             pb: "0.8rem !important",
           },
-          borderTop: "1px solid #e5e5e5",
+          borderTop: "1px solid #c0c0c096",
           display: "flex",
           flexDirection: "column",
           gap: 0.3,
           backgroundColor: "#ffffff",
+          zIndex:9999
         }}
       >
         {/* Metal Color Swatch & Quality / Category Line */}
@@ -727,7 +733,7 @@ const ProductCard = ({
             : " "}
         </Typography>
 
-        {/* Price */}
+        {/* Price (Single clean price, no discount price) */}
         {StoreInit?.IsPriceShow == 1 && (
           <Typography
             variant="body1"

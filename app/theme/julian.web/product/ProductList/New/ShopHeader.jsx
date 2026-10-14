@@ -89,8 +89,8 @@ const ShopHeader = ({
           <Typography
             variant="h6"
             sx={{
-              fontWeight: 600,
-              fontSize: "13px",
+              fontWeight: 700,
+              fontSize: "15px",
               letterSpacing: "0.5px",
               textTransform: "uppercase",
               color: "#000000",
@@ -101,8 +101,8 @@ const ShopHeader = ({
           <Typography
             component="span"
             sx={{
-              fontSize: "13px",
-              fontWeight: 600,
+              fontSize: "15px",
+              fontWeight: 700,
               letterSpacing: "0.2px",
               color: "#000000",
               transition: "all 0.3s ease-in-out",
@@ -128,6 +128,7 @@ const ShopHeader = ({
           </Typography>
         </Box>
 
+        {/* RIGHT SECTION */}
         {/* RIGHT SECTION */}
         {!isBelow768 && (
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -157,6 +158,7 @@ const ShopHeader = ({
                   },
                 }}
               >
+                {/* <InputLabel>Sorting</InputLabel> */}
                 <Select
                   value={sortingSelect}
                   onChange={(e) => {
@@ -170,9 +172,9 @@ const ShopHeader = ({
                     fontSize: "14px",
                     color: "#111",
                     "& .MuiSelect-icon": {
-                      fontSize: "20px",
-                      right: 8,
-                      color: "#111",
+                      fontSize: "20px", // change size
+                      right: 8, // adjust horizontal position
+                      color: "#111", // icon color
                       top: 19,
                     },
                   }}
@@ -200,6 +202,133 @@ const ShopHeader = ({
                 </Select>
               </FormControl>
             )}
+
+            {/* Metal */}
+            {/* {storeinit?.IsMetalCustomization === 1 && (
+              isFiltering || metalType?.length === 0 ? (
+                <Skeleton
+                  variant="rectangular"
+                  width={120}
+                  height={36}
+                  sx={{ bgcolor: "#e6e6e6", borderRadius: "4px" }}
+                />
+              ) : (
+                <FormControl
+                  variant="filled"
+                  size="small"
+                  sx={{
+                    minWidth: 120,
+                    "& .MuiFilledInput-root": {
+                      backgroundColor: "transparent",
+                      borderRadius: "8px",
+                      "&:before, &:after": { display: "none" },
+                      "&:hover": { backgroundColor: "transparent" },
+                      "&.Mui-focused": {
+                        backgroundColor: "transparent",
+                        border: "1px solid transparent",
+                        color: "#000",
+                      },
+                    },
+                  }}
+                >
+                  <Select
+                    value={selectedMetalId !== undefined && selectedMetalId !== null ? String(selectedMetalId) : ""}
+                    onChange={(e) => {
+                      setSelectedMetalId(Number(e.target.value) || e.target.value);
+                      setIsOnlyProdLoading(true);
+                    }}
+                    IconComponent={ExpandMoreIcon}
+                    disableUnderline
+                    sx={{
+                      fontSize: "14px",
+                      color: "#111",
+                      "& .MuiSelect-icon": {
+                        fontSize: "20px",
+                        right: 8, 
+                        color: "#111", 
+                        top: 19,
+                      },
+                    }}
+                    MenuProps={MenuProps}
+                  >
+                    {metalType?.map((item, index) => (
+                      <MenuItem key={index} value={item?.Metalid !== undefined && item?.Metalid !== null ? String(item?.Metalid) : ""}>
+                        {item?.metaltype}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )
+            )} */}
+
+            {/* Diamond */}
+            {/* {storeinit?.IsDiamondCustomization === 1 &&
+              (isFiltering || diamondType?.length === 0 ? (
+                <Skeleton
+                  variant="rectangular"
+                  width={120}
+                  height={36}
+                  sx={{ bgcolor: "#e6e6e6", borderRadius: "4px" }}
+                />
+              ) : (
+                <FormControl
+                  variant="filled"
+                  size="small"
+                  sx={{
+                    minWidth: 120,
+                    "& .MuiFilledInput-root": {
+                      backgroundColor: "transparent",
+                      borderRadius: "8px",
+                      "&:before, &:after": { display: "none" },
+                      "&:hover": { backgroundColor: "transparent" },
+                      "&.Mui-focused": {
+                        backgroundColor: "transparent",
+                        border: "1px solid transparent",
+                        color: "#000",
+                      },
+                    },
+                  }}
+                >
+                  <Select
+                    value={
+                      selectedDiaId !== undefined && selectedDiaId !== null
+                        ? String(selectedDiaId)
+                        : ""
+                    }
+                    onChange={(e) => {
+                      setSelectedDiaId(e.target.value);
+                      setIsOnlyProdLoading(true);
+                    }}
+                    IconComponent={ExpandMoreIcon}
+                    disableUnderline
+                    sx={{
+                      fontSize: "14px",
+                      color: "#111",
+                      "& .MuiSelect-icon": {
+                        fontSize: "20px",
+                        right: 8,
+                        color: "#111",
+                        top: 19,
+                      },
+                    }}
+                    MenuProps={MenuProps}
+                  >
+                    {diamondType?.map((item, index) => (
+                      <MenuItem
+                        key={index}
+                        value={
+                          item?.QualityId !== undefined &&
+                          item?.ColorId !== undefined
+                            ? `${item.QualityId},${item.ColorId}`
+                            : ""
+                        }
+                      >
+                        {`${item.Quality}#${item?.color}`}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              ))} */}
           </Box>
         )}
       </Box>
@@ -222,7 +351,7 @@ const ShopHeader = ({
           onClick={onFilterToggle}
         >
           <svg
-            className="icon icon-filter"
+            class="icon icon-filter"
             width="21"
             height="20"
             viewBox="0 0 21 20"

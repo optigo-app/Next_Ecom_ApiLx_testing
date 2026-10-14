@@ -1,43 +1,50 @@
 import React from "react";
-import { Checkbox, Box } from "@mui/material";
+import { Checkbox, Box, Skeleton } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { isItemInMap } from "@/app/(core)/utils/API/GetCount/GetCountAPI";
 
 const WishToggleButton = ({ productData, wishArr, handleCartandWish }) => {
-  const autocodeKey = productData?.autocode ? String(productData.autocode) : null;
-  const articleKey = productData?.ArticleNo ? String(productData.ArticleNo) : null;
-  const designKey = productData?.designno ? String(productData.designno) : null;
+  const isReady = Boolean(wishArr?.__hydrated);
+  const isInWish = isItemInMap(wishArr, productData, productData?.IsInWish === 1);
 
-  const isInWish = Boolean(
-    wishArr?.[autocodeKey] ??
-    wishArr?.[articleKey] ??
-    wishArr?.[designKey] ??
-    (productData?.IsInWish === 1)
-  );
+  if (!isReady) {
+    return (
+      <Box
+        onClick={(e) => e.stopPropagation()}
+        sx={{
+          position: "absolute",
+          top: 4,
+          right: 5,
+          zIndex: 5,
+        }}
+      >
+        <Skeleton variant="circular" width={34} height={34} />
+      </Box>
+    );
+  }
 
   return (
     <Box
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
+      onClick={(e) => e.stopPropagation()}
       sx={{
         position: "absolute",
-        top: 16,
-        right: 16,
+        top: 4,
+            right: 5,
         zIndex: 5,
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
-        backdropFilter: "blur(10px)",
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
+        backdropFilter: "blur(4px)",
         borderRadius: "50%",
-        width: 42,
-        height: 42,
+        width: 34,
+        height: 34,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         transition: "all 0.25s ease",
         "&:hover": {
-          backgroundColor: "#fff",
-          transform: "scale(1.1)",
+          backgroundColor: "#ffffff",
+          transform: "scale(1.08)",
         },
       }}
     >

@@ -1,9 +1,8 @@
 @use "../style/variable.scss" as *;
 
-.assetContainerJulian {
+.assetContainer {
   background-color: #ffffff;
   min-height: 100vh;
-  width: 100%;
 }
 
 .assetHeader {
@@ -28,7 +27,7 @@
 
   &:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border-color: #0d1232;
+    border-color: #cca182;
     transform: translateY(-2px);
   }
 }

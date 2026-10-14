@@ -3,6 +3,7 @@ import { Box, Typography, Divider, Button, Stack, Grid, useMediaQuery } from "@m
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Tooltip from "@mui/material/Tooltip";
+import './CartHeader.scss'
 
 export default function CartHeader({
   summary,
@@ -48,16 +49,17 @@ export default function CartHeader({
                 right: 0,
                 margin: "0 auto",
                 width: "fit-content",
-                zIndex: 1100,  
+                zIndex: 1100, // High z-index to sit on top of products
                 maxWidth: "95%",
               }}
             >
               <Box
+                className="stickyPill"
                 sx={{
-                  background: "#0d1232",  
+                  background: "#000", // Dark Blue Glassmorphism
                   backdropFilter: "blur(10px)",
                   color: "#fff",
-                  borderRadius: "50px",  
+                  borderRadius: "50px", // Pill shape
                   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
                   padding: "10px 24px",
                   display: "flex",
@@ -70,17 +72,17 @@ export default function CartHeader({
                 <Stack direction="row" spacing={3} divider={<Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.3)' }} />}>
 
                   <Box textAlign="center">
-                    <Typography fontSize={10} color="#b0b8c4" fontWeight={500}>G. Wt</Typography>
+                    <Typography fontSize={10} color="#000" fontWeight={500}>G. Wt</Typography>
                     <Typography fontSize={14} fontWeight={700}>{summary.totalGwt?.toFixed(3)}</Typography>
                   </Box>
 
                   <Box textAlign="center">
-                    <Typography fontSize={10} color="#b0b8c4" fontWeight={500}>N. Wt</Typography>
+                    <Typography fontSize={10} color="#000" fontWeight={500}>N. Wt</Typography>
                     <Typography fontSize={14} fontWeight={700}>{summary.totalNwt?.toFixed(3)}</Typography>
                   </Box>
 
                   <Box textAlign="center">
-                    <Typography fontSize={10} color="#b0b8c4" fontWeight={500}>Dia Wt</Typography>
+                    <Typography fontSize={10} color="#000" fontWeight={500}>Dia Wt</Typography>
                     <Typography fontSize={14} fontWeight={700}>{summary.totalDwt?.toFixed(3)} / {summary?.totalDpcs}</Typography>
                   </Box>
 
@@ -90,7 +92,7 @@ export default function CartHeader({
                     (
                       IsPriceShow && (
                         <Box textAlign="center">
-                          <Typography fontSize={10} color="#b0b8c4" fontWeight={500}>Total</Typography>
+                          <Typography fontSize={10} color="#000" fontWeight={500}>Total</Typography>
                           <Tooltip
                             title={IsSetupFor ? "Cart Summary" : <PriceTooltipContent summary={summary} />}
                             arrow
@@ -118,7 +120,7 @@ export default function CartHeader({
                     p: 0,
                     ml: 1,
                     background: "#fff",
-                    color: "#0a1f47",
+                    color: "#cca182",
                     ":hover": { background: "#f0f0f0" }
                   }}
                 >
@@ -308,14 +310,14 @@ export default function CartHeader({
             <Stack direction="row" spacing={2} sx={{ flexShrink: 0, justifyContent: "center" }}>
               <Button
                 variant="contained"
+                className="stickyPill"
                 sx={{
-                  background: "#0d1232",
+                  background: "#000",
                   color: "#fff",
                   fontSize: { xs: "13px", sm: "15px" },
                   textTransform: "none",
                   borderRadius: "10px",
                   px: 3,
-                  ":hover": { background: "#000" },
                 }}
                 onClick={count > 0 ? handleOpen1 : handleClose1}
               >
@@ -345,7 +347,6 @@ export default function CartHeader({
                 variant="contained"
                 endIcon={<ShoppingBagIcon />}
                 sx={{
-                  background: "#0d1232",
                   color: "#fff",
                   fontSize: "14px",
                   textTransform: "none",
@@ -353,7 +354,6 @@ export default function CartHeader({
                   px: 3,
                   py: 0.9,
                   whiteSpace: "nowrap",
-                  ":hover": { background: "#000" },
                   "@media (max-width: 968px)": {
                     position: "fixed",
                     bottom: 0,
@@ -366,6 +366,7 @@ export default function CartHeader({
                     zIndex: 2000,
                   },
                 }}
+                className="stickyPill"
                 onClick={handleMoveToOrder}
               >
                 Place Order

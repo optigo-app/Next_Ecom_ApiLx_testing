@@ -1,12 +1,30 @@
 "use client";
-
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import "./ProductList.modul.scss";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { Box, Drawer, FormControlLabel, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Drawer,
+  IconButton,
+  PaginationItem,
+  Skeleton,
+  Stack,
+  useMediaQuery,
+  useTheme,
+  Accordion,
+  Box,
+  FormControlLabel,
+  Input,
+  Slider,
+} from "@mui/material";
 import Cookies from "js-cookie";
-import { formatter } from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
+import { toast } from "react-toastify";
+import {
+  formatRedirectTitleLine,
+  formatter,
+} from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
 import useGlobalPreventSave from "@/app/(core)/utils/Glob_Functions/useGlobalPreventSave";
 import FilterSidebar from "./New/NewSideFilter";
 import ShopHeader from "./New/ShopHeader";
@@ -20,7 +38,11 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useNextRouterLikeRR } from "@/app/(core)/hooks/useLocationRd";
 import {
   useListingPage,
-  handleMoveToDetail,
+  compressAndEncode,
+  getCardImageUrl,
+  convertUrl as convertUrlHelper,
+  handleMoveToDetail as handleMoveToDetailHelper,
+  parseRangeData,
   decodeEntities,
   BreadCumsObj,
   handleBreadcums,
@@ -74,7 +96,6 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
   const searchParamsHook = useSearchParams();
   const [baseUrl, setBaseUrl] = useState("");
 
-  // Drawer & Responsive Filter States
   const [openFilter, setOpenFilter] = useState(false);
   const filter = useMediaQuery("(max-width:1400px)");
   const showFilter = useMediaQuery("(max-width:1400px) and (min-width:1000px)");
@@ -85,12 +106,7 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
     setBaseUrl(window.location.origin);
   }, []);
 
-  const searchParamsStr = searchParamsHook?.toString();
-  const fullUrl = useMemo(
-    () =>
-      `${baseUrl}${location}${searchParamsStr ? `?${searchParamsStr}` : ""}`,
-    [baseUrl, location, searchParamsStr],
-  );
+  const fullUrl = `${baseUrl}${location}${searchParamsHook.toString() ? `?${searchParamsHook.toString()}` : ""}`;
 
   const breadcrumbData = useMemo(
     () => [
@@ -100,24 +116,18 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
     [baseUrl, fullUrl],
   );
 
-  const breadcrumbJsonLd = useMemo(
-    () => JSON.stringify(generateBreadcrumbJsonLd(breadcrumbData)),
-    [breadcrumbData],
-  );
-
   useEffect(() => {
-    if (typeof window !== "undefined" && baseUrl) {
+    if (typeof window !== "undefined") {
       sessionStorage.setItem(
         "breadcrumbData",
         JSON.stringify(
           `${baseUrl}${window.location.pathname}${window.location.search}`,
         ),
       );
-      window.scroll({ top: 0, behavior: "smooth" });
     }
   }, [baseUrl]);
 
-  // Consolidated Master Hook for Listing Page
+  // Master Engine Hook
   const {
     productListData,
     setProductListData,
@@ -194,83 +204,50 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
     initialFilterData,
   });
 
-  const handleMoveToDetailOnClick = useCallback(
-    (productData, imageUrl) =>
-      handleMoveToDetail({
-        productData,
-        imageUrl,
-        storeinit,
-        selectedMetalId,
-        selectedDiaId,
-        selectedCsId,
-        detailsMenu,
-        outputFilters: FilterValueWithCheckedOnly(),
-        navigate,
-      }),
-    [
+  const handleChangeTrend = (event) => {
+    const val = event?.target?.value;
+    if (val) {
+      setTrend(val);
+      handleSortby(val);
+    }
+  };
+
+  const IsBreadCumShow = productListData?.length > 0;
+  const totalPages = Math.ceil((afterFilterCount || 0) / (storeinit?.PageSize || 1));
+
+  const handlePageInputChange = (event) => {
+    if (event.key === "Enter") {
+      setProductListData([]);
+      let newPage = parseInt(inputPage, 10);
+      if (newPage < 1) newPage = 1;
+      if (newPage > totalPages) newPage = totalPages;
+      setCurrPage(newPage);
+      setInputPage(newPage);
+      handelPageChange("", newPage);
+    }
+  };
+
+  const handleMoveToDetail = (productData, imageUrl) => {
+    handleMoveToDetailHelper({
+      productData,
+      imageUrl,
       storeinit,
       selectedMetalId,
       selectedDiaId,
       selectedCsId,
       detailsMenu,
-      FilterValueWithCheckedOnly,
+      outputFilters: FilterValueWithCheckedOnly(),
       navigate,
-    ],
-  );
-
-  const totalPages = useMemo(
-    () => Math.ceil(afterFilterCount / (storeinit?.PageSize || 1)),
-    [afterFilterCount, storeinit?.PageSize],
-  );
-
-  const handlePageInputChange = useCallback(
-    (event) => {
-      if (event.key === "Enter") {
-        setProductListData([]);
-        let newPage = parseInt(inputPage, 10);
-        if (newPage < 1) newPage = 1;
-        if (newPage > totalPages) newPage = totalPages;
-        setCurrPage(newPage);
-        setInputPage(newPage);
-        handelPageChange("", newPage);
-      }
-    },
-    [
-      inputPage,
-      totalPages,
-      setProductListData,
-      setCurrPage,
-      setInputPage,
-      handelPageChange,
-    ],
-  );
-
-  const handleBreadcrumbClick = useCallback(
-    (mparams, isCollectionMenu) => {
-      handleBreadcums({ mparams, isCollectionMenu, navigate, location });
-    },
-    [navigate, location],
-  );
-
-  const getBreadCumsObj = useCallback(() => BreadCumsObj(location), [location]);
-  const handleFilterOpen = useCallback(() => setOpenFilter(true), []);
-  const handleFilterClose = useCallback(() => setOpenFilter(false), []);
-  const handleFilterToggle = useCallback(
-    () => setOpenFilter((prev) => !prev),
-    [],
-  );
-  const handleChangeTrend = useCallback(
-    (e) => setTrend(e.target.value),
-    [setTrend],
-  );
+    });
+  };
 
   return (
     <>
-      <title>{DynamicListPageTitleLineFunc(location)}</title>
+      <title>{DynamicListPageTitleLineFunc()}</title>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: breadcrumbJsonLd,
+          __html: JSON.stringify(generateBreadcrumbJsonLd(breadcrumbData)),
         }}
       />
       <Box
@@ -287,15 +264,17 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
           productListData={productListData}
           decodeURIComponent={decodeURIComponent}
           IsBreadCumShow={true}
-          BreadCumsObj={getBreadCumsObj}
-          handleBreadcums={handleBreadcrumbClick}
+          BreadCumsObj={() => BreadCumsObj(location)}
+          handleBreadcums={(mparams, isCollectionMenu) =>
+            handleBreadcums({ mparams, isCollectionMenu, navigate, location })
+          }
           isFiltering={isOnlyProdLoading || isProdLoading}
         />
 
         <Drawer
           anchor="left"
           open={openFilter}
-          onClose={handleFilterClose}
+          onClose={() => setOpenFilter(false)}
           transitionDuration={100}
           sx={{
             "& .MuiDrawer-paper": {
@@ -319,7 +298,7 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
             RangeFilterView={RangeFilterView}
             /** Drawer Controls */
             open={openFilter}
-            onClose={handleFilterClose}
+            onClose={() => setOpenFilter(false)}
             /** Summary Count */
             filterCount={afterFilterCount || 0}
             /** Core Filter Data */
@@ -404,7 +383,7 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
           selectedDiaId={selectedDiaId}
           setSelectedDiaId={setSelectedDiaId}
           setIsOnlyProdLoading={setIsOnlyProdLoading}
-          onFilterToggle={handleFilterToggle}
+          onFilterToggle={() => setOpenFilter(!openFilter)}
           filterCount={afterFilterCount}
           storeinit={storeinit}
           isFiltering={isOnlyProdLoading || isProdLoading}
@@ -413,42 +392,39 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
           handelFilterClearAll={handelFilterClearAll}
         />
 
-        {!isOnlyProdLoading && productListData.length === 0 ? (
-          <NoProductFound />
-        ) : (
-          <JewelryProductGrid
-            productListData={productListData}
-            isFiltering={isOnlyProdLoading || isProdLoading}
-            handleMoveToDetail={handleMoveToDetailOnClick}
-            showFilter={showFilter}
-            filter={filter}
-            filterData={filterData}
-            handleCartandWish={handleCartandWish}
-            cartArr={cartArr}
-            wishArr={wishArr}
-            storeinit={storeinit}
-            loginUserDetail={loginUserDetail}
-          />
-        )}
+        <JewelryProductGrid
+          productListData={productListData}
+          isFiltering={isOnlyProdLoading || isProdLoading}
+          handleMoveToDetail={handleMoveToDetail}
+          showFilter={showFilter}
+          filter={filter}
+          filterData={filterData}
+          handleCartandWish={handleCartandWish}
+          cartArr={cartArr}
+          wishArr={wishArr}
+          storeinit={storeinit}
+          loginUserDetail={loginUserDetail}
+        />
 
-        {storeinit?.IsProductListPagination === 1 && totalPages > 1 && (
-          <NewPagination
-            currentPage={currPage}
-            totalItems={afterFilterCount}
-            itemsPerPage={storeinit.PageSize}
-            onPageChange={handelPageChange}
-            inputPage={inputPage}
-            setInputPage={setInputPage}
-            handlePageInputChange={handlePageInputChange}
-            maxwidth464px={maxwidth464px}
-            totalPages={totalPages}
-            currPage={currPage}
-            isShowButton={false}
-          />
-        )}
+        {storeinit?.IsProductListPagination == 1 &&
+          Math.ceil(afterFilterCount / storeinit.PageSize) > 1 && (
+            <NewPagination
+              currentPage={currPage}
+              totalItems={afterFilterCount}
+              itemsPerPage={storeinit.PageSize}
+              onPageChange={handelPageChange}
+              inputPage={inputPage}
+              setInputPage={setInputPage}
+              handlePageInputChange={handlePageInputChange}
+              maxwidth464px={maxwidth464px}
+              totalPages={totalPages}
+              currPage={currPage}
+              isShowButton={false}
+            />
+          )}
       </Box>
     </>
   );
 };
 
-export default React.memo(ProductList);
+export default ProductList;

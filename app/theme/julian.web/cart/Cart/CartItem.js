@@ -6,18 +6,52 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Box, Checkbox, IconButton, Skeleton, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  IconButton,
+  Skeleton,
+  useMediaQuery,
+} from "@mui/material";
 import { GetCountAPI } from "@/app/(core)/utils/API/GetCount/GetCountAPI";
 import RemarkDialog from "./OrderRemarkDialog";
 import ItemRemarkDialog from "./ItemRemarkDialog";
 import ConfirmationDialog from "@/app/(core)/utils/Glob_Functions/ConfirmationDialog/ConfirmationDialog";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { formatter, formatTitleLine } from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
+import {
+  formatter,
+  formatTitleLine,
+} from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
 import { useBroadcaster } from "@/app/(core)/contexts/BoardCastContext";
 import { useStore } from "@/app/(core)/contexts/StoreProvider";
 import Cookies from "js-cookie";
 
-const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail, CurrencyData, showRemark1, decodeEntities, isSelected, selectedItem, selectedItemsLength, isActive, border, handleBorder, multiSelect, onRemove, itemLength, showRemark, productRemark, handleAddRemark, handleRemarkChange, handleSave, handleCancel, openHandleUpdateCartModal }) => {
+const CartItem = ({
+  item,
+  index,
+  CartCardImageFunc,
+  onSelect,
+  CurrencyData,
+  showRemark1,
+  decodeEntities,
+  isSelected,
+  selectedItem,
+  selectedItemsLength,
+  isActive,
+  border,
+  handleBorder,
+  multiSelect,
+  onRemove,
+  itemLength,
+  showRemark,
+  productRemark,
+  handleAddRemark,
+  handleRemarkChange,
+  handleSave,
+  handleCancel,
+  openHandleUpdateCartModal,
+  handleMoveToDetail,
+}) => {
   const [remark, setRemark] = useState(item.Remarks || "");
   const noImageFound = "/image-not-found.jpg";
   const { setCartCountNum, loginUserDetail, storeInit } = useStore();
@@ -27,26 +61,19 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
   const { broadcast } = useBroadcaster();
   // const [countstatus, setCountStatus] = useState();
 
-  const handleItemClick = () => {
-    if (typeof handleMoveToDetail === "function") {
-      handleMoveToDetail(item);
-    } else if (typeof onSelect === "function") {
-      onSelect(item);
-    }
-  };
-  
   const isLoading = item?.loading;
-  
+
   const CDNDesignImageFolThumb = storeInit?.CDNDesignImageFolThumb;
   const fullImagePath = `${CDNDesignImageFolThumb}${item?.designno}~1.jpg`;
-  const defaultUrl = item?.images && typeof item?.images === 'string'
-    ? item.images.replace("/Design_Thumb", "")
-    : "";
+  const defaultUrl =
+    item?.images && typeof item?.images === "string"
+      ? item.images.replace("/Design_Thumb", "")
+      : "";
   const firstPart = defaultUrl?.split(".")[0];
   const secondPart = item?.ImageExtension;
   const finalSelectedUrl = `${firstPart}.${secondPart}`;
 
-  const [imgSrc, setImgSrc] = useState('');
+  const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
     let imageURL = item?.images
@@ -72,7 +99,9 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const isMobileScreen = useMediaQuery("(min-width: 320px) and (max-width: 1037px)");
+  const isMobileScreen = useMediaQuery(
+    "(min-width: 320px) and (max-width: 1037px)",
+  );
 
   // useEffect(() => {
   //   const isCartUpdateStatus = sessionStorage.getItem("cartUpdation");
@@ -89,14 +118,18 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
     handleClose1();
   };
 
-
-
   const handleRemoveItem = async (item) => {
     const returnValue = await onRemove(item);
     if (returnValue?.msg == "success") {
       GetCountAPI(visiterId).then((res) => {
         setCartCountNum(res?.cartcount);
-        broadcast('UPDATE_CART_COUNT', res?.cartcount, item?.autocode, "cart", false);
+        broadcast(
+          "UPDATE_CART_COUNT",
+          res?.cartcount,
+          item?.autocode,
+          "cart",
+          false,
+        );
       });
     }
   };
@@ -113,7 +146,6 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
     return text?.substring(0, maxLength) + "...";
   }
 
-
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -121,19 +153,31 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
     });
   }, []);
 
+  const handleItemClick = () => {
+    if (typeof handleMoveToDetail === "function") {
+      handleMoveToDetail(item);
+    } else if (typeof onSelect === "function") {
+      onSelect(item);
+    }
+  };
+
   return (
     <Card
       elevation={0}
       sx={{
         width: "100%",
-        borderRadius: 3,
         border: "1px solid #e5e5e5",
         position: "relative",
         display: "flex",
         flexDirection: "column",
+        borderRadius: 3,
         gap: 2,
-        boxShadow: !multiSelect && !isMobileScreen && selectedItem?.id == item?.id && "#0d1232 1px 1px 1px 0px, #0d1232 0px 0px 0px 1px !important",
-        boxSizing: 'border-box'
+        boxShadow:
+          !multiSelect &&
+          !isMobileScreen &&
+          selectedItem?.id == item?.id &&
+          "#cca182 1px 1px 1px 0px, #c20000 0px 0px 0px 1px !important",
+        boxSizing: "border-box",
       }}
     >
       {/* Delete Icon */}
@@ -154,43 +198,44 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
 
       {/* Image Wrapper */}
       <Box
-        onClick={handleItemClick}
         sx={{
           width: "100%",
           height: "100%",
-          borderRadius: 3,
           overflow: "hidden",
           aspectRatio: {
             xs: "3 / 3",
             sm: "1 / 1",
             md: "1 / 1",
           },
-          bgcolor: "#fff9f266",
+          bgcolor: "#f5f5f5",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
         }}
+        onClick={handleItemClick}
       >
         {isLoading === true ? (
-          <Skeleton variant="rectangular" sx={{ width: "100%", height: "100%", bgcolor: "#fafafa" }} />
+          <Skeleton
+            variant="rectangular"
+            sx={{ width: "100%", height: "100%", bgcolor: "#fafafa" }}
+          />
         ) : (
           <CardMedia
             component="img"
             image={imgSrc}
             alt=""
-            loading='eager'
+            loading="eager"
             draggable={false}
             onContextMenu={(e) => e.preventDefault()}
-            onClick={handleItemClick}
             sx={{
               width: "100%",
               height: "100%",
               objectFit: "contain",
               mixBlendMode: "multiply",
               cursor: "pointer",
-              '&:focus': { outline: 'none' },
-              '&:active': { outline: 'none' },
+              "&:focus": { outline: "none" },
+              "&:active": { outline: "none" },
             }}
             onError={(e) => {
               const imgEl = e.target;
@@ -206,7 +251,17 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
         )}
       </Box>
 
-      <Box sx={{ width: "100%", px: 2, py: 1, display: "flex", flexDirection: "column", gap: 1, boxSizing: 'border-box' }}>
+      <Box
+        sx={{
+          width: "100%",
+          px: 2,
+          py: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+          boxSizing: "border-box",
+        }}
+      >
         <Typography
           variant="body1"
           onClick={handleItemClick}
@@ -220,8 +275,14 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
             overflow: "hidden",
             textOverflow: "ellipsis",
             minHeight: "1.3em",
-            fontSize: { xs: "0.82rem", sm: "0.9rem", md: "0.94rem", lg: "1rem" },
             cursor: "pointer",
+            "&:hover": { textDecoration: "underline" },
+            fontSize: {
+              xs: "0.82rem",
+              sm: "0.9rem",
+              md: "0.94rem",
+              lg: "1rem",
+            },
           }}
         >
           {formatTitleLine(item?.TitleLine)}
@@ -247,27 +308,40 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
 =========================== */}
         <Grid container spacing={0.8}>
           {/* DWT (SLOT 1) */}
-          <Grid item size={{
-            xs: 6
-          }}>
+          <Grid
+            item
+            size={{
+              xs: 6,
+            }}
+          >
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <Typography
                 variant="body2"
                 sx={{
                   fontWeight: 500,
                   fontSize: { xs: "0.62rem", sm: "0.8rem", md: "0.85rem" },
-                  color: item?.designno ? "#000" : "transparent",
+                  color: item?.ArticleNo ? "#000" : "transparent",
                   letterSpacing: "0.02em",
                 }}
               >
-                {item?.designno}
+                {item?.ArticleNo}
               </Typography>
             </Box>
           </Grid>
-          <Grid item size={{
-            xs: 6
-          }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, justifyContent: "flex-end" }}>
+          <Grid
+            item
+            size={{
+              xs: 6,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                justifyContent: "flex-end",
+              }}
+            >
               <Typography
                 variant="body2"
                 sx={{
@@ -296,9 +370,12 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
               </Typography>
             </Box>
           </Grid>
-          <Grid item size={{
-            xs: 6
-          }}>
+          <Grid
+            item
+            size={{
+              xs: 6,
+            }}
+          >
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               {storeInit?.IsPriceShow == 1 ? (
                 <Typography
@@ -313,7 +390,8 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
                     dangerouslySetInnerHTML={{
                       __html:
                         decodeEntities(
-                          loginUserDetail?.CurrencyCode ?? storeInit?.CurrencyCode
+                          loginUserDetail?.CurrencyCode ??
+                            storeInit?.CurrencyCode,
                         ) + " ",
                     }}
                   />
@@ -334,10 +412,20 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
             </Box>
           </Grid>
 
-          <Grid item size={{
-            xs: 6
-          }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, justifyContent: "flex-end" }}>
+          <Grid
+            item
+            size={{
+              xs: 6,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                justifyContent: "flex-end",
+              }}
+            >
               <Typography
                 variant="body2"
                 sx={{
@@ -362,7 +450,6 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
               </Typography>
             </Box>
           </Grid>
-
         </Grid>
 
         {/* ================================
@@ -375,7 +462,11 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
               {truncateText(item?.Remarks || productRemark, 40)}
             </Typography>
           ) : (
-            <Typography fontSize={14} color="transparent" sx={{ userSelect: "none" }}>
+            <Typography
+              fontSize={14}
+              color="transparent"
+              sx={{ userSelect: "none" }}
+            >
               empty
             </Typography>
           )}
@@ -419,9 +510,21 @@ const CartItem = ({ item, index, CartCardImageFunc, onSelect, handleMoveToDetail
       </Box>
 
       {/* Modals */}
-      <ItemRemarkDialog handleClose1={handleClose1} open1={open1} remark={remark} onRemarkChange={handleRemarkChangeInternal} onSave={handleSaveInternal} />
+      <ItemRemarkDialog
+        handleClose1={handleClose1}
+        open1={open1}
+        remark={remark}
+        onRemarkChange={handleRemarkChangeInternal}
+        onSave={handleSaveInternal}
+      />
 
-      <ConfirmationDialog open={open} onClose={handleClose} onConfirm={handleConfirm} title={"Confirm"} content={"Are You Sure to Delete this items?"} />
+      <ConfirmationDialog
+        open={open}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        title={"Confirm"}
+        content={"Are You Sure to Delete this items?"}
+      />
     </Card>
   );
 };

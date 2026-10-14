@@ -6,6 +6,7 @@ import "./LoginWithEmail.modul.scss";
 import { LoginWithEmailAPI } from "@/app/(core)/utils/API/Auth/LoginWithEmailAPI";
 import { ForgotPasswordEmailAPI } from "@/app/(core)/utils/API/Auth/ForgotPasswordEmailAPI";
 import Cookies from "js-cookie";
+import { setSession } from "@/app/(core)/utils/FetchSessionData";
 import { CurrencyComboAPI } from "@/app/(core)/utils/API/Combo/CurrencyComboAPI";
 import { MetalColorCombo } from "@/app/(core)/utils/API/Combo/MetalColorCombo";
 import { MetalTypeComboAPI } from "@/app/(core)/utils/API/Combo/MetalTypeComboAPI";
@@ -26,6 +27,7 @@ import {
   Backdrop,
   IconButton,
   InputAdornment,
+  Divider,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -43,8 +45,9 @@ export default function LoginWithEmail({ params, searchParams, storeInit }) {
 
   const search = searchParams?.LoginRedirect || searchParams?.loginRedirect || searchParams?.search || "";
   const securityKey = searchParams?.SK || searchParams?.SecurityKey || "";
-  const redirectEmailUrl = search ? decodeURIComponent(search) : "/";
-  const cancelRedireactUrl = `/LoginOption?LoginRedirect=${search}${securityKey ? `&SK=${encodeURIComponent(securityKey)}` : ""}`;
+  const cleanRedirect = search ? search.replace(/^\?LoginRedirect=/, '') : '';
+  const redirectEmailUrl = cleanRedirect ? (cleanRedirect.startsWith('/') ? cleanRedirect : decodeURIComponent(cleanRedirect)) : "/";
+  const cancelRedireactUrl = `/LoginOption${cleanRedirect ? `?LoginRedirect=${encodeURIComponent(cleanRedirect)}` : ""}${securityKey ? `${cleanRedirect ? '&' : '?'}SK=${encodeURIComponent(securityKey)}` : ""}`;
 
   useEffect(() => {
     const storedEmail = (() => {
@@ -105,12 +108,19 @@ export default function LoginWithEmail({ params, searchParams, storeInit }) {
         setIsLoading(false);
         if (response.Data.rd[0].stat === 1) {
           const visiterID = Cookies.get("visiterId");
-          Cookies.set("userLoginCookie", response?.Data?.rd[0]?.Token);
-          Cookies.set('LoginUser', true);
+          const userDetail = response?.Data?.rd[0];
+          const pkgId = userDetail?.PackageId ?? userDetail?.packageId ?? userDetail?.PackageID;
+
+          Cookies.set("userLoginCookie", userDetail?.Token, { path: "/", expires: 7 });
+          Cookies.set("LoginUser", "true", { path: "/", expires: 7 });
+          if (pkgId != null && pkgId !== "" && String(pkgId) !== "undefined" && String(pkgId) !== "null") {
+            Cookies.set("userPackageId", String(pkgId), { path: "/", expires: 7 });
+          }
+
           sessionStorage.setItem("registerEmail", email);
           setislogin(true);
-          sessionStorage.setItem("LoginUser", true);
-          sessionStorage.setItem("loginUserDetail", JSON.stringify(response.Data.rd[0]));
+          setSession("LoginUser", true);
+          setSession("loginUserDetail", userDetail);
 
           GetCountAPI(visiterID)
             .then((res) => {
@@ -162,6 +172,13 @@ export default function LoginWithEmail({ params, searchParams, storeInit }) {
 
   const handleTogglePasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleNavigation = () => {
+    sessionStorage.setItem("LoginCodeEmail", "true");
+    sessionStorage.setItem("registerEmail", email);
+    sessionStorage.setItem("email", email);
+    navigation(`/LoginWithEmailCode${cleanRedirect ? `?LoginRedirect=${encodeURIComponent(cleanRedirect)}` : ""}${securityKey ? `${cleanRedirect ? '&' : '?'}SK=${encodeURIComponent(securityKey)}` : ""}`);
   };
 
   const handleForgotPassword = async () => {
@@ -471,6 +488,59 @@ export default function LoginWithEmail({ params, searchParams, storeInit }) {
                   >
                     Cancel
                   </Button>
+
+                  <Box sx={{ pt: 1, textAlign: "center" }}>
+                    <Divider sx={{ mb: 2, borderColor: "#e5e7eb" }}>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          px: 1,
+                          color: "#9ca3af",
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+                          fontSize: "11px",
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        or
+                      </Typography>
+                    </Divider>
+
+                    <Button
+                      type="button"
+                      fullWidth
+                      size="large"
+                      variant="outlined"
+                      onClick={handleNavigation}
+                      disabled={isLoading}
+                      sx={{
+                        borderColor: "#111827",
+                        color: "#111827",
+                        textTransform: "none",
+                        fontWeight: 600,
+                        fontSize: "0.92rem",
+                        py: 1.2,
+                        borderRadius: "4px",
+                        "&:hover": {
+                          borderColor: "#000",
+                          bgcolor: "rgba(0,0,0,0.04)",
+                        },
+                      }}
+                    >
+                      Login With a Code instead on email
+                    </Button>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "#6b7280",
+                        fontSize: "12px",
+                        display: "block",
+                        mt: 0.75,
+                      }}
+                    >
+                      Go passwordless! We'll send you an email.
+                    </Typography>
+                  </Box>
                 </Stack>
               </Box>
 

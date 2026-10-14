@@ -8,7 +8,6 @@ export const localHosts = [
   "nxt10.optigoapps.com",
   "nxt09.optigoapps.com",
   "beluxjewel.web",
-  "beluxjewelTest.web",
   "nxtjulian.web",
 ];
 

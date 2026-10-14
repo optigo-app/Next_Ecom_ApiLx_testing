@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { ContimueWithMobileAPI } from '@/app/(core)/utils/API/Auth/ContimueWithMobileAPI';
 import { LoginWithEmailAPI } from '@/app/(core)/utils/API/Auth/LoginWithEmailAPI';
 import Cookies from 'js-cookie';
+import { setSession } from '@/app/(core)/utils/FetchSessionData';
 import OTP from './OTP';
 import './LoginWithMobileCode.modul.scss';
 import { useRouter } from 'next/navigation';
@@ -32,9 +33,9 @@ export default function LoginWithMobileCode({ params, searchParams }) {
 
   const search = searchParams?.LoginRedirect || searchParams?.loginRedirect || searchParams?.search || "";
   const securityKey = searchParams?.SK || searchParams?.SecurityKey || "";
-  const updatedSearch = search?.replace('?LoginRedirect=', '');
-  const redirectMobileUrl = search ? decodeURIComponent(updatedSearch) : "/";
-  const cancelRedireactUrl = `/LoginOption?LoginRedirect=${search}${securityKey ? `&SK=${encodeURIComponent(securityKey)}` : ""}`;
+  const cleanRedirect = search ? search.replace(/^\?LoginRedirect=/, '') : '';
+  const redirectMobileUrl = cleanRedirect ? (cleanRedirect.startsWith('/') ? cleanRedirect : decodeURIComponent(cleanRedirect)) : "/";
+  const cancelRedireactUrl = `/LoginOption${cleanRedirect ? `?LoginRedirect=${encodeURIComponent(cleanRedirect)}` : ""}${securityKey ? `${cleanRedirect ? '&' : '?'}SK=${encodeURIComponent(securityKey)}` : ""}`;
 
   useEffect(() => {
     const storedMobile = sessionStorage?.getItem('registerMobile') ?? '';
@@ -66,10 +67,20 @@ export default function LoginWithMobileCode({ params, searchParams }) {
     LoginWithEmailAPI('', mobileNo, enterOTP, 'otp_mobile_login', '', visiterId).then((response) => {
       setIsLoading(false);
       if (response?.Data?.rd[0]?.stat == 1) {
-        Cookies.set('LoginUser', true);
-        sessionStorage.setItem('LoginUser', true);
-        sessionStorage.setItem('loginUserDetail', JSON.stringify(response.Data.rd[0]));
+        const userDetail = response?.Data?.rd[0];
+        const pkgId = userDetail?.PackageId ?? userDetail?.packageId ?? userDetail?.PackageID;
+
+        if (userDetail?.Token) {
+          Cookies.set('userLoginCookie', userDetail.Token, { path: '/', expires: 7 });
+        }
+        Cookies.set('LoginUser', 'true', { path: '/', expires: 7 });
+        if (pkgId != null && pkgId !== '' && String(pkgId) !== 'undefined' && String(pkgId) !== 'null') {
+          Cookies.set('userPackageId', String(pkgId), { path: '/', expires: 7 });
+        }
+
         sessionStorage.setItem('registerMobile', mobileNo);
+        setSession('LoginUser', true);
+        setSession('loginUserDetail', userDetail);
 
         if (redirectMobileUrl) {
           window.location.href = redirectMobileUrl;
@@ -89,7 +100,8 @@ export default function LoginWithMobileCode({ params, searchParams }) {
   const handleResendCode = async () => {
     setResendTimer(120);
     setIsLoading(true);
-    ContimueWithMobileAPI(mobileNo).then((response) => {
+    const countryCode = sessionStorage?.getItem('Countrycodestate') || '';
+    ContimueWithMobileAPI(mobileNo, countryCode).then((response) => {
       setIsLoading(false);
       if (response?.Data?.rd[0]?.stat == 1) {
         toast.success('OTP sent successfully');

@@ -3,7 +3,6 @@
 // export const LocalSetup = "hoq.web";
 // export const LocalSetup = "elvee.web";
 // export const LocalSetup = "diamondtine.web";
-// export const LocalSetup = "beluxjewelTest.web";
 // export const LocalSetup = "beluxjewel.web";
 // export const LocalSetup = "elvee.web";
 export const LocalSetup = "julian.web";

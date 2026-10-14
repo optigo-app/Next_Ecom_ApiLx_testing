@@ -3,8 +3,6 @@ import { IsProcatalogDemo } from "./env.js";
 // Central registry for static theme layouts.
 export async function resolveLayout(themePage) {
   switch (themePage) {
-    case "beluxjewelTest.web":
-      return (await import("@/app/theme/beluxjewelTest.web/layout.jsx")).default;
     case "beluxjewel.web":
       if (IsProcatalogDemo) {
         return (await import("@/app/theme/procatalog.web/layout.jsx")).default;

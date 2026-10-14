@@ -15,11 +15,11 @@ import { sendEmail } from '@/app/(core)/utils/API/SendEmail';
 const CONTACT_NUMBERS = []; // Will be populated from storeInit or left empty if not provided
 
 const COLORS = {
-  bg: "#ffffff",
+  bg: "#f0f2f5",
   cardBg: "#ffffff",
   whatsApp: "#1ebc57",
   gold: "#c5a059",
-  black: "#0d1232",
+  black: "#cca182",
   textGray: "#666666",
   error: "#d32f2f",
 };
@@ -46,7 +46,7 @@ const INITIAL_STATE = {
   instructions: "",
   otherRhodium: "",
   otherStamping: "",
-  company: "Om Jiyansh Jewels",
+  company: "",
 };
 
 const INITIAL_DIAMONDS = {
@@ -60,15 +60,16 @@ const OrderForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { loginuser, storeInit } = useMemo(() => {
     try {
-      const loginuser = JSON.parse(sessionStorage.getItem("loginUserDetail")) || {};
-      const storeInit = JSON.parse(sessionStorage.getItem("storeInit")) || {};
+      const loginuser = (typeof window !== "undefined" && window.__LOGIN_USER_DETAIL__) || JSON.parse(sessionStorage.getItem("loginUserDetail")) || {};
+      const storeInit = (typeof window !== "undefined" && window.__STORE_INIT__) || JSON.parse(sessionStorage.getItem("storeInit")) || {};
       return { loginuser, storeInit };
     } catch {
       return { loginuser: null, storeInit: null };
     }
   }, []);
 
-  let companyLogo = storeInit?.logo || '';
+  const companyLogo = storeInit?.companylogo || storeInit?.logo || '';
+  const companyName = storeInit?.companyname || storeInit?.CompanyTitle || '';
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [diamondOptions, setDiamondOptions] = useState(INITIAL_DIAMONDS);
   const [file, setFile] = useState(null); // Stores file name
@@ -86,22 +87,24 @@ const OrderForm = () => {
     }
     setFormData((prev) => ({
       ...prev,
-      name: `${loginuser?.firstname || ""} ${loginuser?.lastname || ""}`,
+      name: `${loginuser?.firstname || ""} ${loginuser?.lastname || ""}`.trim(),
       email: loginuser?.FirstVerifyEmail || "",
       mobile: loginuser?.mobileno || "",
+      company: companyName || prev.company || "",
     }));
   };
 
   useEffect(() => {
-    if (loginuser) {
+    if (loginuser || storeInit) {
       setFormData((prev) => ({
         ...prev,
-        name: `${loginuser?.firstname || ""} ${loginuser?.lastname || ""}`,
+        name: `${loginuser?.firstname || ""} ${loginuser?.lastname || ""}`.trim(),
         email: loginuser?.FirstVerifyEmail || "",
         mobile: loginuser?.mobileno || "",
+        company: storeInit?.companyname || storeInit?.CompanyTitle || prev.company || "",
       }));
     }
-  }, [loginuser]);
+  }, [loginuser, storeInit]);
 
   // Ref for file input to programmatically clear it
   const fileInputRef = useRef(null);
@@ -178,15 +181,16 @@ const OrderForm = () => {
     if (!validateForm()) return;
     try {
       setIsSubmitting(true);
-      const OrderMail = generateOrderEmail(formData, diamondOptions);
-      const CustomerConfirmationEmail = generateCustomerConfirmationEmail(formData, diamondOptions);
+      const OrderMail = generateOrderEmail(formData, diamondOptions, storeInit);
+      const CustomerConfirmationEmail = generateCustomerConfirmationEmail(formData, diamondOptions, storeInit);
       // const data = 
       await sendEmail({
+        storeinit: storeInit,
         subject: `New Customize Order Request received - ${formData?.name}`,
-        cust_subject: `Customize Order Request Has Been placed - ${storeInit?.CompanyTitle || 'Om Jiyansh Jewels'}`,
+        cust_subject: `Customize Order Request Has Been placed - ${storeInit?.companyname || storeInit?.CompanyTitle || 'Custom Order'}`,
         attachments: file ? [file] : [],
         replyto: formData.email,
-        Mails: storeInit?.Website_Email,
+        Mails: storeInit?.Website_Email || storeInit?.companyorderemail,
         CustomerMail: formData?.email,
         htmlTemplate: OrderMail,
         cust_htmlTemplate: CustomerConfirmationEmail,
@@ -237,9 +241,9 @@ const OrderForm = () => {
             color: '#fff'
           }}>
             <Typography variant="h4" sx={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, mb: 1 }}>
-              Custom Order Form 
+              Custom Order Form
             </Typography>
-            <Typography variant="body1" sx={{ color: '#ccc', mt: 1, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
+            <Typography variant="body1" sx={{ color: '#e8e8e8', mt: 1, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
               Place your unique Jewelry request here. Our artisans will bring your vision to life.
               If this order was placed by mistake, please contact us immediately.
             </Typography>
@@ -455,7 +459,7 @@ const OrderForm = () => {
                       letterSpacing: 2,
                       borderRadius: 2,
                       boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-                      '&:hover': { backgroundColor: '#333', boxShadow: '0 10px 25px rgba(0,0,0,0.3)' },
+                      '&:hover': { backgroundColor: '#cca182db', boxShadow: '0 10px 25px rgba(0,0,0,0.3)' },
                       '&:disabled': { backgroundColor: '#ccc' }
                     }}
                   >

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   getCompanyInfoData,
   getExtraFlag,
@@ -5,16 +6,31 @@ import {
 } from "@/app/(core)/utils/GlobalFunctions/GlobalFunctions";
 import React, { Suspense } from "react";
 import { getLogos } from "@/app/(core)/lib/ServerHelper";
-import { Box } from "@mui/material";
+import FooterNew from "@/app/components/(static)/Footer/FooterNew";
 import ChatMenu from "@/app/components/(static)/ChatMenu/ChatMenu";
-import JulianBaseHeader from "@/app/components/(dynamic)/Header/julian/Header";
-import Footer from "@/app/components/(static)/Footer/Julian/Footer";
+import AnnouncementBar from "./home/blocks/AnnouncementBar";
+import BeluxNavbar from "@/app/components/(dynamic)/Header/Elvee/New/BeluxNavbar";
+import { cookies } from "next/headers";
+import { getSqliteMenus } from "@/app/(core)/utils/sqlite/sqliteActions";
 
 const layout = async ({ children }) => {
   const storeData = await getStoreInit();
   const companyInfoData = await getCompanyInfoData();
   const logos = getLogos();
   let extraFlag = await getExtraFlag();
+
+  const cookieStore = await cookies();
+  const userPkgIdCookie = cookieStore.get("userPackageId")?.value;
+  console.log(userPkgIdCookie, "userPkgIdCookie")
+  const activePackageId = userPkgIdCookie ? Number(userPkgIdCookie) : storeData?.PackageId;
+
+  let initialMenuData = [];
+  try {
+    const menuRes = await getSqliteMenus({ packageId: activePackageId });
+    initialMenuData = menuRes?.Data?.rd || [];
+  } catch (err) {
+    console.warn("[beluxjewel layout] SSR menu pre-fetch failed:", err.message);
+  }
 
   return (
     <>
@@ -24,31 +40,26 @@ const layout = async ({ children }) => {
           flexDirection: "column",
           minHeight: "100vh",
           width: "100%",
+          boxSizing: "border-box",
         }}
       >
-        <JulianBaseHeader hidden={false} logos={logos} storeInit={storeData} />
-
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          {/* <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1, minHeight: "90vh" }}>{children}</Box> */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              minHeight: "90vh",
-            }}
-          >
+        <AnnouncementBar />
+        <BeluxNavbar
+          hidden={false}
+          logos={logos}
+          storeInit={storeData}
+          initialMenuData={initialMenuData}
+        />
+        <Box component="main" id="main-content" sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
             {children}
-          </Box>
         </Box>
-
-        <Footer
+        <FooterNew
           companyInfoData={companyInfoData}
           storeData={storeData}
           extraFlag={extraFlag}
           logos={logos}
         />
+
         <ChatMenu />
       </Box>
     </>

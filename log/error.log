@@ -17,3 +17,5 @@
 [2026-10-14T05:30:06.168Z] [ERROR] [SYSTEM] [PRODUCT_QUERY] getSqliteProducts error for 'undefined': no such column: PackageIdList | data: {"error":"no such column: PackageIdList"}
 [2026-10-14T05:30:17.116Z] [ERROR] [SYSTEM] [PRODUCT_QUERY] getSqliteProducts error for 'undefined': no such column: PackageIdList | data: {"error":"no such column: PackageIdList"}
 [2026-10-14T05:30:20.352Z] [ERROR] [SYSTEM] [PRODUCT_QUERY] getSqliteProducts error for 'undefined': no such column: PackageIdList | data: {"error":"no such column: PackageIdList"}
+[2026-10-14T06:04:04.559Z] [ERROR] [SYSTEM] [PRODUCT_QUERY] getSqliteProducts error for 'undefined': no such column: PackageIdList | data: {"error":"no such column: PackageIdList"}
+[2026-10-14T06:06:22.208Z] [ERROR] [SYSTEM] [PRODUCT_QUERY] getSqliteProducts error for 'undefined': no such column: PackageIdList | data: {"error":"no such column: PackageIdList"}

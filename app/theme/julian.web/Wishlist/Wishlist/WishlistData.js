@@ -22,9 +22,9 @@ const WishlistData = ({
     <div className="elv_WlListData">
       <>
         <Grid container spacing={1}>
-          {items?.map((item, index) => (
+          {items?.map(item => (
             <WishlistItems
-              key={`${item?.autocode || item?.id || 'wish'}-${index}`}
+              key={item.id}
               item={item}
               updateCount={updateCount}
               countDataUpdted={countDataUpdted}

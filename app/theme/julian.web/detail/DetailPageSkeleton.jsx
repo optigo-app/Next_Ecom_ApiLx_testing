@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import { formatter } from "@/app/(core)/utils/Glob_Functions/GlobalFunction";
 
 const decodeEntities = (html) => {
-  if (typeof document === "undefined") return html || "";
+  if (typeof document === "undefined") return html;
   var txt = document.createElement("textarea");
   txt.innerHTML = html;
   return txt.value;

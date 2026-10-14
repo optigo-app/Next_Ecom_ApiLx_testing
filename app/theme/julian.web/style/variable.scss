@@ -32,7 +32,7 @@ $homePageFontColor: #7d7f85;
 $titleColor: #7d7f85;
 $btn1FontColor: #7d7f85;
 $btn1hoverColor: #7d7f85;
-$btn1hoverFontColor: #0d1232;
+$btn1hoverFontColor: #fff;
 $primaryfontcolorLight: #7d7f856e;
 
 //fontFamily
@@ -42,7 +42,6 @@ $primaryFontFamilyMedium: "Poppins", serif;
 $Pfonts: "Poppins", serif;
 $Pratafonts: "Poppins", serif;
 $fontSansSerif: "Poppins", serif;
-$elecbtnbg: #0d1232;
 //fontSize
 $fontSize0: 10px;
 $fontSize1: 12px;
@@ -81,23 +80,29 @@ $fontSize8: 40px;
 // omjiyas theme
 // #08054C
 
-$primaryBorderColor: #0d1232;
-$primaryBorderColor2: #b8975a;
+$primaryBorderColor: #e1e1e1;
+$primaryBorderColor2: #42424233;
 $bgColor: #08054c; // Light gray background
 $textColor: #1b1212; // Dark gray text color
 $menuColor: #1b1212;
 $navbarbg: white;
 $navbarcolor: black;
-$badgecolor: white;
+$badgecolor: #cca182;
 $badgetxtcolor: black;
 $footerbg: black;
-$footertextcolor: black;
+$footertextcolor: white;
 $sliderbar: #08054c;
-$btnBg: #08054c;
+$btnBg: #cca182;
 $btncolor: white;
-$authbtnbg: #0d1232;
+$authbtnbg: #cca182  ;
 $authbtncolor: white;
 $authbg: white;
 $footertextcolor: white;
 $menutitle: black;
 $defaultbtncolor: black;
+$topbar: #cca182;
+$footerBg: #cca182;
+$footerTitleColor: rgba(255, 255, 255, 0.95);
+$footerLinkColor: #ffffff;
+$footerLinkHoverColor:  rgba(255, 255, 255, 0.7);
+$footerBorderColor: rgba(255, 255, 255, 0.1);

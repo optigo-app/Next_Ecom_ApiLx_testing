@@ -12,7 +12,7 @@ const chipBaseStyles = {
   fontWeight: 500,
   color: "#444",
   backgroundColor: "#fafafa",
-  borderRadius: 15,
+  borderRadius: 0,
   border: "1px solid #e5e5e5",
   px: 1,
   height: 26,
@@ -26,16 +26,16 @@ const chipPrimaryStyles = {
   fontSize: "13px",
   fontWeight: 600,
   color: "#fff",
-  backgroundColor: "#0a1f47",
-  borderRadius: 15,
+  backgroundColor: "#cca182",
+  borderRadius: 0,
   px: 1.2,
   height: 26,
-  border: "1px solid #0a1f47",
+  border: "1px solid #cca182",
   boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
   transition: "all 0.2s ease",
   "&:hover": {
-    backgroundColor: "#0a1f47",
-    borderColor: "#0a1f47",
+    backgroundColor: "#b88d6e",
+    borderColor: "#b88d6e",
   },
 };
 
@@ -93,7 +93,7 @@ const BreadCrumbBar = ({
               width={isMobile ? 70 : 100}
               height={isMobile ? 24 : 28}
               sx={{
-                borderRadius: 10,
+                borderRadius: 0,
                 bgcolor: "#f2f2f2",
                 animation: "wave",
               }}

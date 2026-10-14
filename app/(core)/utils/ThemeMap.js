@@ -80,9 +80,6 @@ export const themeMap = {
   "beluxjewel.web": {
     page: "beluxjewel.web",
   },
-  "beluxjewelTest.web": {
-    page: "beluxjewelTest.web",
-  },
   "nxt10.optigoapps.com": {
     page: "beluxjewel.web",
   },
@@ -96,13 +93,13 @@ export const themeMap = {
     page: "beluxjewel.web",
   },
   localhost: {
-    page: LocalSetup || "beluxjewelTest.web",
+    page: LocalSetup || "beluxjewel.web",
   },
   "127.0.0.1": {
-    page: LocalSetup || "beluxjewelTest.web",
+    page: LocalSetup || "beluxjewel.web",
   },
   default: {
-    page: LocalSetup || "beluxjewelTest.web",
+    page: LocalSetup || "beluxjewel.web",
   },
 };
 

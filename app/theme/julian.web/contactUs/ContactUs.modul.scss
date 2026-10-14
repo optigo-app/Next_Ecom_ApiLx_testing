@@ -1,7 +1,8 @@
-@use "../../fgstore.web/style/variable.scss" as *;
+// @use "../../fgstore.web/style/variable.scss" as *;
+@use "../style/variable.scss" as *;
 @use "sass:color";
 
-.fg_smr_contactMain_div {
+.fgbl_smr_contactMain_div {
   margin-bottom: 4rem;
 
   .smr-map-top {
@@ -146,7 +147,7 @@
     transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
-      background-color: black;
+      background-color: color.adjust($authbtnbg, $lightness: 5%);
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
