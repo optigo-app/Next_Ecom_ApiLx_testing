@@ -3,7 +3,7 @@ import { getStoreInit } from "@/app/(core)/utils/GlobalFunctions/GlobalFunctions
 import { generatePageMetadata } from "@/app/(core)/utils/HeadMeta";
 import { pages } from "@/app/(core)/utils/pages";
 import { Box } from "@mui/material";
-import TopSection from "@/app/components/(static)/HeroSection/HeroSection";
+import TopSection from "@/app/components/(static)/HeroSection/julian/HeroSection";
 // import useHomeBannerImages from "@/app/(core)/utils/Glob_Functions/ThemesBanner/ThemesBanner";
 import { assetBase } from "@/app/(core)/lib/ServerHelper";
 import BrandInfoMarquee from "./blocks/Marquee";
@@ -17,9 +17,13 @@ import MaxBrandMarquee from "./blocks/MaxBrandMarquee";
 import MaxPhysicalStore from "./blocks/MaxPhysicalStore";
 // import MaxNewsletter from "./blocks/MaxNewsletter";
 import SocialMediaVideoSection from "./blocks/SocialMedia";
+ import DiamondType from "./blocks/DiamondType"
+ import CollectionPage from "./blocks/Collection/Collection"
 import CraftsmanshipPage from "../craftsmanship/page";
 import MaxDesignLibrary from "./blocks/MaxDesignLibrary";
 import { getSqliteHomeBestseller, getSqliteHomeNewArrival, getSqliteHomeTrending } from "@/app/(core)/utils/sqlite/sqliteActions";
+import MarketingBanner from "./blocks/MarketingBanner";
+import ChopardCarousel from "./blocks/Featureproducts/FeatureProducts";
 
 export const metadata = generatePageMetadata(pages["/"], "Sonasons");
 
@@ -42,19 +46,22 @@ const SonasonsHome = async () => {
         width: "100%",
         height: "100%",
         minHeight: "100vh",
-        mt: { xs: "-64px", sm: "-84px" },
       }}
     >
       <TopSection />
       <BrandInfoMarquee assetBase={assetBase} />
+      <CollectionPage />
+      <DiamondType />
       {/* <CategoryBlock assetBase={assetBase} storeInit={storeData} /> */}
-      <MaxBestSeller storeInit={storeData} initialData={initialBestSellers} />
       <MaxNewArrival storeInit={storeData} initialData={initialNewArrivals} />
-      <MaxPhysicalStore />
-      <MaxTrendingView storeInit={storeData} initialData={initialTrending} />
+      <MarketingBanner />
+      <ChopardCarousel />
+      {/* <MaxTrendingView storeInit={storeData} initialData={initialTrending} /> */}
+      <MaxBestSeller storeInit={storeData} initialData={initialBestSellers} />
+      {/* <MaxPhysicalStore />
       <MaxBrandMarquee assetBase={assetBase} />
       <CraftsmanshipPage assetBase={assetBase} />
-      <MaxDesignLibrary />
+      <MaxDesignLibrary /> */}
       <SocialMediaVideoSection />
     </Box>
   );

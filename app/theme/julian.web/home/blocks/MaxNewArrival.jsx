@@ -243,20 +243,34 @@ const MaxNewArrival = ({ storeInit, initialData = [] }) => {
         boxSizing: "border-box",
       }}
     >
-      {/* Section heading */}
-      <HeaderV2
-        title="New Arrival"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-        icon={
-          <>
-            <SpireBox />
-          </>
-        }
-      />
+      <Box >
+        <Typography
+          sx={{
+            fontSize: { xs: 30, md: 42 },
+            fontWeight: 500,
+            mt: 3,
+            color: "#2C2C2C",
+            textAlign: "center",
+          }}
+        >
+          New & Exclusive
+        </Typography>
+
+        <Typography
+          sx={{
+
+            fontSize: { xs: 17, md: 18 },
+            fontWeight: 400,
+            color: "gray",
+            marginBottom: "50px",
+            mb: 0,
+            textAlign: "center",
+          }}
+        >
+          Be the first to explore our newest jewellery creations
+        </Typography>
+      </Box>
+
 
       {/* Swiper wrapper with absolute nav buttons */}
       <Box sx={{ position: "relative" }}>

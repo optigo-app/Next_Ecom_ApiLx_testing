@@ -1,14 +1,17 @@
-// src/pages/CollectionPage.jsx
-import React, { useEffect, useState } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { HomeCollectionPageApi } from "../../../../../../utils/API/Home/HomeCollectionPage/HomeCollectionPageApi";
-import Cookies from "js-cookie";
-import { useRecoilValue } from "recoil";
-import { el_loginState, syncProductListAtom } from "../../../Recoil/atom";
-import { useNavigate } from "react-router-dom";
-import CollectionSkeleton from "./Loader";
+'use client';
 
-// Soft, warm jewelry store aesthetic colors for items without images
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Container } from '@mui/material';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { HomeCollectionPageApi } from "@/app/(core)/utils/API/Home/HomeCollectionPage/HomeCollectionPageApi";
+import CollectionSkeleton from "./Loader"; // Assumed path based on your old code
+import { useStore } from "@/app/(core)/contexts/StoreProvider";
+import { useNextRouterLikeRR } from "@/app/(core)/hooks/useLocationRd";
+import { useSyncStore } from "@/app/(core)/hooks/useStore";
+import { getSession, setSession } from "@/app/(core)/utils/FetchSessionData";
+import { readCache, writeCache } from "@/app/(core)/cache_utility/cacheActions";
+
 const FALLBACK_COLORS = [
   "#F5E6E8", // Soft Rose
   "#FDF5E6", // Old Lace
@@ -19,36 +22,76 @@ const FALLBACK_COLORS = [
   "#F5F5DC", // Beige
 ];
 
-const CollectionPage = () => {
-  const islogin = useRecoilValue(el_loginState);
+export default function LuxuryAngledGrid() {
+  const { finalId } = useStore();
   const [CollectionList, setCollectionList] = useState([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const syncProductList = useRecoilValue(syncProductListAtom);
+  const syncProductList = useSyncStore((state) => state.syncProductList);
+  
+  const { push } = useNextRouterLikeRR();
+  const Router = useNextRouterLikeRR().push;
+  const navigate = url => Router(url);
 
-  const title = "Collection";
-  const description = "Radiant elegance, modern charm: Each creation embodies contemporary sophistication. Blending minimalism with luxury, every piece celebrates individuality and timeless style — a reflection of beauty, confidence, and grace.";
-
+ 
   const Fetchcolection = async () => {
+    const cacheKey = `julian_home_collection_${finalId}`;
+
+    // 1. Client Session Cache Check (0ms instant browser read)
+    let cachedSessionData = getSession(cacheKey);
+    if (cachedSessionData && Array.isArray(cachedSessionData) && cachedSessionData.length > 0) {
+      const hasError = cachedSessionData.some(
+        (item) =>
+          item?.stat === 0 ||
+          (typeof item?.stat_msg === "string" &&
+            item.stat_msg.toLowerCase().includes("error")),
+      );
+      if (!hasError) {
+        setCollectionList(cachedSessionData);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // 2. Server Disk Cache Check (Fast read from .next_cache)
+    try {
+      const cacheRes = await readCache(cacheKey);
+      if (cacheRes?.cached && Array.isArray(cacheRes.data) && cacheRes.data.length > 0) {
+        const hasError = cacheRes.data.some(
+          (item) =>
+            item?.stat === 0 ||
+            (typeof item?.stat_msg === "string" &&
+              item.stat_msg.toLowerCase().includes("error")),
+        );
+        if (!hasError) {
+          setCollectionList(cacheRes.data);
+          setSession(cacheKey, cacheRes.data);
+          setLoading(false);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("[Collection] File cache read error:", err);
+    }
+
+    // 3. Live API Call (HomeCollectionPageApi)
     try {
       setLoading(true);
-      const loginUserDetail = JSON?.parse(sessionStorage?.getItem("loginUserDetail"));
-      const storeInit = JSON?.parse(sessionStorage?.getItem("storeInit"));
-      const { IsB2BWebsite } = storeInit || {};
-      const visiterID = Cookies.get("visiterId");
-      let finalID;
+      const res = await HomeCollectionPageApi(finalId);
+      const list = res?.Data?.rd || [];
+      const hasError = list.some(
+        (item) =>
+          item?.stat === 0 ||
+          (typeof item?.stat_msg === "string" &&
+            item.stat_msg.toLowerCase().includes("error")),
+      );
 
-      if (IsB2BWebsite == 0) {
-        finalID = islogin === false ? visiterID : loginUserDetail?.id || "0";
-      } else {
-        finalID = loginUserDetail?.id || "0";
+      if (list.length > 0 && !hasError) {
+        setCollectionList(list);
+        setSession(cacheKey, list);
+        writeCache(cacheKey, list).catch(console.error);
       }
-
-      const res = await HomeCollectionPageApi(finalID);
-      const list = res?.Data?.rd;
-      if (list) setCollectionList(list);
     } catch (error) {
-      console.log("🚀 ~ Fetchcolection ~ error:", error);
+      console.error("🚀 ~ Fetchcolection ~ error:", error);
     } finally {
       setLoading(false);
     }
@@ -56,20 +99,7 @@ const CollectionPage = () => {
 
   useEffect(() => {
     Fetchcolection();
-  }, [syncProductList.ts]);
-
-  const getGridSize = (typeId) => {
-    switch (typeId) {
-      case 0:
-        return 12;
-      case 1:
-        return 6;
-      case 2:
-        return 4;
-      default:
-        return 6;
-    }
-  };
+  }, [syncProductList.ts, finalId]);
 
   const sortedCollection = [...CollectionList].sort((a, b) => {
     const aHasImg = a.DisplayOrder && a.DisplayOrder.length > 0;
@@ -82,10 +112,10 @@ const CollectionPage = () => {
 
   const handelMenu = (param, param1, param2, event, isFilterKey2Ignore) => {
     if (
-      event?.ctrlKey || // Ctrl key
-      event?.shiftKey || // Shift key
-      event?.metaKey || // Meta key (Command key on macOS)
-      (event?.button && event?.button === 1) // Middle mouse button
+      event?.ctrlKey || 
+      event?.shiftKey || 
+      event?.metaKey || 
+      (event?.button && event?.button === 1)
     ) {
       return;
     } else {
@@ -102,8 +132,8 @@ const CollectionPage = () => {
       sessionStorage.setItem("menuparams", JSON.stringify(finalData));
 
       const queryParameters1 = [finalData?.FilterKey && `${finalData.FilterVal}`, finalData?.FilterKey1 && `${finalData.FilterVal1}`, finalData?.FilterKey2 && `${finalData.FilterVal2}`].filter(Boolean).join("/");
-
       const queryParameters = [finalData?.FilterKey && `${finalData.FilterVal}`, finalData?.FilterKey1 && `${finalData.FilterVal1}`, finalData?.FilterKey2 && `${finalData.FilterVal2}`].join(",");
+      
       const otherparamUrl = Object.entries({
         b: finalData?.FilterKey,
         g: finalData?.FilterKey1,
@@ -113,179 +143,185 @@ const CollectionPage = () => {
         .map(([key, value]) => value)
         .filter(Boolean)
         .join(",");
-      const paginationParam = [`page=${finalData.page ?? 1}`, `size=${finalData.size ?? 50}`].join("&");
-
+        
       let menuEncoded = `${queryParameters}/${otherparamUrl}`;
       const url = `/p/${finalData?.menuname}/${queryParameters1}/?M=${btoa(menuEncoded)}`;
       navigate(url);
     }
   };
 
+  const getClipPath = (index, totalItems) => {
+    if (totalItems <= 1) return 'none';
+    // First element
+    if (index === 0) {
+      return 'polygon(0% 0%, 100% 0%, 93% 100%, 0% 100%)';
+    }
+    // Last element
+    if (index === totalItems - 1) {
+      return 'polygon(7% 0, 100% 0, 100% 100%, 0 100%)';
+    }
+    // Middle elements
+    return 'polygon(7% 0%, 100% 0%, 92% 100%, 0% 100%)';
+  };
+
+console.log("TCL: LuxuryAngledGrid -> sortedCollection",sortedCollection )
   if (loading) {
     return <CollectionSkeleton />;
   }
 
-  return (
-    <Container maxWidth={false} sx={{ py: 8, px: { xs: 2, md: 8 }, backgroundColor: "#fff" }}>
-      {/* Header Section */}
-      <Box sx={{ textAlign: "center", mb: 8 }}>
-        <Typography
-          variant="h3"
-          gutterBottom
-          sx={{
-            fontFamily: "'Playfair Display', serif",
-            color: "#333",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-            fontSize: { xs: "2rem", md: "3rem" },
-          }}
-        >
-          {title}
-        </Typography>
+  if (!sortedCollection?.length) {
+    return null;
+  }
 
-        <Typography
-          variant="body1"
+  const totalItems = 5;
+  // const totalItems = sortedCollection.length;
+
+  // Same exact card markup as before — only extracted into a function
+  // so it can be reused inside SwiperSlide without touching any UI/data.
+  const renderCard = (item, index) => {
+    const hasImage = item?.imgsrc && item?.imgsrc.length > 0;
+    const bgColor = FALLBACK_COLORS[index % FALLBACK_COLORS.length];
+
+    return (
+      <Box
+        sx={{
+          flex: 1,
+          width: '100%',
+          height: 420,
+          position: 'relative',
+          // Applies angled layout logic on desktop screens only
+          clipPath: { xs: 'none', md: getClipPath(index, totalItems) },
+          overflow: 'hidden',
+          cursor: 'pointer',
+          backgroundColor: hasImage ? "transparent" : bgColor,
+        }}
+        onClick={(e) =>
+          handelMenu(
+            { menuname: "Collection", key: "Auto", value: "" },
+            { key: "collection", value: item.CollectionName },
+            {},
+            e,
+            0
+          )
+        }
+      >
+        {hasImage ? (
+          /* Background Image rendering safely */
+          <Box
+            component="img"
+            src={item.imgsrc}
+            alt={item.CollectionName}
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: '0.5s',
+              '&:hover': {
+                transform: 'scale(1.08)',
+              },
+            }}
+            onError={(e) => {
+              e.target.style.display = "none";
+            }}
+          />
+        ) : (
+          /* Text fallback visual block when no image exists */
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              p: 2,
+            }}
+          />
+        )}
+
+        {/* Gradient Overlay for modern high-contrast readability */}
+        <Box
           sx={{
-            maxWidth: "800px",
-            mx: "auto",
-            color: "#777",
-            lineHeight: 1.8,
-            fontSize: "1rem",
-            fontFamily: "'Roboto', sans-serif",
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+
+        {/* Title Content */}
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 30,
+            left: { xs: 16, md: 24 },
+            right: { xs: 16, md: 24 },
+            textAlign: 'center',
+            color: '#fff',
+            zIndex: 2,
           }}
         >
-          {description}
-        </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 600,
+              fontSize: "1.15rem",
+              letterSpacing: "0.5px",
+              mb: 0.5,
+            }}
+          >
+            {item.CollectionName}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              opacity: 0.8,
+              fontSize: "0.8rem",
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+            }}
+          >
+            Explore
+          </Typography>
+        </Box>
       </Box>
+    );
+  };
 
-      {/* Grid Section */}
+  return (
+    <Container maxWidth="xl" sx={{ py: 8 }}>
 
-      <Grid container spacing={3} alignItems="stretch">
-        {sortedCollection?.map((item, index) => {
-          const gridSize = getGridSize(item?.ImageTypeId);
-          const hasImage = item?.imgsrc && item?.imgsrc.length > 0;
-          const bgColor = FALLBACK_COLORS[index % FALLBACK_COLORS.length];
-          return (
-            <Grid item xs={12} md={gridSize} key={index}>
-              <Box
-                onClick={(e) => handelMenu({ menuname: "Collection", key: "Auto", value: "" }, { key: "collection", value: item.CollectionName }, {}, e, 0)}
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  overflow: "hidden",
-                  backgroundColor: hasImage ? "transparent" : bgColor,
-                  cursor: "pointer",
-                  transition: "all 0.4s ease",
-                  "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-                  },
-                  borderRadius: 8,
-                }}
-              >
-                {hasImage ? (
-                  /* Image exists: No fixed height, let image dictate size */
-                  <Box
-                    sx={{
-                      position: "relative",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <img
-                      src={item.imgsrc}
-                      alt={item.CollectionName}
-                      style={{
-                        width: "100%",
-                        height: "auto", // Natural height
-                        display: "block", // Removes bottom whitespace
-                        objectFit: "contain",
-                      }}
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                      }}
-                    />
-                    {/* Overlay Title for Image */}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        bottom: 16,
-                        left: 16,
-                        right: 16,
-
-                        px: 2,
-                        py: 1,
-
-                        bgcolor: "#fff", // soft black
-                        color: "rgba(0, 0, 0, 0.75)",
-
-                        borderRadius: 5, // rounded card
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-
-                        backdropFilter: "blur(6px)", // premium glass feel
-                        width: "fit-content",
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontFamily: "'Playfair Display', serif",
-                          fontSize: "1.05rem",
-                          lineHeight: 1.2,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {item.CollectionName}
-                      </Typography>
-                    </Box>
-
-                  </Box>
-                ) : (
-                  /* No Image: Use Padding for height/volume */
-                  <Box
-                    sx={{
-                      width: "100%",
-                      flexGrow: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      p: 4, // Padding gives it volume
-                      textAlign: "center",
-                      borderRadius: 8,
-                    }}
-                  >
-                    <Typography
-                      variant="h4"
-                      sx={{
-                        color: "#555",
-                        fontWeight: 400,
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {item.CollectionName}
-                    </Typography>
-                    <Typography
-                      variant="button"
-                      sx={{
-                        mt: 2,
-                        color: "#888",
-                        borderBottom: "1px solid #999",
-                        pb: 0.5,
-                      }}
-                    >
-                      Explore
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-            </Grid>
-          );
-        })}
-      </Grid>
+      
+      <Swiper
+        spaceBetween={8}
+        slidesPerView={1}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            allowTouchMove: true,
+          },
+          600: {
+            slidesPerView: 3,
+            allowTouchMove: true,
+          },
+          // Covers screen sizes from 900px up to 1199px (e.g., your 1024px screen)
+          // 900: {
+          //   slidesPerView: Math.min(4, totalItems),
+          //   allowTouchMove: true,
+          // },
+          // Takes effect only at 1200px and above
+          1200: {
+            slidesPerView: 5,
+            allowTouchMove: false,
+          },
+        }}
+        style={{ overflow: 'hidden' }}
+      >
+        {sortedCollection?.map((item, index) => (
+          <SwiperSlide key={index}>
+            {renderCard(item, index)}
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Container>
   );
-};
-
-export default CollectionPage;
+}

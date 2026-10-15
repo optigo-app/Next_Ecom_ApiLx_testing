@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Pagination } from "swiper/modules";
 import Link from "next/link";
-import { Box, IconButton, Typography, styled } from "@mui/material";
+import { Box, Container, IconButton, Typography, styled } from "@mui/material";
 import { HeaderV2 } from "./Header";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -36,31 +36,35 @@ const IconWrapper = styled(Box)(({ theme }) => ({
 
 /* ---------- Main Component ---------- */
 
-export default function SocialMediaVideoSection({}) {
+export default function SocialMediaVideoSection({ }) {
   const videoData = [
     {
       id: 1,
-      link: "/social_media/Instagram.mp4",
+      video: "/social_media/Instagram.mp4",
       icon: <InstagramIcon />,
       platform: "https://www.instagram.com/",
+      title: 'Instagram',
     },
     {
       id: 2,
-      link: "/social_media/Facebook.mp4",
+      video: "/social_media/Facebook.mp4",
       icon: <FacebookIcon />,
       platform: "https://www.facebook.com/",
+      title: 'Facebook',
     },
     {
       id: 3,
-      link: "/social_media/Pinterest.mp4",
+      video: "/social_media/Pinterest.mp4",
       icon: <PinterestIcon />,
       platform: "https://www.pinterest.com/",
+      title: 'Pinterest',
     },
     {
       id: 4,
-      link: "/social_media/Youtube.mp4",
+      video: "/social_media/Youtube.mp4",
       icon: <YouTubeIcon />,
       platform: "https://www.youtube.com/",
+      title: 'YouTube',
     },
   ];
   const videoRefs = useRef([]);
@@ -69,7 +73,7 @@ export default function SocialMediaVideoSection({}) {
     const video = videoRefs.current[index];
     if (video) {
       video.currentTime = 0;
-      video.play().catch(() => {});
+      video.play().catch(() => { });
     }
   };
 
@@ -81,32 +85,151 @@ export default function SocialMediaVideoSection({}) {
     }
   };
 
+
+  function VideoCard({ item }) {
+    const videoRef = useRef(null);
+
+    const handleMouseEnter = () => {
+      videoRef.current?.play();
+    };
+
+    const handleMouseLeave = () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    };
+
+    return (
+
+      <Link href={item.platform} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+        <Box
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          sx={{
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            height: {
+              xs: 520,
+              md: 520,
+            },
+
+            '&:hover .video': {
+              transform: 'scale(1.08)',
+            },
+
+            '&:hover .overlay': {
+              opacity: 1,
+            },
+
+            '&:hover .content': {
+              opacity: 1,
+              transform: 'translateY(0)',
+            },
+          }}
+        >
+          {/* Video */}
+          <Box
+            component="video"
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="video"
+            src={item.video}
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform .8s cubic-bezier(.22,.61,.36,1)',
+            }}
+          />
+
+          {/* Overlay */}
+          <Box
+            className="overlay"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              // background:
+              //     'linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.15))',
+              opacity: 0,
+              transition: '.5s ease',
+            }}
+          />
+
+          {/* Hover Content */}
+          <Box
+            className="content"
+            sx={{
+              position: 'absolute',
+              bottom: 40,
+              left: 24,
+              color: '#fff',
+              zIndex: 2,
+              opacity: 0,
+              transform: 'translateY(20px)',
+              transition: '.45s ease',
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: 22,
+                fontWeight: 500,
+                mb: 1,
+              }}
+            >
+              {/* {item.title} */}
+              Explore
+            </Typography>
+
+
+          </Box>
+
+          {/* Bottom Label */}
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              width: '100%',
+              bgcolor: '#fff',
+              py: 1.5,
+              px: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: 18,
+                fontWeight: 800,
+                color: '#444',
+              }}
+            >
+              {item.title}
+            </Typography>
+          </Box>
+        </Box>
+      </Link>
+    );
+  }
+
   return (
-    <Box
-      name="mainSocialMediaConatinerID"
-      sx={{
-        width: "100%",
-        px: { xs: 2, sm: 3, md: 4 },
-        mb: 5,
-        boxSizing: "border-box",
-        pt: 8,
-        pb: 8,
-      }}
-    >
-      <HeaderV2
-        title="Social Media"
-        alignment="left"
+    <Container maxWidth="xl" sx={{ pt: 2, pb: 4 }}>
+      <Typography
         sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
+          fontFamily: '"EB Garamond", serif',
+          fontSize: { xs: 34, md: 42 },
+          fontWeight: 400,
+          mt: 5,
+          color: '#2C2C2C',
+          mb: 3,
+          textAlign: 'center',
         }}
-        icon={
-          <>
-            <SpireBox />
-          </>
-        }
-      />
+      >
+        Watch & Buy
+      </Typography>
 
       <Swiper
         loop
@@ -122,64 +245,10 @@ export default function SocialMediaVideoSection({}) {
       >
         {videoData?.map((item, index) => (
           <SwiperSlide key={index}>
-            <Link
-              href={item.platform}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Visit our ${item.platform.replace('https://www.', '').replace('https://', '').replace('.com/', '')} profile`}
-              style={{ textDecoration: "none" }}
-            >
-              <VideoCard
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
-              >
-                <video
-                  ref={(el) => (videoRefs.current[index] = el)}
-                  src={item.link}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  width="350"
-                  height="530"
-                  style={{
-                    width: "100%",
-                    height: "530px",
-                    display: "block",
-                    objectFit: "cover",
-                    borderRadius: "1px",
-                  }}
-                />
-
-                <Box
-                  aria-hidden="true"
-                  sx={{
-                    position: "absolute",
-                    bottom: 16,
-                    left: 16,
-                    width: 44,
-                    height: 44,
-                    background: "rgba(255,255,255,0.95)",
-                    backdropFilter: "blur(12px)",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transition: "all 0.25s ease",
-                    zIndex: 2,
-                    color: "#000",
-                    "&:hover": {
-                      background: "#fff",
-                      transform: "scale(1.05)",
-                    },
-                  }}
-                >
-                  {item.icon}
-                </Box>
-              </VideoCard>
-            </Link>
+            <VideoCard item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
-    </Box>
+    </Container>
   );
 }

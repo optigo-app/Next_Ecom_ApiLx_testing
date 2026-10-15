@@ -13,6 +13,7 @@ const dbPool = globalForDb.__tenantDbPool;
 /**
  * Root directory for all tenant databases
  */
+
 export const TENANTS_ROOT = path.join(process.cwd(), "db", "tenants");
 
 /**

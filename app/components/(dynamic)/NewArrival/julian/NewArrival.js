@@ -206,10 +206,8 @@ const TabSection = ({ storeData }) => {
             <Box >
                 {/* Center Content */}
                 <Box sx={{marginBottom:"50px"}}>
-
                     <Typography
                         sx={{
-
                             fontSize: { xs: 30, md: 42 },
                             fontWeight: 500,
                             mt: 1,

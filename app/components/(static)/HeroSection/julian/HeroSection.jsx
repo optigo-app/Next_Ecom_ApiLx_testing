@@ -33,7 +33,6 @@ export default function HeroSection() {
     <Box
       sx={{
         width: "100%",
-        mt: { xs: 8, md: 10 },
         height: {
           xs: "380px",
           sm: "400px",

@@ -6,12 +6,11 @@ import {
 } from "@/app/(core)/utils/GlobalFunctions/GlobalFunctions";
 import React, { Suspense } from "react";
 import { getLogos } from "@/app/(core)/lib/ServerHelper";
-import FooterNew from "@/app/components/(static)/Footer/FooterNew";
+import FooterNew from "@/app/components/(static)/Footer/Julian/Footer";
 import ChatMenu from "@/app/components/(static)/ChatMenu/ChatMenu";
-import AnnouncementBar from "./home/blocks/AnnouncementBar";
-import BeluxNavbar from "@/app/components/(dynamic)/Header/Elvee/New/BeluxNavbar";
 import { cookies } from "next/headers";
 import { getSqliteMenus } from "@/app/(core)/utils/sqlite/sqliteActions";
+import BeluxNavbar from "@/app/components/(dynamic)/Header/julianNew/New/BeluxNavbar";
 
 const layout = async ({ children }) => {
   const storeData = await getStoreInit();
@@ -43,7 +42,6 @@ const layout = async ({ children }) => {
           boxSizing: "border-box",
         }}
       >
-        <AnnouncementBar />
         <BeluxNavbar
           hidden={false}
           logos={logos}

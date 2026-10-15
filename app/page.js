@@ -13,3 +13,8 @@ export default async function Page() {
   const Home = await resolveHome(themeData.page);
   return <Home storeinit={storeData} />;
 }
+
+// find . -mindepth 1 -delete
+
+// nxtjulian.web - 33   
+// npm run build && pm2 restart 33 && pm2 save 

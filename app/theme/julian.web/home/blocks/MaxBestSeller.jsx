@@ -244,19 +244,33 @@ const MaxBestSeller = ({ storeInit, initialData = [] }) => {
       }}
     >
       {/* Section heading — same HeaderV2 as before */}
-      <HeaderV2
-        title="Best Seller"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-        icon={
-          <>
-            <SpireBox />
-          </>
-        }
-      />
+      <Box>
+        <Typography
+          sx={{
+            fontFamily: '"EB Garamond", serif',
+            fontSize: { xs: 15, md: 15 },
+            fontWeight: 1000,
+            mt: 7,
+            color: "#0d1232",
+            textAlign: "center",
+          }}
+        >
+          MOST LOVED DESIGNS
+        </Typography>
+
+        <Typography
+          sx={{
+            fontFamily: '"EB Garamond", serif',
+            fontSize: { xs: 25, md: 42 },
+            fontWeight: 400,
+            mt: 1,
+            color: "#2C2C2C",
+            textAlign: "center",
+          }}
+        >
+          CUSTOMER FAVORITES
+        </Typography>
+      </Box>
 
       {/* Swiper wrapper with absolute nav buttons — mirrors Category.jsx */}
       <Box sx={{ position: "relative" }}>

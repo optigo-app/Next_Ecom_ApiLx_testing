@@ -7,7 +7,7 @@ import { getTenantDb, closeTenantDb } from "./tenantManager.js";
  * @param {string} domain
  * @param {string} [sqlOrFilePath]
  */
-export function runSql(domain = "nxt10.optigoapps.com", sqlOrFilePath) {
+export function runSql(domain = "nxtjulian.web", sqlOrFilePath) {
     const db = getTenantDb(domain);
     let sqlContent = sqlOrFilePath;
 
@@ -55,6 +55,6 @@ export function runSql(domain = "nxt10.optigoapps.com", sqlOrFilePath) {
 const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, "$1"));
 if (isDirectRun || process.argv.includes("--run")) {
     const nonFlagArgs = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
-    const domainArg = nonFlagArgs[0] || "nxt10.optigoapps.com";
+    const domainArg = nonFlagArgs[0] || "nxtjulian.web";
     runSql(domainArg);
 }
