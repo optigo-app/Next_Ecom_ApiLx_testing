@@ -1,0 +1,1248 @@
+
+> nextjs-ecomm@0.1.0 dev
+> next dev -p 5005 --turbo -p 6010
+
+   ▲ Next.js 15.5.27 (Turbopack)
+   - Local:        http://localhost:6010
+   - Network:      http://192.168.0.65:6010
+   - Experiments (use with caution):
+     · serverActions
+     ✓ viewTransition
+     · optimizePackageImports
+
+ ✓ Starting...
+ ○ Compiling middleware ...
+ ✓ Compiled middleware in 1790ms
+ ✓ Ready in 11.4s
+ ⚠ Webpack is configured while Turbopack is not, which may cause problems.
+ ⚠ See instructions if you need to configure Turbopack:
+  https://nextjs.org/docs/app/api-reference/next-config-js/turbopack
+
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ ○ Compiling / ...
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ ✓ Compiled / in 81.5s
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 88476ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 26727ms
+ ○ Compiling /d/[[...slug]] ...
+ ✓ Compiled /d/[[...slug]] in 8.9s
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: null
+[PRODUCT DETAIL LOG] decompressed from searchParams: null
+MUI Grid: The `item` prop has been removed and is no longer necessary. You can safely remove it.
+
+ GET /d/EE1234 200 in 11288ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 1350ms
+⏰ [CACHE EXPIRED] home_newarrivals_10_20_bediamond_becolorstone_
+🚫 [CACHE MISS] home_newarrivals_10_20_bediamond_becolorstone_
+ POST / 200 in 720ms
+⏰ [CACHE EXPIRED] home_designset_10_20_bediamond_becolorstone_
+🚫 [CACHE MISS] home_designset_10_20_bediamond_becolorstone_
+ POST / 200 in 539ms
+⏰ [CACHE EXPIRED] home_album_10_20_bediamond_becolorstone_
+🚫 [CACHE MISS] home_album_10_20_bediamond_becolorstone_
+ POST / 200 in 309ms
+⏰ [CACHE EXPIRED] home_bestseller_10_20_bediamond_becolorstone_
+🚫 [CACHE MISS] home_bestseller_10_20_bediamond_becolorstone_
+ POST / 200 in 382ms
+ ○ Compiling /p/[[...slug]] ...
+ ✓ Compiled /p/[[...slug]] in 4.9s
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 6418ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 402ms
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 68 total, 10 returned
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 358ms
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 386ms
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 495ms
+✅ [CACHE SAVED] home_bestseller_10_20_bediamond_becolorstone_
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 308ms
+✅ [CACHE SAVED] home_designset_10_20_bediamond_becolorstone_
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 310ms
+✅ [CACHE SAVED] home_album_10_20_bediamond_becolorstone_
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 304ms
+✅ [CACHE SAVED] home_newarrivals_10_20_bediamond_becolorstone_
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 290ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 439ms
+ ○ Compiling /api/sqlite/recently-viewed ...
+ GET /d/FD114005?p=eJyNT11vgjAU%2FS%2F3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G%2F3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY%2FA7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE%2FnbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l%2FWohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC%2FRc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw%3D%3D 200 in 848ms
+ ✓ Compiled /api/sqlite/recently-viewed in 1887ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 987ms
+ POST /api/sqlite/recently-viewed 200 in 3008ms
+ POST /api/sqlite/recently-viewed 200 in 1685ms
+ POST /api/sqlite/recently-viewed 200 in 1512ms
+ POST /api/sqlite/recently-viewed 200 in 1536ms
+ POST /api/sqlite/recently-viewed 200 in 1182ms
+ POST /api/sqlite/recently-viewed 200 in 1186ms
+ POST /api/sqlite/recently-viewed 200 in 1187ms
+ POST /api/sqlite/recently-viewed 200 in 778ms
+ POST /api/sqlite/recently-viewed 200 in 736ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ ✓ Compiled /api/sqlite/albums in 318ms
+ℹ️ [API_ALBUMS] [SYSTEM] Triggering internal ERP GetAlbums sync for domain 'nxtelvee.web'
+⚠️ [ALBUMS_SYNC] [SYSTEM] storeinit record not found for domain 'nxtelvee.web'
+ POST /api/sqlite/albums?domain=nxtelvee.web 400 in 865ms
+ ✓ Compiled /api/sqlite/articles in 311ms
+ POST /api/sqlite/articles?domain=nxtelvee.web 400 in 774ms
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L20_DBEdiamond_CBEcolorStone_S11] Starting sync → article table: ArticleManagement_DesignInfo_Web_20_BEdiamond_BEcolorStone_11
+
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+[ARTICLE_SYNC] Policy: L20_DBEdiamond_CBEcolorStone_S11
+[ARTICLE_SYNC] Table:  ArticleManagement_DesignInfo_Web_20_BEdiamond_BEcolorStone_11
+[ARTICLE_SYNC] Calling GETPRODUCTFULLARTICLE_Count ...
+[ARTICLE_SYNC] ✔ Count API OK (169ms)
+[ARTICLE_SYNC]   totalCount  = 911
+[ARTICLE_SYNC]   erpPageSize = 15000
+[ARTICLE_SYNC]   fetchBatch  = 25000 records/page
+[ARTICLE_SYNC]   totalPages  = 1
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L20_DBEdiamond_CBEcolorStone_S11] Count → totalCount=911, batchSize=25000, totalPages=1 (169ms)
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Starting pagination loop: 1 page(s) × 25000 records/page
+[ARTICLE_SYNC] Mode: PAGINATED
+[ARTICLE_SYNC] [Page 1/1] ▶ Fetching from ERP API ...
+[ARTICLE_SYNC] [Page 1/1] ✔ Fetch OK (334ms) — articles: 911, materials: 2124
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L20_DBEdiamond_CBEcolorStone_S11] [Page 1/1] Fetched 911 articles + 2124 materials (334ms)
+[ARTICLE_SYNC] [Page 1/1]   articles staged to temp: 911 inserted, 0 updated (34ms)
+[ARTICLE_SYNC] [Page 1/1]   materials staged to temp: 2124 inserted (74ms)
+[ARTICLE_SYNC] [Page 1/1] ✓ Page done — total this page: 911 articles, 2124 materials (page time: 443ms, running total: 911 articles)
+[ARTICLE_SYNC] merge articles -> inserted: 911, updated: 0, deleted: 0
+[ARTICLE_SYNC] merge materials -> inserted: 2124, updated: 0, deleted: 0
+[ARTICLE_SYNC] metal repair -> articles fixed: 275, material ArticleIds backfilled: 2124
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Policy L20_DBEdiamond_CBEcolorStone_S11 pagination loop DONE
+[ARTICLE_SYNC]   Pages processed : 1
+[ARTICLE_SYNC]   Articles fetched: 911 (inserted: 911, updated: 0, deleted: 0)
+[ARTICLE_SYNC]   Materials stored: 2124
+[ARTICLE_SYNC]   Total time      : 581ms
+[ARTICLE_SYNC]   Status          : SUCCESS ✅
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L20_DBEdiamond_CBEcolorStone_S11] ✅ Sync complete — 911 articles (1 page(s)), 2124 materials → ArticleManagement_DesignInfo_Web_20_BEdiamond_BEcolorStone_11
+ POST /api/sqlite/articles 200 in 1415ms
+ ✓ Compiled /api/sqlite/store-init in 460ms
+ℹ️ [API_STORE_INIT] [SYSTEM] POST /api/sqlite/store-init: Detected apiurl. Initiating sync for 'nxthoq.web'
+ℹ️ [STORE_INIT_SYNC] [SYSTEM] Starting StoreInit sync for domain 'nxthoq.web' from 'http://newnextjs.web/api/report'
+ℹ️ [STORE_INIT_SYNC] [SYSTEM] Successfully synced StoreInit for 'nxthoq.web' in 235ms
+ℹ️ [API_STORE_INIT] [SYSTEM] Sync verified — FileCreateDate in SQLite: '2026-10-19T15:53:46.373Z'
+[StoreInit] Cleared all storeInit disk and memory cache
+[StoreInit] Cache seeded directly for 'nxthoq.web'
+ POST /api/sqlite/store-init?domain=nxthoq.web 200 in 1378ms
+ GET /api/sqlite/articles?domain=nxthoq.web&mode=GETPRODUCTARTICLE&designno=BE-1020 200 in 1061ms
+ ✓ Compiled /api/sqlite/package-master in 212ms
+ℹ️ [API_PACKAGE_MASTER] [SYSTEM] Triggering internal ERP PackageMst sync for domain 'nxtelvee.web'
+⚠️ [PACKAGE_SYNC] [SYSTEM] storeinit record not found for domain 'nxtelvee.web'
+ POST /api/sqlite/package-master?domain=nxtelvee.web 400 in 686ms
+ℹ️ [API_PACKAGE_MASTER] [SYSTEM] Triggering internal ERP PackageMst sync for domain 'nxthoq.web'
+ℹ️ [PACKAGE_SYNC] [nxthoq.web] Calling ERP PackageMst for tenant 'nxthoq.web'
+ℹ️ [PACKAGE_SYNC] [nxthoq.web] Synced 11 package master items for 'nxthoq.web' in 2.43ms
+ POST /api/sqlite/package-master?domain=nxthoq.web 200 in 545ms
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L1_DDiamINR_CcsINR_S3] Starting sync → article table: ArticleManagement_DesignInfo_Web_1_DiamINR_csINR_3
+
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+[ARTICLE_SYNC] Policy: L1_DDiamINR_CcsINR_S3
+[ARTICLE_SYNC] Table:  ArticleManagement_DesignInfo_Web_1_DiamINR_csINR_3
+[ARTICLE_SYNC] Calling GETPRODUCTFULLARTICLE_Count ...
+[ARTICLE_SYNC] ⚠ Count API failed (310ms) — falling back to single-page fetch
+[ARTICLE_SYNC]   Reason: totalCount = 0
+⚠️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L1_DDiamINR_CcsINR_S3] Count API failed or returned 0 — falling back to single-page fetch. Reason: totalCount = 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Starting pagination loop: 1 page(s) × 25000 records/page
+[ARTICLE_SYNC] Mode: SINGLE-FETCH (fallback)
+[ARTICLE_SYNC] [single-fetch] ▶ Fetching from ERP API ...
+[ARTICLE_SYNC] [single-fetch] ✔ Fetch OK (247ms) — articles: 1, materials: 0
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L1_DDiamINR_CcsINR_S3] [single-fetch] Fetched 1 articles + 0 materials (247ms)
+[ARTICLE_SYNC] [single-fetch]   articles staged to temp: 0 inserted, 1 updated (4ms)
+[ARTICLE_SYNC] [single-fetch]   materials: none returned on this page
+[ARTICLE_SYNC] [single-fetch] ✓ Page done — total this page: 1 articles, 0 materials (page time: 252ms, running total: 1 articles)
+[ARTICLE_SYNC] merge articles -> inserted: 0, updated: 0, deleted: 0
+[ARTICLE_SYNC] metal repair -> articles fixed: 0, material ArticleIds backfilled: 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Policy L1_DDiamINR_CcsINR_S3 pagination loop DONE
+[ARTICLE_SYNC]   Pages processed : 1
+[ARTICLE_SYNC]   Articles fetched: 1 (inserted: 0, updated: 0, deleted: 0)
+[ARTICLE_SYNC]   Materials stored: 0
+[ARTICLE_SYNC]   Total time      : 258ms
+[ARTICLE_SYNC]   Status          : SUCCESS ✅
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L1_DDiamINR_CcsINR_S3] ✅ Sync complete — 1 articles (1 page(s)), 0 materials → ArticleManagement_DesignInfo_Web_1_DiamINR_csINR_3
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L2_DDiamINR_CcsINR_S3] Starting sync → article table: ArticleManagement_DesignInfo_Web_2_DiamINR_csINR_3
+
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+[ARTICLE_SYNC] Policy: L2_DDiamINR_CcsINR_S3
+[ARTICLE_SYNC] Table:  ArticleManagement_DesignInfo_Web_2_DiamINR_csINR_3
+[ARTICLE_SYNC] Calling GETPRODUCTFULLARTICLE_Count ...
+[ARTICLE_SYNC] ⚠ Count API failed (281ms) — falling back to single-page fetch
+[ARTICLE_SYNC]   Reason: totalCount = 0
+⚠️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L2_DDiamINR_CcsINR_S3] Count API failed or returned 0 — falling back to single-page fetch. Reason: totalCount = 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Starting pagination loop: 1 page(s) × 25000 records/page
+[ARTICLE_SYNC] Mode: SINGLE-FETCH (fallback)
+[ARTICLE_SYNC] [single-fetch] ▶ Fetching from ERP API ...
+[ARTICLE_SYNC] [single-fetch] ✔ Fetch OK (334ms) — articles: 1, materials: 0
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L2_DDiamINR_CcsINR_S3] [single-fetch] Fetched 1 articles + 0 materials (334ms)
+[ARTICLE_SYNC] [single-fetch]   articles staged to temp: 0 inserted, 1 updated (5ms)
+[ARTICLE_SYNC] [single-fetch]   materials: none returned on this page
+[ARTICLE_SYNC] [single-fetch] ✓ Page done — total this page: 1 articles, 0 materials (page time: 339ms, running total: 1 articles)
+[ARTICLE_SYNC] merge articles -> inserted: 0, updated: 0, deleted: 0
+[ARTICLE_SYNC] metal repair -> articles fixed: 0, material ArticleIds backfilled: 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Policy L2_DDiamINR_CcsINR_S3 pagination loop DONE
+[ARTICLE_SYNC]   Pages processed : 1
+[ARTICLE_SYNC]   Articles fetched: 1 (inserted: 0, updated: 0, deleted: 0)
+[ARTICLE_SYNC]   Materials stored: 0
+[ARTICLE_SYNC]   Total time      : 342ms
+[ARTICLE_SYNC]   Status          : SUCCESS ✅
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L2_DDiamINR_CcsINR_S3] ✅ Sync complete — 1 articles (1 page(s)), 0 materials → ArticleManagement_DesignInfo_Web_2_DiamINR_csINR_3
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L4_DDiamINR_CcsINR_S3] Starting sync → article table: ArticleManagement_DesignInfo_Web_4_DiamINR_csINR_3
+
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+[ARTICLE_SYNC] Policy: L4_DDiamINR_CcsINR_S3
+[ARTICLE_SYNC] Table:  ArticleManagement_DesignInfo_Web_4_DiamINR_csINR_3
+[ARTICLE_SYNC] Calling GETPRODUCTFULLARTICLE_Count ...
+[ARTICLE_SYNC] ⚠ Count API failed (309ms) — falling back to single-page fetch
+[ARTICLE_SYNC]   Reason: totalCount = 0
+⚠️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L4_DDiamINR_CcsINR_S3] Count API failed or returned 0 — falling back to single-page fetch. Reason: totalCount = 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Starting pagination loop: 1 page(s) × 25000 records/page
+[ARTICLE_SYNC] Mode: SINGLE-FETCH (fallback)
+[ARTICLE_SYNC] [single-fetch] ▶ Fetching from ERP API ...
+[ARTICLE_SYNC] [single-fetch] ✔ Fetch OK (282ms) — articles: 1, materials: 0
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L4_DDiamINR_CcsINR_S3] [single-fetch] Fetched 1 articles + 0 materials (282ms)
+[ARTICLE_SYNC] [single-fetch]   articles staged to temp: 0 inserted, 1 updated (19ms)
+[ARTICLE_SYNC] [single-fetch]   materials: none returned on this page
+[ARTICLE_SYNC] [single-fetch] ✓ Page done — total this page: 1 articles, 0 materials (page time: 302ms, running total: 1 articles)
+[ARTICLE_SYNC] merge articles -> inserted: 0, updated: 0, deleted: 0
+[ARTICLE_SYNC] metal repair -> articles fixed: 0, material ArticleIds backfilled: 0
+[ARTICLE_SYNC] ───────────────────────────────────────────────────
+[ARTICLE_SYNC] Policy L4_DDiamINR_CcsINR_S3 pagination loop DONE
+[ARTICLE_SYNC]   Pages processed : 1
+[ARTICLE_SYNC]   Articles fetched: 1 (inserted: 0, updated: 0, deleted: 0)
+[ARTICLE_SYNC]   Materials stored: 0
+[ARTICLE_SYNC]   Total time      : 310ms
+[ARTICLE_SYNC]   Status          : SUCCESS ✅
+[ARTICLE_SYNC] ═══════════════════════════════════════════════════
+
+ℹ️ [DYNAMIC_ARTICLE_SYNC] [nxthoq.web] [L4_DDiamINR_CcsINR_S3] ✅ Sync complete — 1 articles (1 page(s)), 0 materials → ArticleManagement_DesignInfo_Web_4_DiamINR_csINR_3
+ POST /api/sqlite/articles?domain=nxthoq.web 200 in 2324ms
+ℹ️ [API_ALBUMS] [SYSTEM] Triggering internal ERP GetAlbums sync for domain 'nxthoq.web'
+ℹ️ [ALBUMS_SYNC] [nxthoq.web] Calling ERP GetAlbums for tenant 'nxthoq.web'
+ℹ️ [ALBUMS_SYNC] [nxthoq.web] Synced 51 albums (deleted 44 old) for 'nxthoq.web' in 2.16ms
+ POST /api/sqlite/albums?domain=nxthoq.web 200 in 546ms
+ ✓ Compiled /api/sqlite/products in 193ms
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Calling ERP API for policy table: design_Productlist_1_DiamINR_csINR_3
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Synced 1 products → design_Productlist_1_DiamINR_csINR_3 (Inserted: 0, Updated: 0)
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Calling ERP API for policy table: design_Productlist_2_DiamINR_csINR_3
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Synced 1 products → design_Productlist_2_DiamINR_csINR_3 (Inserted: 0, Updated: 0)
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Calling ERP API for policy table: design_Productlist_4_DiamINR_csINR_3
+ℹ️ [DYNAMIC_SYNC] [nxthoq.web] Synced 1 products → design_Productlist_4_DiamINR_csINR_3 (Inserted: 0, Updated: 0)
+ POST /api/sqlite/products?domain=nxthoq.web 200 in 1696ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1750ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 2831ms
+ POST / 200 in 580ms
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 924ms
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 841ms
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 448ms
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 443ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 450ms
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 68 total, 10 returned
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 470ms
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 724ms
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 516ms
+ GET /d/FD114005?p=eJyNT11vgjAU%2FS%2F3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G%2F3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY%2FA7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE%2FnbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l%2FWohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC%2FRc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw%3D%3D 200 in 536ms
+ POST /api/sqlite/recently-viewed 200 in 680ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 859ms
+ POST /api/sqlite/recently-viewed 200 in 1416ms
+ POST /api/sqlite/recently-viewed 200 in 1303ms
+ POST /api/sqlite/recently-viewed 200 in 1605ms
+ POST /api/sqlite/recently-viewed 200 in 1288ms
+ POST /api/sqlite/recently-viewed 200 in 1137ms
+ POST /api/sqlite/recently-viewed 200 in 989ms
+ POST /api/sqlite/recently-viewed 200 in 648ms
+ POST /api/sqlite/recently-viewed 200 in 651ms
+ ✓ Compiled in 3.2s
+ POST /api/sqlite/recently-viewed 200 in 764ms
+ POST /api/sqlite/recently-viewed 200 in 962ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1986ms
+ POST /api/sqlite/recently-viewed 200 in 1737ms
+ POST /api/sqlite/recently-viewed 200 in 1745ms
+ POST /api/sqlite/recently-viewed 200 in 956ms
+ POST /api/sqlite/recently-viewed 200 in 749ms
+ POST /api/sqlite/recently-viewed 200 in 1119ms
+ POST /api/sqlite/recently-viewed 200 in 829ms
+ ✓ Compiled in 325ms
+ ✓ Compiled in 654ms
+ POST /api/sqlite/recently-viewed 200 in 1170ms
+ POST /api/sqlite/recently-viewed 200 in 1269ms
+ POST /api/sqlite/recently-viewed 200 in 1476ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 2454ms
+ POST /api/sqlite/recently-viewed 200 in 2513ms
+ POST /api/sqlite/recently-viewed 200 in 2535ms
+ POST /api/sqlite/recently-viewed 200 in 2083ms
+ POST /api/sqlite/recently-viewed 200 in 1545ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1021ms
+ POST /api/sqlite/recently-viewed 200 in 1212ms
+ ✓ Compiled in 929ms
+ POST /api/sqlite/recently-viewed 200 in 836ms
+ POST /api/sqlite/recently-viewed 200 in 1228ms
+ POST /api/sqlite/recently-viewed 200 in 1527ms
+ POST /api/sqlite/recently-viewed 200 in 1511ms
+ POST /api/sqlite/recently-viewed 200 in 1650ms
+ POST /api/sqlite/recently-viewed 200 in 1563ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1413ms
+ POST /api/sqlite/recently-viewed 200 in 1497ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /api/sqlite/recently-viewed 200 in 1802ms
+ POST /api/sqlite/recently-viewed 200 in 1679ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /api/sqlite/recently-viewed 200 in 4178ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: null
+[PRODUCT DETAIL LOG] decompressed from searchParams: null
+MUI Grid: The `item` prop has been removed and is no longer necessary. You can safely remove it.
+
+ GET /d/BE-1020 200 in 5050ms
+ POST /api/sqlite/recently-viewed 200 in 1764ms
+ POST /api/sqlite/recently-viewed 200 in 989ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ ○ Compiling /cartPage ...
+ ✓ Compiled /cartPage in 5.2s
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ GET /cartPage 200 in 5790ms
+ GET /cartPage 200 in 566ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+[ 'M=L0F1dG8=' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+ GET /p/Earing?M=L0F1dG8%3D 200 in 472ms
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 68 total, 10 returned
+ POST /p/Earing?M=L0F1dG8%3D 200 in 468ms
+ GET /d/FD114005?p=eJyNT11vgjAU%2FS%2F3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G%2F3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY%2FA7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE%2FnbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l%2FWohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC%2FRc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw%3D%3D 200 in 615ms
+ POST /api/sqlite/recently-viewed 200 in 887ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1051ms
+ POST /api/sqlite/recently-viewed 200 in 1528ms
+ POST /api/sqlite/recently-viewed 200 in 1407ms
+ POST /api/sqlite/recently-viewed 200 in 1712ms
+ POST /api/sqlite/recently-viewed 200 in 1515ms
+ POST /api/sqlite/recently-viewed 200 in 1357ms
+ POST /api/sqlite/recently-viewed 200 in 1281ms
+ POST /api/sqlite/recently-viewed 200 in 755ms
+ POST /api/sqlite/recently-viewed 200 in 656ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1713ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 550ms
+ POST /api/sqlite/recently-viewed 200 in 974ms
+ POST /api/sqlite/recently-viewed 200 in 867ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /api/sqlite/recently-viewed 200 in 1829ms
+ POST /api/sqlite/recently-viewed 200 in 1618ms
+ POST /api/sqlite/recently-viewed 200 in 1482ms
+ POST /api/sqlite/recently-viewed 200 in 1516ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1971ms
+ POST /api/sqlite/recently-viewed 200 in 1157ms
+ POST /api/sqlite/recently-viewed 200 in 1192ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ GET /cartPage 200 in 388ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+[ 'M=LCwvQXV0bw==' ] decodedParams
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 138 total, 10 returned
+ℹ️ [FILTERS_QUERY] [nxthoq.web] [FILTERS GENERATED] Tenant 'nxthoq.web' → 14 filter sections returned
+ GET /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 427ms
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] Executing getSqliteProducts for tenant 'nxthoq.web'
+ℹ️ [PRODUCT_QUERY] [nxthoq.web] [TABLE PICKED] Tenant 'nxthoq.web' → Queried Table: 'designs' (Candidate: 'design_Productlist_20_BEdiamond_BEcolorStone_11') | Results: 68 total, 10 returned
+ POST /p/Earing?M=LCwvQXV0bw%3D%3D 200 in 1156ms
+ GET /d/FD114005?p=eJyNT11vgjAU%2FS%2F3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G%2F3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY%2FA7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE%2FnbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l%2FWohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC%2FRc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw%3D%3D 200 in 479ms
+ POST /api/sqlite/recently-viewed 200 in 669ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 678ms
+ POST /api/sqlite/recently-viewed 200 in 1171ms
+ POST /api/sqlite/recently-viewed 200 in 1019ms
+ POST /api/sqlite/recently-viewed 200 in 1264ms
+ POST /api/sqlite/recently-viewed 200 in 1095ms
+ POST /api/sqlite/recently-viewed 200 in 1122ms
+ POST /api/sqlite/recently-viewed 200 in 1124ms
+ POST /api/sqlite/recently-viewed 200 in 982ms
+ POST /api/sqlite/recently-viewed 200 in 985ms
+ ✓ Compiled in 814ms
+ POST /api/sqlite/recently-viewed 200 in 3502ms
+ POST /api/sqlite/recently-viewed 200 in 3513ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 2559ms
+ POST /api/sqlite/recently-viewed 200 in 3208ms
+ POST /api/sqlite/recently-viewed 200 in 3023ms
+ POST /api/sqlite/recently-viewed 200 in 3022ms
+ POST /api/sqlite/recently-viewed 200 in 3309ms
+ ✓ Compiled in 1184ms
+ POST /api/sqlite/recently-viewed 200 in 971ms
+ POST /api/sqlite/recently-viewed 200 in 976ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: null
+[PRODUCT DETAIL LOG] decompressed from searchParams: null
+MUI Grid: The `item` prop has been removed and is no longer necessary. You can safely remove it.
+
+ GET /d/BE-1020 200 in 3316ms
+ ✓ Compiled in 872ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: null
+[PRODUCT DETAIL LOG] decompressed from searchParams: null
+ GET /d/BE-1020 200 in 1463ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1505ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 730ms
+ POST /api/sqlite/recently-viewed 200 in 1066ms
+ POST /api/sqlite/recently-viewed 200 in 925ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1820ms
+ POST /api/sqlite/recently-viewed 200 in 2030ms
+ POST /api/sqlite/recently-viewed 200 in 2040ms
+ POST /api/sqlite/recently-viewed 200 in 1852ms
+ POST /api/sqlite/recently-viewed 200 in 1844ms
+ POST /api/sqlite/recently-viewed 200 in 794ms
+ POST /api/sqlite/recently-viewed 200 in 722ms
+ ✓ Compiled in 1139ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: null
+[PRODUCT DETAIL LOG] decompressed from searchParams: null
+ GET /d/BE-1020 200 in 1193ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1584ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 648ms
+ POST /api/sqlite/recently-viewed 200 in 1071ms
+ POST /api/sqlite/recently-viewed 200 in 916ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1876ms
+ POST /api/sqlite/recently-viewed 200 in 2228ms
+ POST /api/sqlite/recently-viewed 200 in 2009ms
+ POST /api/sqlite/recently-viewed 200 in 1876ms
+ POST /api/sqlite/recently-viewed 200 in 1894ms
+ POST /api/sqlite/recently-viewed 200 in 963ms
+ POST /api/sqlite/recently-viewed 200 in 976ms
+ ✓ Compiled in 694ms
+ ✓ Compiled in 515ms
+ POST /api/sqlite/recently-viewed 200 in 1731ms
+ POST /api/sqlite/recently-viewed 200 in 1734ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1848ms
+ POST /api/sqlite/recently-viewed 200 in 1693ms
+ POST /api/sqlite/recently-viewed 200 in 1355ms
+ POST /api/sqlite/recently-viewed 200 in 2021ms
+ POST /api/sqlite/recently-viewed 200 in 2036ms
+ POST /api/sqlite/recently-viewed 200 in 1886ms
+ POST /api/sqlite/recently-viewed 200 in 1857ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1936ms
+ POST /api/sqlite/recently-viewed 200 in 1656ms
+ POST /api/sqlite/recently-viewed 200 in 999ms
+ POST /api/sqlite/recently-viewed 200 in 1131ms
+ POST /api/sqlite/recently-viewed 200 in 628ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ ✓ Compiled in 940ms
+ ✓ Compiled in 771ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1392ms
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 683ms
+ POST /api/sqlite/recently-viewed 200 in 1107ms
+ POST /api/sqlite/recently-viewed 200 in 1009ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 1174ms
+ POST /api/sqlite/recently-viewed 200 in 1568ms
+ POST /api/sqlite/recently-viewed 200 in 1366ms
+ POST /api/sqlite/recently-viewed 200 in 1243ms
+ POST /api/sqlite/recently-viewed 200 in 1251ms
+ POST /api/sqlite/recently-viewed 200 in 965ms
+ POST /api/sqlite/recently-viewed 200 in 970ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+[PRODUCT DETAIL LOG] rawP: eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8 3Xs knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk LSybMuyPQtDpDmjOG 1Su00ChCHEvIaokCkTC/Rc EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw==
+[PRODUCT DETAIL LOG] decompressed from rawP: {
+  a: '0001695',
+  b: 'FD114005',
+  m: 3,
+  d: '7,14',
+  c: '',
+  f: {},
+  g: [ [ 'Auto' ], [] ],
+  img: 'http://nzen/R50B3/UFSImage/demostoreQI9S5BDATC0M1KYJH_uKey/Design_Image/FD114005~1.png',
+  ArticleNo: 'FD114005-2573',
+  ArticleId: null,
+  title: '',
+  nwt: 3.058,
+  price: 100,
+  mediaDet: '[{"Nm":1,"Ex":"png","CN":"","TI":1},{"Nm":2,"Ex":"png","CN":"","TI":1}]',
+  l: 'png',
+  count: 2
+}
+ GET /d/FD114005?p=eJyNT11vgjAU/S/3ubMtyJx9Q5kZMyPZdA8LJQahY02gECzZB2G/3avEbI8+3Xs+knNODykIYIzx27kHBPaIVgHnU8ZOsALhEsiRnBE+RSLDF887iH4gUICIY/A7W0NC4iQhoCvk4MPaRlBqfpShLx5buPR1tQmrtFA0V1V9sHWrnsP5xlsE/nbJnvj67fFh163VNw3UQRdmN5ovTX75pDEF5vqt1VmpovpfzRvHm7l/WohtTVeWBKy2pRr7mk+LSybMuyPQtDpDmjOG+1Su00ChCHEvIaokCkTC/Rc+EjBUAsJldIbnfxuePAO52J2r7AmWKDFlnJHVncFMZzgCmPRqpw== 200 in 4027ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 5364ms
+ POST / 200 in 1302ms
+ POST / 200 in 1208ms
+ POST / 200 in 573ms
+ POST / 200 in 1057ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ POST / 200 in 427ms
+ℹ️ [STORE_INIT] [nxthoq.web] Fetching StoreInit configuration for tenant: 'nxthoq.web'
+ℹ️ [STORE_INIT] [nxthoq.web] Successfully retrieved StoreInit for 'nxthoq.web'
+ GET / 200 in 564ms
+{ packageId: 10 } undefined options = {}, domain
+{
+  Status: '200',
+  Message: 'Request processed successfully.',
+  Data: {
+    rd: [
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      ... 12 more items
+    ]
+  }
+} menuRes
+ GET / 200 in 1885ms
+[?25h

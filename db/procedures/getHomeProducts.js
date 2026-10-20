@@ -1,4 +1,4 @@
-import { getDynamicDesignTableName, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
+import { getDynamicDesignTableName, isCompatibleDesignTable, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
 
 /**
  * Resolves the target table name in SQLite.
@@ -19,7 +19,7 @@ export function resolveHomeTable(db, options = {}) {
     const exists = db
       .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE")
       .get(clean);
-    if (exists) return exists.name;
+    if (exists && isCompatibleDesignTable(db, exists.name)) return exists.name;
   }
 
   // 2. Policy-derived table name from options
@@ -37,7 +37,7 @@ export function resolveHomeTable(db, options = {}) {
     const exists = db
       .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE")
       .get(candidate);
-    if (exists) return exists.name;
+    if (exists && isCompatibleDesignTable(db, exists.name)) return exists.name;
   }
 
   // 3. Try resolving policy from storeinit in DB
@@ -52,14 +52,15 @@ export function resolveHomeTable(db, options = {}) {
       const exists = db
         .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE")
         .get(candidateFromStore);
-      if (exists) return exists.name;
+      if (exists && isCompatibleDesignTable(db, exists.name)) return exists.name;
     }
   } catch (_) {}
 
   // 4. Any existing dynamic design table with data
   const anyDynamic = db
-    .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'design_Productlist_%' LIMIT 1")
-    .get();
+    .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'design_Productlist_%'")
+    .all()
+    .find((t) => isCompatibleDesignTable(db, t.name));
   if (anyDynamic) return anyDynamic.name;
 
   // 5. Standard 'designs' table

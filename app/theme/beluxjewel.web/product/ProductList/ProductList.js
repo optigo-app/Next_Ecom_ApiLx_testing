@@ -107,7 +107,6 @@ const ProductList = ({ storeinit, searchParams, params, initialData, initialFilt
   }, []);
 
   const fullUrl = `${baseUrl}${location}${searchParamsHook.toString() ? `?${searchParamsHook.toString()}` : ""}`;
-
   const breadcrumbData = useMemo(
     () => [
       { name: "Home", url: baseUrl },

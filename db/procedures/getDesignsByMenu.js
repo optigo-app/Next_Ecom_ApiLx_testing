@@ -1,4 +1,4 @@
-import { getDynamicDesignTableName, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
+import { getDynamicDesignTableName, isCompatibleDesignTable, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
 import { resolveArticleTableName } from "../schema/dynamicArticles.js";
 
 /**
@@ -612,11 +612,11 @@ ResolvedPackages(package_id) AS (
   if (filters.tableName) {
     resolvedCandidate = sanitizeSqlIdentifier(filters.tableName, "designs");
     const exists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE").get(resolvedCandidate);
-    if (exists) targetTable = exists.name;
+    if (exists && isCompatibleDesignTable(db, exists.name)) targetTable = exists.name;
   } else if (hasLabour && hasDia) {
     resolvedCandidate = getDynamicDesignTableName(filters);
     const exists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE").get(resolvedCandidate);
-    if (exists) {
+    if (exists && isCompatibleDesignTable(db, exists.name)) {
       targetTable = exists.name;
     }
   }

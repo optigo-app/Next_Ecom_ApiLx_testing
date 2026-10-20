@@ -450,6 +450,7 @@ export async function saveSqliteStoreInitAction(domain, payload) {
  * @returns {Promise<{ Status: string, Message: string, Data: { rd: Array<object> } }>}
  */
 export async function getSqliteMenus(options = {}, domain) {
+  console.log(options, domain ,"options = {}, domain")
   try {
     let targetDomain = domain || options.domain;
     if (!targetDomain) {

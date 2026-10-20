@@ -639,7 +639,6 @@ export default function HarryWinstonHeader({ storeinit, logos }) {
         {/* <Box component="header" data-header sx={{ position: 'sticky', top: 0, zIndex: 1200 }}> */}
         {/* Top navy bar */}
         <Box
-
           className="HeaderContainer"
           sx={{
 
@@ -651,7 +650,6 @@ export default function HarryWinstonHeader({ storeinit, logos }) {
             position: 'relative',
           }}
         >
-
           {/* Hamburger — mobile only */}
           <IconButton
             onClick={handleDrawerToggle}

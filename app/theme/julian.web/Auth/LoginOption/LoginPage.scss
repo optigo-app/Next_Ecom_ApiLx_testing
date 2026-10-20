@@ -31,11 +31,11 @@
     }
   }
 
-  .loginMobile {
+  .ssloginMobile {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    background-color: #ffffff !important;
+    background-color: $authbtnbg !important;
     color: #111827 !important;
     border: 1.5px solid #d1d5db !important;
     border-radius: 6px !important;
@@ -55,4 +55,27 @@
       color: $authbtnbg !important;
     }
   }
+}
+
+.ssloginMobile {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background-color: red !important;
+  color: #111827 !important;
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  text-transform: none !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease-in-out !important;
+  padding: 14px 20px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.sample {
+  background-color: red !important;
 }

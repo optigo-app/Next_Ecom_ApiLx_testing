@@ -50,6 +50,7 @@ const Product_Card = ({
 
         return () => clearTimeout(timer);
     }, [productIndex]);
+
     return (
         <div className="C_Card" onMouseLeave={() => SetisPlusClicked(false)}>
             {isLoading ? (
@@ -151,40 +152,6 @@ const Product_Card = ({
                         onMouseEnter={handleMouseEnter}
                     >
                         {selectedProduct && <StoryLine storeInit={storeInit} resetKey={resetKey} selectedProduct={selectedProduct} />}
-                        {/* {isHover && (videoUrl || rollUpImage) ? (
-            <>
-              {videoUrl ? (
-                <div className="rollup_video">
-                  <video
-                    src={videoUrl}
-                    autoPlay
-                    muted
-                    loop
-                    onError={(e) => (e.target.poster = "https://www.defindia.org/wp-content/themes/dt-the7/images/noimage.jpg")}
-                  />
-                </div>
-              ) : null}
-
-              {!videoUrl && rollUpImage ? (
-                <div className="rollup_img">
-                  <img
-                    src={rollUpImage}
-                    alt="Roll Up Image"
-                    onError={(e) => (e.target.src = "https://www.defindia.org/wp-content/themes/dt-the7/images/noimage.jpg")}
-                  />
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <img
-              src={img}
-              alt=""
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = imagnotfound;
-              }}
-            />
-          )} */}
                         <img
                             src={img}
                             alt=""
@@ -198,7 +165,6 @@ const Product_Card = ({
 
                     <div className="det">
                         <h2 className="">
-                            {/* {!title?.length > 0 ? designo : designo + "-" + title} */}
                             {designo !== "" && designo}
                             {formatTitleLine(title) && " - " + title}
                         </h2>
@@ -299,4 +265,3 @@ const Product_Card = ({
 }
 
 export default Product_Card;
-

@@ -16,7 +16,6 @@ import { useProductDetail } from "@/app/(core)/hooks/useProductDetail";
 
 const ProductDetail = ({ storeinit, searchParams, params }) => {
   const pd = useProductDetail({ storeinit, searchParams, params });
-
   const {
     decodeUrl,
     storeInit,

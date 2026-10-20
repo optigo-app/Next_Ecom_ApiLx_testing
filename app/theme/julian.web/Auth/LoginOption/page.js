@@ -1,6 +1,5 @@
 'use client';
 import React from "react";
-import "./LoginOption.modul.scss";
 import Link from "next/link";
 import {
   Box,
@@ -12,8 +11,8 @@ import {
   Divider,
 } from "@mui/material";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import SmartphoneOutlinedIcon from "@mui/icons-material/SmartphoneOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import "./LoginPage.scss";
 
 const LoginOption = ({ params, searchParams }) => {
   const {
@@ -33,7 +32,7 @@ const LoginOption = ({ params, searchParams }) => {
       if (kMatch) {
         try {
           return atob(kMatch[1]);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       const skMatch = urlText.match(/[?&](SK|SecurityKey)=([^&]+)/);
@@ -232,22 +231,16 @@ const LoginOption = ({ params, searchParams }) => {
                 </Button>
 
                 <Button
-                  component={Link}
-                  href={redirectMobileUrl}
-                  fullWidth
-                  size="large"
-                  className="loginMobile"
-                  startIcon={<SmartphoneOutlinedIcon sx={{ fontSize: { xs: "19px", sm: "21px" } }} />}
-                  endIcon={<ArrowForwardIcon sx={{ fontSize: { xs: "16px", sm: "18px" }, opacity: 0.7 }} />}
-                  sx={{
-                    "& .MuiButton-startIcon": {
-                      marginRight: "12px",
-                    },
-                  }}
+                  className="ssloginMobile"
                 >
                   <span style={{ flex: 1, textAlign: "left" }}>
                     Log in with Mobile Number
                   </span>
+                </Button>
+                <Button
+                  className="sample"
+                >
+                  Sample
                 </Button>
               </Box>
 

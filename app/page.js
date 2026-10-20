@@ -18,3 +18,9 @@ export default async function Page() {
 
 // nxtjulian.web - 48   
 // npm run build && pm2 restart 48 && pm2 save 
+
+// nxtsonasons.web - 51   5005
+// npm run build && pm2 restart 51 && pm2 save 
+
+// nxt04.optigoapps.com - 51   6006
+// npm run build && pm2 restart 51 && pm2 save 

@@ -53,7 +53,38 @@ export function getDynamicDesignTableName(config = {}, prefix = DESIGN_TABLE_PRE
   return `${prefix}${labour}_${dia}_${cs}_${setting}`;
 }
 
- 
+/**
+ * Checks whether a resolved design table actually carries the full `designs`
+ * schema. Some tenants contain same-prefix tables created by other sync paths
+ * (e.g. pricing/stock tables) that lack columns like PackageIdList, gender,
+ * category — querying them throws "no such column". In that case the caller
+ * should fall back to the plain `designs` table.
+ *
+ * @param {import('better-sqlite3').Database} db
+ * @param {string} tableName
+ * @returns {boolean}
+ */
+export function isCompatibleDesignTable(db, tableName) {
+  if (!db || !tableName) return false;
+  const cleanTable = sanitizeSqlIdentifier(tableName, "");
+  if (!cleanTable) return false;
+  try {
+    const candidateCols = db
+      .prepare(`PRAGMA table_info("${cleanTable}")`)
+      .all()
+      .map((c) => c.name);
+    if (candidateCols.length === 0) return false;
+    const requiredCols = db
+      .prepare(`PRAGMA table_info("designs")`)
+      .all()
+      .map((c) => c.name);
+    if (requiredCols.length === 0) return false;
+    return requiredCols.every((c) => candidateCols.includes(c));
+  } catch (_) {
+    return false;
+  }
+}
+
 /**
  * Ensures the dynamic table and all corresponding performance indexes exist in the tenant database.
  * Clones the full schema and indexes from the standard designs definition.

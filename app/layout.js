@@ -51,9 +51,7 @@ export async function generateMetadata() {
 
 export default async function RootLayout({ children }) {
   const theme = await getActiveTheme();
-  console.log('theme: ', theme);
   const themeData = themeMap[theme];
-  console.log('themeData: ', themeData);
   const Layout = await resolveLayout(themeData?.page);
   const companyInfo = await getCompanyInfoData();
   const storeInit = await getStoreInit();

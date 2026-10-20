@@ -20,7 +20,6 @@ import BestSellerSection from "@/app/components/(dynamic)/BestSellerSection/hoq/
 import ImageBannerTab from "@/app/components/(static)/ImageBannerTab/ImageBannerTab";
 import ScrollTriggerTab from "@/app/components/(static)/ScrollTriggerTab/ScrollTriggerTab";
 import NewScrollTriggerTab from "@/app/components/(static)/ScrollTriggerTab/NewScrollTriggerTab";
-
 import SocialTab from "@/app/components/(static)/SocialTab/SocialTab";
 import InfoSection from "@/app/components/(static)/InfoSection/InfoSection";
 import FaqSection from "@/app/components/(static)/FaQSection/FaqSection";
@@ -31,7 +30,6 @@ export const metadata = generatePageMetadata(pages["/"], "Hoq");
 const HoqHome = cache(async () => {
   const storeData = await getStoreInit();
   const { mainBanner, bestsellerBanner, newArrivalBanner, lookbookBanner } = useHomeBannerImages({ host: assetBase });
-
   return (
     <Box
       sx={{

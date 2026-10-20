@@ -2,7 +2,7 @@ import {
   resolveArticleTableName,
   resolveArticleMaterialTableName,
 } from "../schema/dynamicArticles.js";
-import { getDynamicDesignTableName } from "../schema/dynamicDesigns.js";
+import { getDynamicDesignTableName, isCompatibleDesignTable } from "../schema/dynamicDesigns.js";
 
 /**
  * Builds the tightest single-condition WHERE clause for article/material lookup.
@@ -84,7 +84,8 @@ export function getProductArticle(db, options = {}) {
       .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE")
       .get(designTable);
 
-    const targetDesignTable = hasDesignTable ? designTable : "designs";
+    const targetDesignTable =
+      hasDesignTable && isCompatibleDesignTable(db, designTable) ? designTable : "designs";
     const hasAnyDesignTable = db
       .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE")
       .get(targetDesignTable);
@@ -93,10 +94,8 @@ export function getProductArticle(db, options = {}) {
       // Single targeted WHERE — uses (designno COLLATE NOCASE) or (autocode) index directly
       const designSql = `
         SELECT
-          id,
+          *,
           COALESCE(DesignId, id) AS DesignId,
-          autocode,
-          designno,
           COALESCE(TitleLine, '') AS TitleLine,
           COALESCE(description, '') AS description,
           COALESCE(ImageCount, 0) AS ImageCount,

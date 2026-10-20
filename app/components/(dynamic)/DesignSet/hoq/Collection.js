@@ -3,7 +3,10 @@
 import React, { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+import SliderModule from "react-slick";
+// react-slick's CJS build exports { __esModule, default: Slider }; some bundles
+// pass the namespace object itself — unwrap it so <Slider> gets a component.
+const Slider = SliderModule?.default ?? SliderModule;
 import "./Collection.scss";
 import { Get_Tren_BestS_NewAr_DesigSet_Album } from "@/app/(core)/utils/API/Home/Get_Tren_BestS_NewAr_DesigSet_Album/Get_Tren_BestS_NewAr_DesigSet_Album";
 import Cookies from "js-cookie";

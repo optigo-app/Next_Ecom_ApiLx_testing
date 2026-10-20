@@ -26,7 +26,7 @@ const MobileFilter = ({
     sortBySelect,
     handleSortby,
     afterFilterCount,
-    showClearAllButton,
+    showClearAllButtonM,
     afterCountStatus,
     handelFilterClearAll,
     expandedAccordions,
@@ -350,7 +350,7 @@ const MobileFilter = ({
                                     {
                                         // Object.values(filterChecked).filter((ele) => ele.checked)
                                         //   ?.length === 0 
-                                        !showClearAllButton()
+                                        !showClearAllButtonM()
                                             ? (
                                                 // ? <span><span>{"Filters"}</span> <span>{"Product"}</span></span>
                                                 "Filters"
@@ -380,7 +380,7 @@ const MobileFilter = ({
                                     {
                                         // Object.values(filterChecked).filter((ele) => ele.checked)
                                         //   ?.length > 0 
-                                        showClearAllButton()
+                                        showClearAllButtonM()
                                             ? (
                                                 "Clear All"
                                             ) : (

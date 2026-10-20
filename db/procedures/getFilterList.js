@@ -1,4 +1,4 @@
-import { getDynamicDesignTableName, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
+import { getDynamicDesignTableName, isCompatibleDesignTable, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
 import { resolveArticleTableName } from "../schema/dynamicArticles.js";
 
 /**
@@ -453,7 +453,7 @@ ResolvedPackages(package_id) AS (
           "SELECT name FROM sqlite_master WHERE type='table' AND name = ? COLLATE NOCASE"
         )
         .get(candidateTable);
-      if (match && match.name) {
+      if (match && match.name && isCompatibleDesignTable(db, match.name)) {
         targetTable = match.name;
       }
     } catch (_) {}

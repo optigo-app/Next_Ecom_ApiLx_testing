@@ -1,4 +1,4 @@
-import { sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
+import { isCompatibleDesignTable, sanitizeSqlIdentifier } from "../schema/dynamicDesigns.js";
 import { ensurePolicyCategoriesTable, POLICY_CATEGORIES_TABLE } from "../schema/policyCategories.js";
 
 /**
@@ -27,6 +27,12 @@ export function rebuildPolicyCategories(db, targetTable, options = {}) {
     .get(cleanTable);
 
   if (!tableCheck) {
+    return [];
+  }
+
+  // Same-prefix tables created by other sync paths (pricing/stock feeds) lack the
+  // designs schema (PackageIdList, category, ImageCount, ...) — skip them.
+  if (!isCompatibleDesignTable(db, cleanTable)) {
     return [];
   }
 
